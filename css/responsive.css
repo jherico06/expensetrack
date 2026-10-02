@@ -1,0 +1,239 @@
+/* ============================================================
+   ExpenseFlow – responsive.css
+   Desktop 1920 · Laptop · Tablet · Mobile
+   ============================================================ */
+
+/* ---------- LARGE LAPTOP ---------- */
+@media (max-width: 1360px) {
+  .content { padding: 20px 20px 56px; }
+  .topbar { padding: 12px 20px; }
+  .page-heading p { max-width: 40ch; }
+}
+
+/* ---------- TABLET / SMALL LAPTOP : 2-COLUMN BENTO ---------- */
+@media (max-width: 1200px) {
+  .bento-balance { grid-column: span 12; }
+  .bento-budget  { grid-column: span 6; }
+  .bento-usage   { grid-column: span 6; }
+  .bento-income  { grid-column: span 6; }
+  .bento-expense { grid-column: span 6; }
+  .bento-analytics { grid-column: span 6; }
+  .bento-top     { grid-column: span 6; }
+  .bento-insights{ grid-column: span 12; }
+
+  .report-grid .span-7,
+  .report-grid .span-5 { grid-column: span 6; }
+
+  .about-grid .card { grid-column: span 6; }
+  .about-hero { grid-column: span 12; }
+
+  .tx-row-head,
+  .tx-row {
+    grid-template-columns: minmax(170px, 2.2fr) 1fr 1fr 0.8fr 1fr 48px;
+  }
+
+  .tx-row-head span:nth-child(4),
+  .tx-row .payment-cell { display: none; }
+}
+
+/* ---------- SIDEBAR BECOMES DRAWER ---------- */
+@media (max-width: 992px) {
+  .only-mobile { display: inline-grid; }
+
+  .sidebar {
+    transform: translateX(-105%);
+    width: var(--sidebar-w) !important;
+    box-shadow: var(--shadow-lg);
+  }
+
+  body.sidebar-open .sidebar { transform: translateX(0); }
+  body.sidebar-open .sidebar-overlay { display: block; }
+
+  body.sidebar-collapsed .brand-text,
+  body.sidebar-collapsed .nav-link span,
+  body.sidebar-collapsed .nav-label,
+  body.sidebar-collapsed .sidebar-foot .btn span {
+    opacity: 1;
+    width: auto;
+    display: initial;
+  }
+
+  body.sidebar-collapsed .sidebar-brand { justify-content: flex-start; padding-inline: 18px; }
+  body.sidebar-collapsed .nav-link { justify-content: flex-start; padding-inline: 12px; }
+
+  .icon-btn.sidebar-close { display: inline-grid; }
+  .main,
+  body.sidebar-collapsed .main { margin-left: 0; }
+
+  .nav-link::after { display: none !important; }
+
+  .sidebar-foot .btn[data-action="toggle-sidebar"] { display: none; }
+}
+
+/* ---------- MOBILE ---------- */
+@media (max-width: 768px) {
+  .content { padding: 16px 14px 84px; }
+  .topbar { padding: 10px 14px; gap: 10px; }
+
+  .page-heading h1 { font-size: 1.05rem; }
+  .page-heading p { display: none; }
+  .month-chip { display: none; }
+  .avatar { display: none; }
+
+  .btn-add-top span { display: none; }
+  .btn-add-top { padding: 10px 12px; }
+
+  .fab { display: grid; }
+
+  /* one column */
+  .bento { gap: 14px; }
+  .bento-balance,
+  .bento-budget,
+  .bento-income,
+  .bento-expense,
+  .bento-usage,
+  .bento-analytics,
+  .bento-insights,
+  .bento-top,
+  .bento-recent,
+  .report-grid .span-7,
+  .report-grid .span-5,
+  .report-grid .span-12,
+  .about-grid .card,
+  .about-hero,
+  .about-grid .span-12,
+  .settings-grid .span-12 {
+    grid-column: span 12;
+  }
+
+  .two-col,
+  .settings-grid { grid-template-columns: 1fr; }
+
+  .insight-list.two { grid-template-columns: 1fr; }
+
+  .page-toolbar { gap: 12px; }
+  .search-box { min-width: 0; max-width: none; width: 100%; }
+  .toolbar-actions { width: 100%; }
+  .toolbar-actions .select-wrap { flex: 1; }
+  .toolbar-actions .select-wrap select { width: 100%; }
+
+  /* month nav full width */
+  .page-toolbar .month-nav { flex: 1; justify-content: space-between; }
+
+  /* filter grid */
+  .filter-grid { grid-template-columns: 1fr 1fr; }
+  .custom-range { grid-template-columns: auto 1fr; }
+
+  /* transaction table -> stacked cards */
+  .tx-row-head { display: none; }
+  .table-card { padding: 6px 8px 10px; }
+
+  .tx-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px 10px;
+    padding: 13px 8px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    margin-bottom: 10px;
+    background: var(--surface-2);
+  }
+
+  .tx-row:last-child { border-bottom: 1px solid var(--border); }
+
+  .tx-cell-title { flex: 1 1 55%; order: 1; min-width: 0; }
+  .tx-amount-cell { order: 2; margin-left: auto; text-align: right; }
+  .tx-actions { order: 3; }
+  .tx-cell.category-cell { order: 4; }
+  .tx-cell.date-cell { order: 5; }
+  .tx-cell.type-cell { order: 6; }
+  .tx-cell.payment-cell { display: none; }
+
+  .tx-cell {
+    font-size: 0.72rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 3px 9px;
+  }
+
+  .tx-cell.title-note { background: none; border: none; padding: 0; }
+
+  /* recent list */
+  .recent-item {
+    grid-template-columns: auto 1fr auto;
+    gap: 10px;
+  }
+
+  .recent-item .type-pill { display: none; }
+
+  /* budget overview */
+  .overview-grid { grid-template-columns: 1fr 1fr; }
+
+  .usage-wrap { flex-direction: column; align-items: flex-start; gap: 14px; }
+  .ring { align-self: center; }
+
+  /* forms & modals */
+  .form-grid { grid-template-columns: 1fr; }
+  .field.span-2 { grid-column: span 1; }
+  .modal-root { padding: 12px; align-items: flex-end; }
+  .modal { max-height: calc(100vh - 24px); border-radius: var(--radius-lg) var(--radius-lg) 0 0; padding: 18px 16px; }
+  .modal.sm { border-radius: var(--radius-lg) var(--radius-lg) 0 0; }
+
+  .dropdown {
+    position: fixed;
+    top: auto;
+    right: 12px;
+    left: 12px;
+    width: auto;
+    bottom: auto;
+    max-height: 60vh;
+  }
+
+  .due-banner { flex-wrap: wrap; }
+  .due-banner .btn { width: 100%; }
+
+  .about-hero { flex-direction: column; gap: 14px; }
+
+  .btn-row .btn { flex: 1 1 auto; }
+
+  .budget-grid,
+  .recurring-grid { grid-template-columns: 1fr; }
+
+  .toast-container { top: 12px; right: 12px; left: 12px; width: auto; }
+}
+
+/* ---------- SMALL MOBILE ---------- */
+@media (max-width: 480px) {
+  .filter-grid { grid-template-columns: 1fr; }
+
+  .balance-split { grid-template-columns: 1fr; }
+
+  .budget-numbers { grid-template-columns: 1fr; gap: 8px; }
+  .budget-numbers > div { flex-direction: row; justify-content: space-between; align-items: center; }
+
+  .overview-grid { grid-template-columns: 1fr; }
+
+  .month-nav-label { min-width: 130px; }
+  .month-nav-title { font-size: 0.84rem; }
+
+  .empty-state { padding: 40px 16px; }
+
+  .modal-foot { flex-direction: column-reverse; }
+  .modal-foot .btn { width: 100%; }
+
+  .recurring-meta { grid-template-columns: 1fr; }
+
+  .tx-cell.payment-cell { display: none; }
+  .tx-cell.type-cell { display: none; }
+}
+
+/* ---------- LARGE DESKTOP 1920+ ---------- */
+@media (min-width: 1800px) {
+  .content { padding: 28px 40px 70px; }
+  .topbar { padding: 14px 40px; }
+  .bento { gap: 22px; }
+  .card { padding: 24px; }
+  .page-heading p { max-width: 70ch; }
+}

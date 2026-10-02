@@ -1,0 +1,1243 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="ExpenseFlow – Smart Personal Expense Tracker. A glassmorphism bento-grid finance dashboard built with HTML, CSS and vanilla JavaScript." />
+  <title>ExpenseFlow – Smart Personal Expense Tracker</title>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/animations.css" />
+  <link rel="stylesheet" href="css/responsive.css" />
+</head>
+<body>
+
+  <!-- ==================== SVG ICON SPRITE ==================== -->
+  <svg xmlns="http://www.w3.org/2000/svg" class="svg-sprite" aria-hidden="true" focusable="false">
+    <symbol id="icon-logo" viewBox="0 0 32 32">
+      <rect x="2" y="2" width="28" height="28" rx="9" />
+      <path d="M8 21l5.5-6 3.5 2.5L24 10" />
+      <circle cx="24" cy="10" r="2.2" />
+    </symbol>
+    <symbol id="icon-grid" viewBox="0 0 24 24">
+      <rect x="3" y="3" width="7" height="7" rx="1.5" />
+      <rect x="14" y="3" width="7" height="7" rx="1.5" />
+      <rect x="3" y="14" width="7" height="7" rx="1.5" />
+      <rect x="14" y="14" width="7" height="7" rx="1.5" />
+    </symbol>
+    <symbol id="icon-list" viewBox="0 0 24 24">
+      <line x1="9" y1="6" x2="21" y2="6" />
+      <line x1="9" y1="12" x2="21" y2="12" />
+      <line x1="9" y1="18" x2="21" y2="18" />
+      <circle cx="4.5" cy="6" r="1.4" />
+      <circle cx="4.5" cy="12" r="1.4" />
+      <circle cx="4.5" cy="18" r="1.4" />
+    </symbol>
+    <symbol id="icon-plus" viewBox="0 0 24 24">
+      <line x1="12" y1="5" x2="12" y2="19" />
+      <line x1="5" y1="12" x2="19" y2="12" />
+    </symbol>
+    <symbol id="icon-wallet" viewBox="0 0 24 24">
+      <path d="M20 7H5a2 2 0 0 1 0-4h13v4" />
+      <path d="M3 5v14a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1V8a1 1 0 0 0-1-1" />
+      <path d="M16 13.5h.01" />
+    </symbol>
+    <symbol id="icon-tag" viewBox="0 0 24 24">
+      <path d="M20.6 13.4 13.4 20.6a2 2 0 0 1-2.8 0L3 13V3h10l7.6 7.6a2 2 0 0 1 0 2.8z" />
+      <circle cx="7.5" cy="7.5" r="1.4" />
+    </symbol>
+    <symbol id="icon-repeat" viewBox="0 0 24 24">
+      <path d="M17 2l4 4-4 4" />
+      <path d="M3 11V9a4 4 0 0 1 4-4h14" />
+      <path d="M7 22l-4-4 4-4" />
+      <path d="M21 13v2a4 4 0 0 1-4 4H3" />
+    </symbol>
+    <symbol id="icon-chart" viewBox="0 0 24 24">
+      <line x1="3" y1="21" x2="21" y2="21" />
+      <rect x="5" y="11" width="3.5" height="7" rx="1" />
+      <rect x="10.5" y="6" width="3.5" height="12" rx="1" />
+      <rect x="16" y="14" width="3.5" height="4" rx="1" />
+    </symbol>
+    <symbol id="icon-pie" viewBox="0 0 24 24">
+      <path d="M21.2 15.9A10 10 0 1 1 8 2.8" />
+      <path d="M22 12A10 10 0 0 0 12 2v10z" />
+    </symbol>
+    <symbol id="icon-gear" viewBox="0 0 24 24">
+      <circle cx="12" cy="12" r="3.2" />
+      <path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1A1.7 1.7 0 0 0 4.6 9a1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z" />
+    </symbol>
+    <symbol id="icon-info" viewBox="0 0 24 24">
+      <circle cx="12" cy="12" r="9" />
+      <line x1="12" y1="11" x2="12" y2="16.5" />
+      <line x1="12" y1="7.8" x2="12.01" y2="7.8" />
+    </symbol>
+    <symbol id="icon-search" viewBox="0 0 24 24">
+      <circle cx="11" cy="11" r="7" />
+      <line x1="21" y1="21" x2="16.6" y2="16.6" />
+    </symbol>
+    <symbol id="icon-bell" viewBox="0 0 24 24">
+      <path d="M18 8a6 6 0 1 0-12 0c0 7-3 9-3 9h18s-3-2-3-9" />
+      <path d="M13.7 21a2 2 0 0 1-3.4 0" />
+    </symbol>
+    <symbol id="icon-sun" viewBox="0 0 24 24">
+      <circle cx="12" cy="12" r="4" />
+      <line x1="12" y1="2" x2="12" y2="4.5" />
+      <line x1="12" y1="19.5" x2="12" y2="22" />
+      <line x1="2" y1="12" x2="4.5" y2="12" />
+      <line x1="19.5" y1="12" x2="22" y2="12" />
+      <line x1="4.9" y1="4.9" x2="6.7" y2="6.7" />
+      <line x1="17.3" y1="17.3" x2="19.1" y2="19.1" />
+      <line x1="4.9" y1="19.1" x2="6.7" y2="17.3" />
+      <line x1="17.3" y1="6.7" x2="19.1" y2="4.9" />
+    </symbol>
+    <symbol id="icon-moon" viewBox="0 0 24 24">
+      <path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z" />
+    </symbol>
+    <symbol id="icon-menu" viewBox="0 0 24 24">
+      <line x1="3" y1="6" x2="21" y2="6" />
+      <line x1="3" y1="12" x2="21" y2="12" />
+      <line x1="3" y1="18" x2="21" y2="18" />
+    </symbol>
+    <symbol id="icon-chevron-left" viewBox="0 0 24 24">
+      <polyline points="14.5 5 8 12 14.5 19" />
+    </symbol>
+    <symbol id="icon-chevron-right" viewBox="0 0 24 24">
+      <polyline points="9.5 5 16 12 9.5 19" />
+    </symbol>
+    <symbol id="icon-chevron-down" viewBox="0 0 24 24">
+      <polyline points="5 9 12 16 19 9" />
+    </symbol>
+    <symbol id="icon-dots" viewBox="0 0 24 24">
+      <circle cx="12" cy="5" r="1.6" />
+      <circle cx="12" cy="12" r="1.6" />
+      <circle cx="12" cy="19" r="1.6" />
+    </symbol>
+    <symbol id="icon-eye" viewBox="0 0 24 24">
+      <path d="M1.5 12S5.5 5 12 5s10.5 7 10.5 7-4 7-10.5 7S1.5 12 1.5 12z" />
+      <circle cx="12" cy="12" r="3" />
+    </symbol>
+    <symbol id="icon-edit" viewBox="0 0 24 24">
+      <path d="M17 3a2.83 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5z" />
+    </symbol>
+    <symbol id="icon-copy" viewBox="0 0 24 24">
+      <rect x="9" y="9" width="12" height="12" rx="2" />
+      <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+    </symbol>
+    <symbol id="icon-trash" viewBox="0 0 24 24">
+      <line x1="3" y1="6" x2="21" y2="6" />
+      <path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
+      <path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6" />
+      <line x1="10" y1="11" x2="10" y2="17" />
+      <line x1="14" y1="11" x2="14" y2="17" />
+    </symbol>
+    <symbol id="icon-x" viewBox="0 0 24 24">
+      <line x1="6" y1="6" x2="18" y2="18" />
+      <line x1="18" y1="6" x2="6" y2="18" />
+    </symbol>
+    <symbol id="icon-download" viewBox="0 0 24 24">
+      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+      <polyline points="7.5 11 12 15.5 16.5 11" />
+      <line x1="12" y1="15.5" x2="12" y2="3" />
+    </symbol>
+    <symbol id="icon-upload" viewBox="0 0 24 24">
+      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+      <polyline points="7.5 8.5 12 4 16.5 8.5" />
+      <line x1="12" y1="4" x2="12" y2="16" />
+    </symbol>
+    <symbol id="icon-filter" viewBox="0 0 24 24">
+      <polygon points="21.5 3.5 2.5 3.5 10.2 12.6 10.2 19.5 13.8 21.3 13.8 12.6 21.5 3.5" />
+    </symbol>
+    <symbol id="icon-arrow-up" viewBox="0 0 24 24">
+      <line x1="12" y1="20" x2="12" y2="5" />
+      <polyline points="6 11 12 5 18 11" />
+    </symbol>
+    <symbol id="icon-arrow-down" viewBox="0 0 24 24">
+      <line x1="12" y1="4" x2="12" y2="19" />
+      <polyline points="6 13 12 19 18 13" />
+    </symbol>
+    <symbol id="icon-check" viewBox="0 0 24 24">
+      <polyline points="4.5 12.5 9.5 17.5 19.5 6.5" />
+    </symbol>
+    <symbol id="icon-alert" viewBox="0 0 24 24">
+      <path d="M10.3 3.9 1.9 18a2 2 0 0 0 1.7 3h16.8a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z" />
+      <line x1="12" y1="9.5" x2="12" y2="14" />
+      <line x1="12" y1="17.5" x2="12.01" y2="17.5" />
+    </symbol>
+    <symbol id="icon-calendar" viewBox="0 0 24 24">
+      <rect x="3" y="5" width="18" height="16" rx="2" />
+      <line x1="16" y1="3" x2="16" y2="7" />
+      <line x1="8" y1="3" x2="8" y2="7" />
+      <line x1="3" y1="10.5" x2="21" y2="10.5" />
+    </symbol>
+    <symbol id="icon-bulb" viewBox="0 0 24 24">
+      <path d="M9.5 18h5" />
+      <path d="M10 21.5h4" />
+      <path d="M12 2.5a6.8 6.8 0 0 0-4 12.3c.7.5 1.1 1.4 1.1 2.3h5.8c0-.9.4-1.8 1.1-2.3A6.8 6.8 0 0 0 12 2.5z" />
+    </symbol>
+    <symbol id="icon-inbox" viewBox="0 0 24 24">
+      <path d="M22 12h-6l-2 3h-4l-2-3H2" />
+      <path d="M5.5 5.5 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.5-6.5A2 2 0 0 0 16.7 4H7.3a2 2 0 0 0-1.8 1.5z" />
+    </symbol>
+    <symbol id="icon-pause" viewBox="0 0 24 24">
+      <rect x="6" y="4.5" width="4" height="15" rx="1.2" />
+      <rect x="14" y="4.5" width="4" height="15" rx="1.2" />
+    </symbol>
+    <symbol id="icon-play" viewBox="0 0 24 24">
+      <polygon points="7 4.5 19 12 7 19.5" />
+    </symbol>
+    <symbol id="icon-refresh" viewBox="0 0 24 24">
+      <polyline points="21 4 21 10 15 10" />
+      <path d="M20.5 14a9 9 0 1 1-2.1-9.4L21 10" />
+    </symbol>
+    <symbol id="icon-swap" viewBox="0 0 24 24">
+      <polyline points="16 3 20 7 16 11" />
+      <line x1="20" y1="7" x2="4" y2="7" />
+      <polyline points="8 13 4 17 8 21" />
+      <line x1="4" y1="17" x2="20" y2="17" />
+    </symbol>
+    <symbol id="icon-file" viewBox="0 0 24 24">
+      <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+      <polyline points="14 2 14 8 20 8" />
+    </symbol>
+  </svg>
+
+  <div class="app">
+
+    <!-- ==================== SIDEBAR ==================== -->
+    <aside class="sidebar glass" id="sidebar" aria-label="Main navigation">
+      <div class="sidebar-brand">
+        <span class="brand-mark"><svg class="icon" aria-hidden="true"><use href="#icon-logo"></use></svg></span>
+        <span class="brand-text">
+          <strong>ExpenseFlow</strong>
+          <small>Smart Expense Tracker</small>
+        </span>
+        <button class="icon-btn sidebar-close" id="sidebarClose" data-action="close-sidebar" aria-label="Close navigation">
+          <svg class="icon" aria-hidden="true"><use href="#icon-x"></use></svg>
+        </button>
+      </div>
+
+      <nav class="sidebar-nav">
+        <p class="nav-label">Overview</p>
+        <a href="#/dashboard" class="nav-link active" data-page="dashboard" data-action="nav" data-tooltip="Dashboard">
+          <svg class="icon" aria-hidden="true"><use href="#icon-grid"></use></svg>
+          <span>Dashboard</span>
+        </a>
+        <a href="#/transactions" class="nav-link" data-page="transactions" data-action="nav" data-tooltip="Transactions">
+          <svg class="icon" aria-hidden="true"><use href="#icon-list"></use></svg>
+          <span>Transactions</span>
+        </a>
+        <a href="#" class="nav-link nav-add" data-action="open-add-transaction" data-tooltip="Add Transaction">
+          <svg class="icon" aria-hidden="true"><use href="#icon-plus"></use></svg>
+          <span>Add Transaction</span>
+        </a>
+
+        <p class="nav-label">Manage</p>
+        <a href="#/budgets" class="nav-link" data-page="budgets" data-action="nav" data-tooltip="Budgets">
+          <svg class="icon" aria-hidden="true"><use href="#icon-wallet"></use></svg>
+          <span>Budgets</span>
+        </a>
+        <a href="#/categories" class="nav-link" data-page="categories" data-action="nav" data-tooltip="Categories">
+          <svg class="icon" aria-hidden="true"><use href="#icon-tag"></use></svg>
+          <span>Categories</span>
+        </a>
+        <a href="#/recurring" class="nav-link" data-page="recurring" data-action="nav" data-tooltip="Recurring Expenses">
+          <svg class="icon" aria-hidden="true"><use href="#icon-repeat"></use></svg>
+          <span>Recurring</span>
+        </a>
+
+        <p class="nav-label">Insights</p>
+        <a href="#/reports" class="nav-link" data-page="reports" data-action="nav" data-tooltip="Reports">
+          <svg class="icon" aria-hidden="true"><use href="#icon-chart"></use></svg>
+          <span>Reports</span>
+        </a>
+        <a href="#/settings" class="nav-link" data-page="settings" data-action="nav" data-tooltip="Settings">
+          <svg class="icon" aria-hidden="true"><use href="#icon-gear"></use></svg>
+          <span>Settings</span>
+        </a>
+        <a href="#/about" class="nav-link" data-page="about" data-action="nav" data-tooltip="About">
+          <svg class="icon" aria-hidden="true"><use href="#icon-info"></use></svg>
+          <span>About</span>
+        </a>
+      </nav>
+
+      <div class="sidebar-foot">
+        <button class="btn btn-ghost btn-block" data-action="toggle-sidebar" data-tooltip="Collapse sidebar">
+          <svg class="icon" aria-hidden="true"><use href="#icon-swap"></use></svg>
+          <span>Collapse</span>
+        </button>
+      </div>
+    </aside>
+
+    <div class="sidebar-overlay" id="sidebarOverlay" data-action="close-sidebar"></div>
+
+    <!-- ==================== MAIN ==================== -->
+    <div class="main">
+      <!-- ---------- TOP HEADER ---------- -->
+      <header class="topbar glass">
+        <div class="topbar-left">
+          <button class="icon-btn only-mobile" data-action="open-sidebar" aria-label="Open navigation">
+            <svg class="icon" aria-hidden="true"><use href="#icon-menu"></use></svg>
+          </button>
+          <div class="page-heading">
+            <h1 id="pageTitle">Dashboard</h1>
+            <p id="pageSubtitle">Welcome back. Here is your financial overview.</p>
+          </div>
+        </div>
+
+        <div class="topbar-right">
+          <span class="month-chip" id="headerMonth">
+            <svg class="icon" aria-hidden="true"><use href="#icon-calendar"></use></svg>
+            <span id="headerMonthText">October 2026</span>
+          </span>
+
+          <button class="icon-btn" data-action="focus-search" aria-label="Search transactions">
+            <svg class="icon" aria-hidden="true"><use href="#icon-search"></use></svg>
+          </button>
+
+          <div class="dropdown-wrap">
+            <button class="icon-btn" data-action="toggle-notifications" aria-label="Notifications" aria-expanded="false" id="btnNotifications">
+              <svg class="icon" aria-hidden="true"><use href="#icon-bell"></use></svg>
+              <span class="badge" id="notifBadge" hidden>0</span>
+            </button>
+            <div class="dropdown glass" id="notifPanel" hidden>
+              <div class="dropdown-head">
+                <h3>Notifications</h3>
+                <button class="icon-btn sm" data-action="toggle-notifications" aria-label="Close notifications">
+                  <svg class="icon" aria-hidden="true"><use href="#icon-x"></use></svg>
+                </button>
+              </div>
+              <div class="dropdown-body" id="notifList"></div>
+            </div>
+          </div>
+
+          <button class="icon-btn" data-action="toggle-theme" aria-label="Toggle dark and light theme" id="btnTheme">
+            <svg class="icon theme-icon theme-icon-dark" aria-hidden="true"><use href="#icon-sun"></use></svg>
+            <svg class="icon theme-icon theme-icon-light" aria-hidden="true"><use href="#icon-moon"></use></svg>
+          </button>
+
+          <button class="btn btn-primary btn-add-top" data-action="open-add-transaction">
+            <svg class="icon" aria-hidden="true"><use href="#icon-plus"></use></svg>
+            <span>Add Transaction</span>
+          </button>
+
+          <div class="avatar" title="Student account" aria-hidden="true">EF</div>
+        </div>
+      </header>
+
+      <!-- ---------- CONTENT ---------- -->
+      <main class="content" id="content">
+
+        <!-- ==================== DASHBOARD ==================== -->
+        <section class="page active" id="page-dashboard" data-title="Dashboard">
+          <div class="page-toolbar">
+            <div class="month-nav glass">
+              <button class="icon-btn sm" data-action="month-prev" aria-label="Previous month">
+                <svg class="icon" aria-hidden="true"><use href="#icon-chevron-left"></use></svg>
+              </button>
+              <div class="month-nav-label">
+                <span class="month-nav-title" data-month-label>October 2026</span>
+                <button class="link-btn" data-action="month-current">Go to current month</button>
+              </div>
+              <button class="icon-btn sm" data-action="month-next" aria-label="Next month">
+                <svg class="icon" aria-hidden="true"><use href="#icon-chevron-right"></use></svg>
+              </button>
+            </div>
+            <button class="btn btn-primary" data-action="open-add-transaction">
+              <svg class="icon" aria-hidden="true"><use href="#icon-plus"></use></svg>
+              <span>Add Transaction</span>
+            </button>
+          </div>
+
+          <div class="empty-state glass" id="dashEmpty" hidden>
+            <span class="empty-icon"><svg class="icon" aria-hidden="true"><use href="#icon-inbox"></use></svg></span>
+            <h2>No transactions yet</h2>
+            <p>Start tracking your finances by adding your first transaction.</p>
+            <button class="btn btn-primary" data-action="open-add-transaction">
+              <svg class="icon" aria-hidden="true"><use href="#icon-plus"></use></svg>
+              <span>Add Transaction</span>
+            </button>
+          </div>
+
+          <div class="bento" id="dashContent">
+            <!-- Available Balance -->
+            <article class="card glass bento-balance">
+              <div class="card-head">
+                <div>
+                  <p class="eyebrow">Available Balance</p>
+                  <h2 class="balance-amount" id="balanceAmount">₱0.00</h2>
+                </div>
+                <span class="status-chip" id="balanceChangeWrap">
+                  <svg class="icon" aria-hidden="true"><use href="#icon-arrow-up"></use></svg>
+                  <span id="balanceChange">0%</span>
+                </span>
+              </div>
+              <p class="muted small" id="balancePeriodLabel">vs previous month</p>
+              <div class="balance-split">
+                <div class="split-item positive">
+                  <span class="split-label">Total Income</span>
+                  <strong id="balanceIncome">₱0.00</strong>
+                </div>
+                <div class="split-item negative">
+                  <span class="split-label">Total Expenses</span>
+                  <strong id="balanceExpense">₱0.00</strong>
+                </div>
+              </div>
+              <div class="balance-visual" aria-hidden="true">
+                <span class="bar-grow income" id="balanceIncomeBar"></span>
+                <span class="bar-grow expense" id="balanceExpenseBar"></span>
+              </div>
+            </article>
+
+            <!-- Monthly Budget -->
+            <article class="card glass bento-budget">
+              <div class="card-head">
+                <p class="eyebrow purple">Monthly Budget</p>
+                <button class="icon-btn sm" data-action="budget-edit-monthly" aria-label="Edit monthly budget">
+                  <svg class="icon" aria-hidden="true"><use href="#icon-edit"></use></svg>
+                </button>
+              </div>
+              <div id="budgetCardBody">
+                <div class="budget-numbers">
+                  <div>
+                    <span class="muted small">Limit</span>
+                    <strong class="budget-limit" id="budgetLimit">₱0</strong>
+                  </div>
+                  <div>
+                    <span class="muted small">Spent</span>
+                    <strong id="budgetSpent">₱0</strong>
+                  </div>
+                  <div>
+                    <span class="muted small">Remaining</span>
+                    <strong id="budgetRemaining">₱0</strong>
+                  </div>
+                </div>
+                <div class="progress" role="progressbar" aria-label="Monthly budget usage" id="budgetBar">
+                  <span class="progress-fill" id="budgetBarFill"></span>
+                </div>
+                <div class="progress-meta">
+                  <span class="chip-state" id="budgetState">Safe</span>
+                  <strong id="budgetPercent">0%</strong>
+                </div>
+              </div>
+              <div class="mini-empty" id="budgetCardEmpty" hidden>
+                <p>No budget set for this month.</p>
+                <button class="btn btn-soft btn-sm" data-action="budget-add" data-scope="monthly">Set Monthly Budget</button>
+              </div>
+            </article>
+
+            <!-- Income summary -->
+            <article class="card glass bento-income">
+              <div class="card-head">
+                <p class="eyebrow green">Income</p>
+                <span class="dot-icon green"><svg class="icon" aria-hidden="true"><use href="#icon-arrow-up"></use></svg></span>
+              </div>
+              <h3 class="stat-amount positive" id="incomeTotal">₱0.00</h3>
+              <ul class="stat-list">
+                <li><span>Transactions</span><strong id="incomeCount">0</strong></li>
+                <li><span>Largest income</span><strong id="incomeLargest">₱0</strong></li>
+                <li><span>Most recent</span><strong id="incomeRecent">—</strong></li>
+              </ul>
+            </article>
+
+            <!-- Expense summary -->
+            <article class="card glass bento-expense">
+              <div class="card-head">
+                <p class="eyebrow red">Expenses</p>
+                <span class="dot-icon red"><svg class="icon" aria-hidden="true"><use href="#icon-arrow-down"></use></svg></span>
+              </div>
+              <h3 class="stat-amount negative" id="expenseTotal">₱0.00</h3>
+              <ul class="stat-list">
+                <li><span>Transactions</span><strong id="expenseCount">0</strong></li>
+                <li><span>Highest expense</span><strong id="expenseHighest">₱0</strong></li>
+                <li><span>Average expense</span><strong id="expenseAvg">₱0</strong></li>
+              </ul>
+              <p class="compare-line" id="expenseCompare"></p>
+            </article>
+
+            <!-- Budget usage ring -->
+            <article class="card glass bento-usage">
+              <div class="card-head">
+                <p class="eyebrow purple">Budget Usage</p>
+              </div>
+              <div class="usage-wrap">
+                <div class="ring" id="usageRing">
+                  <div class="ring-inner">
+                    <strong id="usagePercent">0%</strong>
+                    <span id="usageLabel">of budget</span>
+                  </div>
+                </div>
+                <div class="usage-side">
+                  <span class="chip-state" id="usageState">Safe</span>
+                  <p class="muted small" id="usageHint">Set a budget to start monitoring usage.</p>
+                </div>
+              </div>
+            </article>
+
+            <!-- Spending analytics -->
+            <article class="card glass bento-analytics">
+              <div class="card-head">
+                <p class="eyebrow">Spending Analytics</p>
+                <span class="muted small" data-month-label>October 2026</span>
+              </div>
+              <div class="chart-box tall">
+                <canvas id="chartDashCategory" aria-label="Spending by category doughnut chart" role="img"></canvas>
+                <p class="chart-fallback" hidden>Chart.js could not be loaded.</p>
+              </div>
+            </article>
+
+            <!-- Insights -->
+            <article class="card glass bento-insights">
+              <div class="card-head">
+                <p class="eyebrow amber">Financial Insights</p>
+                <span class="dot-icon amber"><svg class="icon" aria-hidden="true"><use href="#icon-bulb"></use></svg></span>
+              </div>
+              <ul class="insight-list" id="dashInsights"></ul>
+            </article>
+
+            <!-- Top spending -->
+            <article class="card glass bento-top">
+              <div class="card-head">
+                <p class="eyebrow">Top Spending</p>
+                <span class="muted small" data-month-label>October 2026</span>
+              </div>
+              <ol class="top-list" id="topSpendingList"></ol>
+              <p class="mini-empty" id="topSpendingEmpty" hidden>No expenses recorded this month.</p>
+            </article>
+
+            <!-- Recent transactions -->
+            <article class="card glass bento-recent">
+              <div class="card-head">
+                <div>
+                  <p class="eyebrow">Recent Transactions</p>
+                  <p class="muted small">Your latest financial activity</p>
+                </div>
+                <button class="btn btn-soft btn-sm" data-action="go-transactions">View All Transactions</button>
+              </div>
+              <ul class="recent-list" id="recentList"></ul>
+              <p class="mini-empty" id="recentEmpty" hidden>No transactions yet.</p>
+            </article>
+          </div>
+        </section>
+
+        <!-- ==================== TRANSACTIONS ==================== -->
+        <section class="page" id="page-transactions" data-title="Transactions">
+          <div class="page-toolbar">
+            <div class="search-box glass">
+              <svg class="icon" aria-hidden="true"><use href="#icon-search"></use></svg>
+              <input type="search" id="searchInput" placeholder="Search title, category, notes, payment method…" aria-label="Search transactions" />
+            </div>
+            <div class="toolbar-actions">
+              <button class="btn btn-soft" data-action="toggle-filters" aria-expanded="false">
+                <svg class="icon" aria-hidden="true"><use href="#icon-filter"></use></svg>
+                <span>Filters</span>
+                <span class="filter-count" id="filterCount" hidden>0</span>
+              </button>
+              <label class="select-wrap glass">
+                <span class="sr-only">Sort transactions</span>
+                <select id="sortSelect" aria-label="Sort transactions">
+                  <option value="newest">Newest first</option>
+                  <option value="oldest">Oldest first</option>
+                  <option value="highest">Highest amount</option>
+                  <option value="lowest">Lowest amount</option>
+                  <option value="az">Alphabetical A–Z</option>
+                  <option value="za">Alphabetical Z–A</option>
+                </select>
+              </label>
+              <button class="btn btn-primary" data-action="open-add-transaction">
+                <svg class="icon" aria-hidden="true"><use href="#icon-plus"></use></svg>
+                <span>Add</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="filter-panel glass" id="filterPanel" hidden>
+            <div class="filter-grid">
+              <div class="filter-group">
+                <label for="filterType">Transaction Type</label>
+                <select id="filterType">
+                  <option value="all">All</option>
+                  <option value="income">Income</option>
+                  <option value="expense">Expense</option>
+                </select>
+              </div>
+              <div class="filter-group">
+                <label for="filterCategory">Category</label>
+                <select id="filterCategory"><option value="all">All categories</option></select>
+              </div>
+              <div class="filter-group">
+                <label for="filterPayment">Payment Method</label>
+                <select id="filterPayment"><option value="all">All payment methods</option></select>
+              </div>
+              <div class="filter-group">
+                <label for="filterDateRange">Date Range</label>
+                <select id="filterDateRange">
+                  <option value="all">All dates</option>
+                  <option value="today">Today</option>
+                  <option value="week">This Week</option>
+                  <option value="month">This Month</option>
+                  <option value="last-month">Last Month</option>
+                  <option value="custom">Custom Range</option>
+                </select>
+              </div>
+              <div class="filter-group custom-range" id="customRangeWrap" hidden>
+                <label for="customFrom">From</label>
+                <input type="date" id="customFrom" />
+                <label for="customTo">To</label>
+                <input type="date" id="customTo" />
+              </div>
+              <div class="filter-group">
+                <label for="filterMin">Min Amount (₱)</label>
+                <input type="number" id="filterMin" min="0" step="any" placeholder="0" />
+              </div>
+              <div class="filter-group">
+                <label for="filterMax">Max Amount (₱)</label>
+                <input type="number" id="filterMax" min="0" step="any" placeholder="Any" />
+              </div>
+            </div>
+            <div class="filter-foot">
+              <span class="muted small" id="filterSummary">Showing all transactions</span>
+              <button class="btn btn-ghost btn-sm" data-action="clear-filters">Clear Filters</button>
+            </div>
+          </div>
+
+          <div class="list-head">
+            <h2>Transaction History <span class="count-pill" id="txCount">0</span></h2>
+          </div>
+
+          <div class="card glass table-card">
+            <div class="table-head tx-row-head" aria-hidden="true">
+              <span>Transaction</span><span>Category</span><span>Date</span><span>Payment</span><span>Type</span><span>Amount</span><span></span>
+            </div>
+            <ul class="tx-list" id="txList"></ul>
+            <div class="empty-state flat" id="txEmpty" hidden></div>
+          </div>
+        </section>
+
+        <!-- ==================== BUDGETS ==================== -->
+        <section class="page" id="page-budgets" data-title="Budgets">
+          <div class="page-toolbar">
+            <div class="month-nav glass">
+              <button class="icon-btn sm" data-action="month-prev" aria-label="Previous month">
+                <svg class="icon" aria-hidden="true"><use href="#icon-chevron-left"></use></svg>
+              </button>
+              <div class="month-nav-label">
+                <span class="month-nav-title" data-month-label>October 2026</span>
+                <button class="link-btn" data-action="month-current">Go to current month</button>
+              </div>
+              <button class="icon-btn sm" data-action="month-next" aria-label="Next month">
+                <svg class="icon" aria-hidden="true"><use href="#icon-chevron-right"></use></svg>
+              </button>
+            </div>
+            <button class="btn btn-primary" data-action="budget-add" data-scope="category">
+              <svg class="icon" aria-hidden="true"><use href="#icon-plus"></use></svg>
+              <span>Category Budget</span>
+            </button>
+          </div>
+
+          <div class="budget-layout">
+            <article class="card glass budget-overview">
+              <div class="card-head">
+                <div>
+                  <p class="eyebrow purple">Monthly Budget</p>
+                  <p class="muted small">Overall spending limit for <span data-month-label>October 2026</span></p>
+                </div>
+                <div class="row-gap">
+                  <button class="btn btn-soft btn-sm" data-action="budget-edit-monthly">
+                    <svg class="icon" aria-hidden="true"><use href="#icon-edit"></use></svg><span>Edit</span>
+                  </button>
+                  <button class="btn btn-soft btn-sm" data-action="budget-add" data-scope="monthly">
+                    <svg class="icon" aria-hidden="true"><use href="#icon-plus"></use></svg><span>Add</span>
+                  </button>
+                </div>
+              </div>
+              <div id="budgetOverviewBody">
+                <div class="overview-grid">
+                  <div class="overview-item"><span class="muted small">Limit</span><strong id="ovLimit">₱0</strong></div>
+                  <div class="overview-item"><span class="muted small">Spent</span><strong id="ovSpent">₱0</strong></div>
+                  <div class="overview-item"><span class="muted small">Remaining</span><strong id="ovRemaining">₱0</strong></div>
+                  <div class="overview-item"><span class="muted small">Used</span><strong id="ovPercent">0%</strong></div>
+                </div>
+                <div class="progress lg" role="progressbar" aria-label="Monthly budget usage">
+                  <span class="progress-fill" id="ovBarFill"></span>
+                </div>
+                <div class="progress-meta">
+                  <span class="chip-state" id="ovState">Safe</span>
+                  <span class="muted small">Budget period: <span data-month-label>October 2026</span></span>
+                </div>
+              </div>
+              <div class="mini-empty" id="budgetOverviewEmpty" hidden>
+                <p>No monthly budget set for this period.</p>
+                <button class="btn btn-soft btn-sm" data-action="budget-add" data-scope="monthly">Create Monthly Budget</button>
+              </div>
+            </article>
+
+            <div class="section-head">
+              <div>
+                <h2>Category Budgets</h2>
+                <p class="muted small">Per-category spending limits for <span data-month-label>October 2026</span></p>
+              </div>
+            </div>
+            <div class="budget-grid" id="categoryBudgetList"></div>
+            <div class="empty-state glass flat" id="categoryBudgetEmpty">
+              <span class="empty-icon"><svg class="icon" aria-hidden="true"><use href="#icon-wallet"></use></svg></span>
+              <h3>No category budgets</h3>
+              <p>Create limits per category to control spending in detail.</p>
+              <button class="btn btn-primary btn-sm" data-action="budget-add" data-scope="category">Add Category Budget</button>
+            </div>
+          </div>
+        </section>
+
+        <!-- ==================== CATEGORIES ==================== -->
+        <section class="page" id="page-categories" data-title="Categories">
+          <div class="page-toolbar">
+            <p class="muted">Organize how income and expenses are classified. Default categories are protected.</p>
+            <button class="btn btn-primary" data-action="category-add">
+              <svg class="icon" aria-hidden="true"><use href="#icon-plus"></use></svg>
+              <span>Add Category</span>
+            </button>
+          </div>
+
+          <div class="two-col">
+            <article class="card glass">
+              <div class="card-head">
+                <p class="eyebrow red">Expense Categories</p>
+                <span class="count-pill" id="expenseCatCount">0</span>
+              </div>
+              <ul class="cat-list" id="categoryExpenseList"></ul>
+            </article>
+            <article class="card glass">
+              <div class="card-head">
+                <p class="eyebrow green">Income Categories</p>
+                <span class="count-pill" id="incomeCatCount">0</span>
+              </div>
+              <ul class="cat-list" id="categoryIncomeList"></ul>
+            </article>
+          </div>
+        </section>
+
+        <!-- ==================== RECURRING ==================== -->
+        <section class="page" id="page-recurring" data-title="Recurring Expenses">
+          <div class="page-toolbar">
+            <p class="muted">Bills, subscriptions and allowances that repeat on a schedule.</p>
+            <button class="btn btn-primary" data-action="recurring-add">
+              <svg class="icon" aria-hidden="true"><use href="#icon-plus"></use></svg>
+              <span>Add Recurring</span>
+            </button>
+          </div>
+
+          <div class="due-banner glass" id="recurringDueBanner" hidden>
+            <span class="dot-icon amber"><svg class="icon" aria-hidden="true"><use href="#icon-alert"></use></svg></span>
+            <div>
+              <strong id="recurringDueText">Recurring payments are due.</strong>
+              <p class="muted small">Generate transactions for items whose next due date has passed.</p>
+            </div>
+            <button class="btn btn-primary btn-sm" data-action="recurring-generate">
+              <svg class="icon" aria-hidden="true"><use href="#icon-refresh"></use></svg>
+              <span>Generate Due</span>
+            </button>
+          </div>
+
+          <div class="recurring-grid" id="recurringList"></div>
+
+          <div class="empty-state glass" id="recurringEmpty">
+            <span class="empty-icon"><svg class="icon" aria-hidden="true"><use href="#icon-repeat"></use></svg></span>
+            <h3>No recurring expenses</h3>
+            <p>Add subscriptions, bills and allowances that repeat every week, month or year.</p>
+            <button class="btn btn-primary btn-sm" data-action="recurring-add">Add Recurring</button>
+          </div>
+        </section>
+
+        <!-- ==================== REPORTS ==================== -->
+        <section class="page" id="page-reports" data-title="Reports">
+          <div class="page-toolbar">
+            <div class="month-nav glass">
+              <button class="icon-btn sm" data-action="month-prev" aria-label="Previous month">
+                <svg class="icon" aria-hidden="true"><use href="#icon-chevron-left"></use></svg>
+              </button>
+              <div class="month-nav-label">
+                <span class="month-nav-title" data-month-label>October 2026</span>
+                <button class="link-btn" data-action="month-current">Go to current month</button>
+              </div>
+              <button class="icon-btn sm" data-action="month-next" aria-label="Next month">
+                <svg class="icon" aria-hidden="true"><use href="#icon-chevron-right"></use></svg>
+              </button>
+            </div>
+            <div class="toolbar-actions">
+              <button class="btn btn-soft" data-action="export-csv">
+                <svg class="icon" aria-hidden="true"><use href="#icon-download"></use></svg><span>Export CSV</span>
+              </button>
+              <button class="btn btn-soft" data-action="export-json">
+                <svg class="icon" aria-hidden="true"><use href="#icon-download"></use></svg><span>Export JSON</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="report-grid">
+            <article class="card glass span-7">
+              <div class="card-head">
+                <div>
+                  <p class="eyebrow">Monthly Income vs Expenses</p>
+                  <p class="muted small">Last 6 months comparison</p>
+                </div>
+                <span class="legend-inline"><i class="dot green"></i>Income <i class="dot red"></i>Expenses</span>
+              </div>
+              <div class="chart-box"><canvas id="chartReportBar" aria-label="Monthly income versus expenses bar chart" role="img"></canvas><p class="chart-fallback" hidden>Chart.js could not be loaded.</p></div>
+            </article>
+
+            <article class="card glass span-5">
+              <div class="card-head">
+                <div>
+                  <p class="eyebrow">Spending Trend</p>
+                  <p class="muted small">Daily expenses in <span data-month-label>October 2026</span></p>
+                </div>
+              </div>
+              <div class="chart-box"><canvas id="chartReportLine" aria-label="Daily spending trend line chart" role="img"></canvas><p class="chart-fallback" hidden>Chart.js could not be loaded.</p></div>
+            </article>
+
+            <article class="card glass span-5">
+              <div class="card-head">
+                <p class="eyebrow">Spending by Category</p>
+                <span class="muted small" data-month-label>October 2026</span>
+              </div>
+              <div class="chart-box"><canvas id="chartReportDoughnut" aria-label="Spending by category doughnut chart" role="img"></canvas><p class="chart-fallback" hidden>Chart.js could not be loaded.</p></div>
+            </article>
+
+            <article class="card glass span-7">
+              <div class="card-head">
+                <p class="eyebrow">Category Distribution</p>
+                <span class="muted small">Percentage of total spending</span>
+              </div>
+              <ul class="dist-list" id="distributionList"></ul>
+            </article>
+
+            <article class="card glass span-12">
+              <div class="card-head">
+                <p class="eyebrow amber">Financial Insights</p>
+                <span class="dot-icon amber"><svg class="icon" aria-hidden="true"><use href="#icon-bulb"></use></svg></span>
+              </div>
+              <ul class="insight-list two" id="reportInsights"></ul>
+            </article>
+          </div>
+        </section>
+
+        <!-- ==================== SETTINGS ==================== -->
+        <section class="page" id="page-settings" data-title="Settings">
+          <div class="settings-grid">
+            <article class="card glass">
+              <div class="card-head">
+                <div>
+                  <p class="eyebrow">Appearance</p>
+                  <p class="muted small">Choose the dashboard theme. Saved in localStorage.</p>
+                </div>
+              </div>
+              <div class="segmented" role="group" aria-label="Theme">
+                <button class="seg-btn active" data-action="set-theme" data-theme-value="dark">
+                  <svg class="icon" aria-hidden="true"><use href="#icon-moon"></use></svg><span>Dark</span>
+                </button>
+                <button class="seg-btn" data-action="set-theme" data-theme-value="light">
+                  <svg class="icon" aria-hidden="true"><use href="#icon-sun"></use></svg><span>Light</span>
+                </button>
+              </div>
+            </article>
+
+            <article class="card glass">
+              <div class="card-head">
+                <div>
+                  <p class="eyebrow">Data Overview</p>
+                  <p class="muted small">Everything is stored locally in your browser.</p>
+                </div>
+              </div>
+              <div class="stats-grid" id="settingsStats"></div>
+            </article>
+
+            <article class="card glass span-12">
+              <div class="card-head">
+                <div>
+                  <p class="eyebrow">Data Management</p>
+                  <p class="muted small">Export, import, load demo data or reset the application.</p>
+                </div>
+              </div>
+              <div class="btn-row">
+                <button class="btn btn-soft" data-action="export-csv">
+                  <svg class="icon" aria-hidden="true"><use href="#icon-download"></use></svg><span>Export CSV</span>
+                </button>
+                <button class="btn btn-soft" data-action="export-json">
+                  <svg class="icon" aria-hidden="true"><use href="#icon-download"></use></svg><span>Export JSON</span>
+                </button>
+                <button class="btn btn-soft" data-action="import-json">
+                  <svg class="icon" aria-hidden="true"><use href="#icon-upload"></use></svg><span>Import JSON</span>
+                </button>
+                <input type="file" id="importFile" accept="application/json,.json" hidden />
+                <button class="btn btn-soft" data-action="load-sample">
+                  <svg class="icon" aria-hidden="true"><use href="#icon-file"></use></svg><span>Load Sample Data</span>
+                </button>
+                <button class="btn btn-danger" data-action="reset-data">
+                  <svg class="icon" aria-hidden="true"><use href="#icon-trash"></use></svg><span>Reset All Data</span>
+                </button>
+              </div>
+              <p class="muted small note">Imported JSON files are validated before replacing your data. Resetting clears all ExpenseFlow data from this browser.</p>
+            </article>
+          </div>
+        </section>
+
+        <!-- ==================== ABOUT ==================== -->
+        <section class="page" id="page-about" data-title="About">
+          <div class="about-grid">
+            <article class="card glass about-hero">
+              <span class="brand-mark lg"><svg class="icon" aria-hidden="true"><use href="#icon-logo"></use></svg></span>
+              <div>
+                <h2>ExpenseFlow – Smart Personal Expense Tracker</h2>
+                <p class="muted">A personal finance dashboard built with HTML, CSS and vanilla JavaScript for a 3-member group activity covering JavaScript Weeks 1–5.</p>
+                <ul class="meta-list">
+                  <li><span>Course</span><strong>JavaScript Weeks 1–5 – Group Activity</strong></li>
+                  <li><span>Members</span><strong>Member 1 · Member 2 · Member 3</strong></li>
+                  <li><span>Stack</span><strong>HTML5 · CSS3 · Vanilla JS · localStorage · Chart.js</strong></li>
+                </ul>
+              </div>
+            </article>
+
+            <article class="card glass">
+              <div class="card-head"><p class="eyebrow purple">Factory Pattern</p></div>
+              <p class="muted"><code>TransactionFactory.createTransaction(data)</code> builds every new transaction object with a generated id, normalized amount and timestamp. Used when adding, duplicating or generating recurring transactions.</p>
+            </article>
+
+            <article class="card glass">
+              <div class="card-head"><p class="eyebrow cyan">Singleton Pattern</p></div>
+              <p class="muted"><code>ExpenseTracker.getInstance()</code> returns one central manager that owns transactions, budgets, categories, recurring items and all calculations — only one instance exists for the whole app.</p>
+            </article>
+
+            <article class="card glass">
+              <div class="card-head"><p class="eyebrow amber">Strategy Pattern</p></div>
+              <p class="muted"><code>applySortStrategy(name, list)</code> switches between sorting strategies (newest, oldest, highest, lowest, A–Z, Z–A) at runtime without changing the calling code.</p>
+            </article>
+
+            <article class="card glass span-12">
+              <div class="card-head"><p class="eyebrow">Expected User Flow</p></div>
+              <ol class="flow-list">
+                <li>Open ExpenseFlow</li><li>View dashboard</li><li>Add transaction</li>
+                <li>Factory creates the transaction object</li><li>Singleton manager stores it</li>
+                <li>Transaction pushed into the array</li><li>localStorage saves the data</li>
+                <li>Dashboard recalculates totals</li><li>Bento cards, analytics and budgets update</li>
+              </ol>
+            </article>
+          </div>
+        </section>
+      </main>
+    </div>
+  </div>
+
+  <!-- ==================== FAB (mobile quick add) ==================== -->
+  <button class="fab" data-action="open-add-transaction" aria-label="Add transaction">
+    <svg class="icon" aria-hidden="true"><use href="#icon-plus"></use></svg>
+  </button>
+
+  <!-- ==================== TRANSACTION MODAL ==================== -->
+  <div class="modal-root" id="transactionModal" hidden>
+    <div class="modal-backdrop" data-action="close-modal"></div>
+    <div class="modal glass" role="dialog" aria-modal="true" aria-labelledby="txModalTitle">
+      <div class="modal-head">
+        <div>
+          <h2 id="txModalTitle">Add Transaction</h2>
+          <p class="muted small" id="txModalHint">Record income or an expense in a few seconds.</p>
+        </div>
+        <button class="icon-btn" data-action="close-modal" aria-label="Close dialog">
+          <svg class="icon" aria-hidden="true"><use href="#icon-x"></use></svg>
+        </button>
+      </div>
+
+      <form id="transactionForm" novalidate>
+        <div class="form-grid">
+          <div class="field span-2">
+            <label for="txTitle">Transaction Title</label>
+            <input type="text" id="txTitle" name="title" placeholder="e.g. Lunch at cafeteria" autocomplete="off" />
+            <p class="field-error" id="errTitle" hidden></p>
+          </div>
+
+          <div class="field">
+            <label for="txAmount">Amount (₱)</label>
+            <input type="number" id="txAmount" name="amount" placeholder="0.00" min="0" step="0.01" inputmode="decimal" />
+            <p class="field-error" id="errAmount" hidden></p>
+          </div>
+
+          <div class="field">
+            <label for="txType">Transaction Type</label>
+            <select id="txType" name="type">
+              <option value="expense">Expense</option>
+              <option value="income">Income</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="txCategory">Category</label>
+            <select id="txCategory" name="category">
+              <option value="">Select category</option>
+            </select>
+            <p class="field-error" id="errCategory" hidden></p>
+          </div>
+
+          <div class="field">
+            <label for="txDate">Date</label>
+            <input type="date" id="txDate" name="date" />
+            <p class="field-error" id="errDate" hidden></p>
+          </div>
+
+          <div class="field">
+            <label for="txPayment">Payment Method</label>
+            <select id="txPayment" name="paymentMethod">
+              <option value="">Select payment method</option>
+              <option value="Cash">Cash</option>
+              <option value="GCash">GCash</option>
+              <option value="Maya">Maya</option>
+              <option value="Debit Card">Debit Card</option>
+              <option value="Credit Card">Credit Card</option>
+              <option value="Bank Transfer">Bank Transfer</option>
+              <option value="Other">Other</option>
+            </select>
+            <p class="field-error" id="errPayment" hidden></p>
+          </div>
+
+          <div class="field span-2">
+            <label for="txNote">Notes <span class="muted">(optional)</span></label>
+            <textarea id="txNote" name="note" rows="2" placeholder="Add a short note…"></textarea>
+          </div>
+
+          <div class="field span-2">
+            <label class="switch">
+              <input type="checkbox" id="txRecurring" name="recurring" />
+              <span class="switch-track" aria-hidden="true"><span class="switch-thumb"></span></span>
+              <span class="switch-text">Mark as recurring transaction</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="modal-foot">
+          <button type="button" class="btn btn-ghost" data-action="close-modal">Cancel</button>
+          <button type="submit" class="btn btn-primary" id="txSubmitBtn">
+            <svg class="icon" aria-hidden="true"><use href="#icon-check"></use></svg>
+            <span>Save Transaction</span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ==================== DETAILS MODAL ==================== -->
+  <div class="modal-root" id="detailsModal" hidden>
+    <div class="modal-backdrop" data-action="close-modal"></div>
+    <div class="modal glass sm" role="dialog" aria-modal="true" aria-labelledby="detailsTitle">
+      <div class="modal-head">
+        <h2 id="detailsTitle">Transaction Details</h2>
+        <button class="icon-btn" data-action="close-modal" aria-label="Close dialog">
+          <svg class="icon" aria-hidden="true"><use href="#icon-x"></use></svg>
+        </button>
+      </div>
+      <div class="modal-body" id="detailsBody"></div>
+      <div class="modal-foot" id="detailsFoot"></div>
+    </div>
+  </div>
+
+  <!-- ==================== CONFIRM MODAL ==================== -->
+  <div class="modal-root" id="confirmModal" hidden>
+    <div class="modal-backdrop" data-action="confirm-cancel"></div>
+    <div class="modal glass sm" role="alertdialog" aria-modal="true" aria-labelledby="confirmTitle" aria-describedby="confirmMessage">
+      <div class="modal-head">
+        <span class="confirm-icon" id="confirmIcon"><svg class="icon" aria-hidden="true"><use href="#icon-alert"></use></svg></span>
+        <h2 id="confirmTitle">Are you sure?</h2>
+      </div>
+      <div class="modal-body">
+        <p id="confirmMessage">This action cannot be undone.</p>
+      </div>
+      <div class="modal-foot">
+        <button class="btn btn-ghost" id="confirmCancel" data-action="confirm-cancel">Cancel</button>
+        <button class="btn btn-danger" id="confirmOk" data-action="confirm-ok">Delete</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== BUDGET MODAL ==================== -->
+  <div class="modal-root" id="budgetModal" hidden>
+    <div class="modal-backdrop" data-action="close-modal"></div>
+    <div class="modal glass sm" role="dialog" aria-modal="true" aria-labelledby="budgetModalTitle">
+      <div class="modal-head">
+        <div>
+          <h2 id="budgetModalTitle">Set Monthly Budget</h2>
+          <p class="muted small">Limits are tracked per month.</p>
+        </div>
+        <button class="icon-btn" data-action="close-modal" aria-label="Close dialog">
+          <svg class="icon" aria-hidden="true"><use href="#icon-x"></use></svg>
+        </button>
+      </div>
+      <form id="budgetForm" novalidate>
+        <div class="modal-body">
+          <input type="hidden" id="budgetEditId" />
+          <div class="form-grid">
+            <div class="field">
+              <label for="budgetScope">Budget Type</label>
+              <select id="budgetScope">
+                <option value="monthly">Monthly (overall)</option>
+                <option value="category">Category budget</option>
+              </select>
+            </div>
+            <div class="field" id="budgetCategoryWrap" hidden>
+              <label for="budgetCategory">Category</label>
+              <select id="budgetCategory"><option value="">Select category</option></select>
+              <p class="field-error" id="errBudgetCategory" hidden></p>
+            </div>
+            <div class="field">
+              <label for="budgetLimitInput">Spending Limit (₱)</label>
+              <input type="number" id="budgetLimitInput" min="1" step="any" placeholder="e.g. 4000" />
+              <p class="field-error" id="errBudgetLimit" hidden></p>
+            </div>
+            <div class="field">
+              <label for="budgetMonthInput">Month</label>
+              <input type="month" id="budgetMonthInput" />
+            </div>
+          </div>
+        </div>
+        <div class="modal-foot">
+          <button type="button" class="btn btn-ghost" data-action="close-modal">Cancel</button>
+          <button type="submit" class="btn btn-primary">
+            <svg class="icon" aria-hidden="true"><use href="#icon-check"></use></svg><span>Save Budget</span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ==================== CATEGORY MODAL ==================== -->
+  <div class="modal-root" id="categoryModal" hidden>
+    <div class="modal-backdrop" data-action="close-modal"></div>
+    <div class="modal glass sm" role="dialog" aria-modal="true" aria-labelledby="categoryModalTitle">
+      <div class="modal-head">
+        <h2 id="categoryModalTitle">Add Category</h2>
+        <button class="icon-btn" data-action="close-modal" aria-label="Close dialog">
+          <svg class="icon" aria-hidden="true"><use href="#icon-x"></use></svg>
+        </button>
+      </div>
+      <form id="categoryForm" novalidate>
+        <div class="modal-body">
+          <input type="hidden" id="catEditId" />
+          <div class="form-grid">
+            <div class="field span-2">
+              <label for="catName">Category Name</label>
+              <input type="text" id="catName" placeholder="e.g. Pets" autocomplete="off" />
+              <p class="field-error" id="errCatName" hidden></p>
+            </div>
+            <div class="field">
+              <label for="catType">Type</label>
+              <select id="catType">
+                <option value="expense">Expense</option>
+                <option value="income">Income</option>
+              </select>
+            </div>
+            <div class="field span-2">
+              <span class="field-label">Icon</span>
+              <div class="icon-picker" id="iconPicker" role="radiogroup" aria-label="Category icon"></div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-foot">
+          <button type="button" class="btn btn-ghost" data-action="close-modal">Cancel</button>
+          <button type="submit" class="btn btn-primary">
+            <svg class="icon" aria-hidden="true"><use href="#icon-check"></use></svg><span>Save Category</span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ==================== RECURRING MODAL ==================== -->
+  <div class="modal-root" id="recurringModal" hidden>
+    <div class="modal-backdrop" data-action="close-modal"></div>
+    <div class="modal glass" role="dialog" aria-modal="true" aria-labelledby="recurringModalTitle">
+      <div class="modal-head">
+        <div>
+          <h2 id="recurringModalTitle">Add Recurring Expense</h2>
+          <p class="muted small">Track bills, subscriptions and allowances.</p>
+        </div>
+        <button class="icon-btn" data-action="close-modal" aria-label="Close dialog">
+          <svg class="icon" aria-hidden="true"><use href="#icon-x"></use></svg>
+        </button>
+      </div>
+      <form id="recurringForm" novalidate>
+        <div class="modal-body">
+          <input type="hidden" id="recEditId" />
+          <div class="form-grid">
+            <div class="field span-2">
+              <label for="recName">Name</label>
+              <input type="text" id="recName" placeholder="e.g. Internet Bill" autocomplete="off" />
+              <p class="field-error" id="errRecName" hidden></p>
+            </div>
+            <div class="field">
+              <label for="recAmount">Amount (₱)</label>
+              <input type="number" id="recAmount" min="0" step="0.01" placeholder="0.00" />
+              <p class="field-error" id="errRecAmount" hidden></p>
+            </div>
+            <div class="field">
+              <label for="recType">Type</label>
+              <select id="recType">
+                <option value="expense">Expense</option>
+                <option value="income">Income</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="recCategory">Category</label>
+              <select id="recCategory"><option value="">Select category</option></select>
+              <p class="field-error" id="errRecCategory" hidden></p>
+            </div>
+            <div class="field">
+              <label for="recFrequency">Frequency</label>
+              <select id="recFrequency">
+                <option value="weekly">Weekly</option>
+                <option value="monthly" selected>Monthly</option>
+                <option value="yearly">Yearly</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="recNextDue">Next Due Date</label>
+              <input type="date" id="recNextDue" />
+              <p class="field-error" id="errRecNextDue" hidden></p>
+            </div>
+            <div class="field">
+              <label for="recPayment">Payment Method</label>
+              <select id="recPayment">
+                <option value="Cash">Cash</option>
+                <option value="GCash">GCash</option>
+                <option value="Maya">Maya</option>
+                <option value="Debit Card">Debit Card</option>
+                <option value="Credit Card">Credit Card</option>
+                <option value="Bank Transfer">Bank Transfer</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+            <div class="field span-2">
+              <label for="recNote">Notes <span class="muted">(optional)</span></label>
+              <textarea id="recNote" rows="2" placeholder="Add a short note…"></textarea>
+            </div>
+          </div>
+        </div>
+        <div class="modal-foot">
+          <button type="button" class="btn btn-ghost" data-action="close-modal">Cancel</button>
+          <button type="submit" class="btn btn-primary">
+            <svg class="icon" aria-hidden="true"><use href="#icon-check"></use></svg><span>Save Recurring</span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ==================== TOASTS ==================== -->
+  <div class="toast-container" id="toastContainer" aria-live="polite" aria-atomic="true"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+  <script src="js/utils.js"></script>
+  <script src="js/transactionFactory.js"></script>
+  <script src="js/strategies.js"></script>
+  <script src="js/expenseTracker.js"></script>
+  <script src="js/storage.js"></script>
+  <script src="js/analytics.js"></script>
+  <script src="data/sampleData.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

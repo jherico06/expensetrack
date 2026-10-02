@@ -1,0 +1,167 @@
+/* ============================================================
+   ExpenseFlow – animations.css
+   Micro-interactions & transitions (kept subtle, ~0.2s ease)
+   ============================================================ */
+
+/* ---------- PAGE ENTRANCE ---------- */
+.page.active {
+  animation: pageIn 0.32s ease both;
+}
+
+@keyframes pageIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ---------- CARD HOVER ELEVATION ---------- */
+.card {
+  animation: cardIn 0.4s ease both;
+}
+
+.bento .card:nth-child(1) { animation-delay: 0.02s; }
+.bento .card:nth-child(2) { animation-delay: 0.06s; }
+.bento .card:nth-child(3) { animation-delay: 0.10s; }
+.bento .card:nth-child(4) { animation-delay: 0.14s; }
+.bento .card:nth-child(5) { animation-delay: 0.18s; }
+.bento .card:nth-child(6) { animation-delay: 0.22s; }
+.bento .card:nth-child(7) { animation-delay: 0.26s; }
+.bento .card:nth-child(8) { animation-delay: 0.30s; }
+
+@keyframes cardIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@media (hover: hover) {
+  .card:hover { transform: translateY(-3px); }
+
+  .recent-item:hover,
+  .cat-item:hover,
+  .tx-row:hover { transform: translateX(2px); }
+}
+
+/* ---------- MODAL ANIMATION ---------- */
+.modal-root:not([hidden]) .modal-backdrop {
+  animation: fadeIn 0.2s ease both;
+}
+
+.modal-root:not([hidden]) .modal {
+  animation: modalIn 0.26s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes modalIn {
+  from { opacity: 0; transform: translateY(22px) scale(0.97); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* ---------- DROPDOWN ---------- */
+.dropdown:not([hidden]) {
+  animation: dropdownIn 0.18s ease both;
+}
+
+.action-menu {
+  animation: dropdownIn 0.16s ease both;
+  transform-origin: top right;
+}
+
+@keyframes dropdownIn {
+  from { opacity: 0; transform: translateY(-6px) scale(0.97); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* ---------- TOAST ---------- */
+.toast {
+  animation: toastIn 0.3s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.toast.toast-out {
+  animation: toastOut 0.24s ease forwards;
+}
+
+@keyframes toastIn {
+  from { opacity: 0; transform: translateX(40px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes toastOut {
+  from { opacity: 1; transform: translateX(0); }
+  to   { opacity: 0; transform: translateX(40px); }
+}
+
+@keyframes toastBar {
+  from { transform: scaleX(1); }
+  to   { transform: scaleX(0); }
+}
+
+/* ---------- FILTER PANEL ---------- */
+.filter-panel:not([hidden]) {
+  animation: expandIn 0.24s ease both;
+}
+
+@keyframes expandIn {
+  from { opacity: 0; transform: translateY(-8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ---------- BADGE POP ---------- */
+.badge:not([hidden]) {
+  animation: pop 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+@keyframes pop {
+  from { transform: scale(0.4); opacity: 0; }
+  to   { transform: scale(1); opacity: 1; }
+}
+
+/* ---------- BUTTON ICON SPIN (loading-ish feedback) ---------- */
+.btn.is-busy .icon { animation: spin 0.8s linear infinite; }
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ---------- FAB ---------- */
+@media (hover: hover) {
+  .fab:hover { transform: translateY(-3px) scale(1.04); }
+  .fab:active { transform: translateY(0) scale(0.98); }
+}
+
+.fab { transition: transform 0.2s ease, box-shadow 0.2s ease; }
+
+/* ---------- PROGRESS + RING ---------- */
+.progress-fill,
+.top-bar span,
+.dist-bar span,
+.bar-grow {
+  transition: width 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.ring {
+  transition: background 0.6s ease;
+}
+
+/* ---------- SIDEBAR NAV INDICATOR ---------- */
+.nav-link {
+  transition: background 0.2s ease, color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+@media (hover: hover) {
+  .nav-link:hover { transform: translateX(2px); }
+}
+
+/* ---------- REDUCED MOTION ---------- */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
