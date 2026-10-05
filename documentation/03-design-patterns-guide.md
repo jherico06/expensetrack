@@ -1,8 +1,8 @@
 # 03. Design Patterns Guide
 
-Your instructor's rubric specifically requires three classic software design patterns: **Factory**, **Singleton**, and **Strategy**. 
+The course syllabus and project rubric emphasize three foundational software design patterns: **Factory**, **Singleton**, and **Strategy**. 
 
-Below is an easy-to-understand explanation of each pattern, the real-world analogy to use during your presentation, and where it lives in your code.
+Below is an easy-to-understand explanation of each pattern, the real-world analogy to use during oral defense presentations, and how each is implemented in ExpenseFlow.
 
 ---
 
@@ -12,26 +12,29 @@ Below is an easy-to-understand explanation of each pattern, the real-world analo
 [`js/transactionFactory.js`](file:///d:/expensetrack/js/transactionFactory.js)
 
 ### The Real-World Analogy:
-Think of a **factory mold**. When making coins, a coin factory stamps every single coin with the exact same weight, edges, and thickness so that no deformed coins enter circulation.
+Think of a **coin mint or manufacturing mold**. When creating coins, a mint stamps every single coin with the exact same dimensions, weight, and markings so that deformed or invalid coins never enter circulation.
 
 ### What problem it solves:
-In an expense tracker, transactions can be created in several ways:
-1. When a user fills out the "Add Transaction" form.
-2. When a user clicks "Duplicate" on an existing transaction.
+In ExpenseFlow, financial entries can be created through multiple pathways:
+1. When a user fills out the "+ Add Entry" modal form.
+2. When a user clicks "Duplicate" on an existing entry in the ledger.
 3. When the recurring scheduler generates due bills automatically.
 
-Without a factory, you would have to write object-creation code in multiple places, which leads to typos, missing fields, or broken data.
+Without a factory, you would have to duplicate object-instantiation logic across multiple files, resulting in schema drift, missing fields, or inconsistent data shapes.
 
 ### How it works in our code:
-`TransactionFactory.createTransaction(data)` is the **single place** where transactions are created. It guarantees that every transaction object always has the complete, correct structure:
+`TransactionFactory.createTransaction(data)` is the **single place** where entries are created. It normalizes inputs, generates a unique UUID (with fallback), applies default values, and guarantees every entry record adheres to a strict schema:
 
 ```javascript
 // js/transactionFactory.js
 createTransaction(data) {
   return {
-    id: crypto.randomUUID(),          // Unique ID
-    title: String(data.title).trim(), // Clean string
-    amount: Number(data.amount) || 0, // Valid number
+    id: (window.crypto && crypto.randomUUID)
+      ? crypto.randomUUID()
+      : `tx_${Date.now()}_${Math.random().toString(16).slice(2)}`,
+
+    title: String(data.title || "").trim(),
+    amount: Number(data.amount) || 0,
     type: data.type === "income" ? "income" : "expense",
     category: data.category || "Other",
     date: data.date || Utils.todayISO(),
@@ -43,6 +46,8 @@ createTransaction(data) {
 }
 ```
 
+*Reusability via `duplicateTransaction()`:* Duplicating an entry simply routes the original data back through `createTransaction()`, which automatically generates a **brand-new ID and timestamp**, preventing primary key collisions.
+
 ---
 
 ## 2. Singleton Pattern 👑
@@ -51,31 +56,39 @@ createTransaction(data) {
 [`js/expenseTracker.js`](file:///d:/expensetrack/js/expenseTracker.js)
 
 ### The Real-World Analogy:
-Think of a **single classroom attendance record** or a **single cash register in a small store**. You don't want two different logbooks, because teachers would record different numbers and the totals would clash. There must only ever be **one official source of truth**.
+Think of a **single central bank ledger** or a **single official classroom attendance book**. If two different teachers carried separate attendance books, the headcounts would disagree. There must only ever be **one official source of truth**.
 
 ### What problem it solves:
-Multiple components (the dashboard balance cards, transaction table, budget ring, recent activity, and Chart.js graphs) all need to read and update data. If they each created their own instance of the tracker, your data would go out of sync and cause conflicting balances. 
+Multiple application modules (the Dashboard KPI cards, Entries table, Budgets progress meters, Reports analytics, and Chart.js graphs) all need to read and update financial data simultaneously. If different modules instantiated their own store, data would quickly fall out of sync, leading to conflicting totals and corrupted local storage.
 
-The Singleton pattern ensures the whole application reads from and writes to **one single store**.
+The Singleton pattern ensures the entire application shares **one global instance**.
 
 ### How it works in our code:
-We use a JavaScript closure (IIFE) that hides the `instance` variable. Calling `ExpenseTracker.getInstance()` creates the manager once, and every subsequent call returns that exact same manager:
+We use a JavaScript closure (IIFE) that encapsulates a private `instance` reference. Calling `ExpenseTracker.getInstance()` creates the manager on the first call, and returns that exact same manager on every subsequent call:
 
 ```javascript
 // js/expenseTracker.js
 const ExpenseTracker = (() => {
-  let instance; // Private variable hidden inside closure
+  let instance; // Private reference encapsulated in closure
 
   function createInstance() {
-    let transactions = []; // Private store
+    // Private application state
+    let transactions = [];
+    let budgets = [];
+    let categories = [];
+    let recurring = [];
+    let settings = { theme: "dark", sidebarCollapsed: false };
+
     return {
-      getTransactions() { return transactions; },
-      addTransaction(t) { transactions.push(t); persist(); }
+      getTransactions() { return [...transactions]; },
+      addTransaction(t) { transactions.unshift(t); persist(); },
+      calculateTotals(list) { /* ... */ },
+      // Other CRUD & financial calculation methods
     };
   }
 
   return {
-    // Only one instance is ever created
+    // Public access point: returns the single instance
     getInstance() {
       if (!instance) instance = createInstance();
       return instance;
@@ -83,6 +96,8 @@ const ExpenseTracker = (() => {
   };
 })();
 ```
+
+*Auto-Persistence:* Every state mutation in the Singleton automatically invokes `StorageService.saveAll()`, ensuring that user data is persisted to `localStorage` immediately.
 
 ---
 
@@ -92,15 +107,15 @@ const ExpenseTracker = (() => {
 [`js/strategies.js`](file:///d:/expensetrack/js/strategies.js)
 
 ### The Real-World Analogy:
-Think of **Google Maps or Waze**. When you enter a destination, you can switch routes: **"Fastest"**, **"Shortest"**, or **"Avoid Tolls"**. You change the *strategy*, but your car, passengers, and map stay the same.
+Think of **Google Maps or Waze**. When navigating to a destination, you can toggle between **"Fastest route"**, **"Shortest distance"**, or **"Avoid tolls"**. You change the *routing strategy*, but your vehicle, starting point, and map engine remain identical.
 
 ### What problem it solves:
-Beginners usually write long, messy `if/else` or `switch` statements whenever a user selects a sort option in a dropdown. If you want to add a new sorting rule later, you would have to edit and risk breaking that long `if/else` chain.
+Without this pattern, developers often resort to bloated `switch` or `if/else` chains inside rendering functions to handle sorting dropdowns. Adding a new sorting rule requires modifying and risking breaking the existing conditional logic (violating the Open/Closed Principle).
 
-With the Strategy pattern, each sorting algorithm is a standalone function stored in a dictionary.
+With the Strategy pattern, sorting algorithms are encapsulated as interchangeable, pure functions in a strategy catalog.
 
 ### How it works in our code:
-Six sorting rules live as interchangeable strategies:
+Six sorting strategies live side by side as pure functions:
 
 ```javascript
 // js/strategies.js
@@ -118,4 +133,5 @@ function applySortStrategy(strategyName, transactions) {
   return typeof strategy === "function" ? strategy(transactions) : [...transactions];
 }
 ```
-When the user picks an option in the UI, we simply call `applySortStrategy("highest", transactions)`. It returns a **new sorted array** without modifying or mutating the original data!
+
+*Context & Immutability:* The UI simply changes the active strategy name (`state.currentSort`). The context function `applySortStrategy()` executes the selected strategy and returns a **new sorted array** without mutating the original dataset. Adding a seventh sorting rule requires adding just one function to `SortStrategies` without touching UI or rendering logic.

@@ -1,194 +1,189 @@
 # ExpenseFlow — Smart Personal Expense Tracker
 
-A complete, dependency-light personal finance dashboard built with **HTML, CSS and vanilla
-JavaScript** (Weeks 1–5 group activity). Neo-Brutalism (Neubrutalism) bento-grid design,
-fully responsive, persistent through `localStorage`, with interactive charts via Chart.js.
+A complete, dependency-light personal finance dashboard built with **HTML5, Vanilla CSS3, and Vanilla JavaScript (ES2020+)** for our Weeks 1–5 group project. Built using a bold **Neo-Brutalism (Neubrutalism)** design system, fully responsive across desktop, tablet, and mobile, with local client persistence through `localStorage`, interactive data visualization via Chart.js, and a modular architecture.
 
-> Open `index.html` in any modern browser — no build step, no server required.
+> **Zero installation required to run:** Simply open `index.html` in any modern web browser — no build step, server, or database installation needed.
 
 ---
 
-## 1. Features
+## 1. Features & Modules
 
-| Page | What it does |
+| Module | What it does |
 |---|---|
-| **Dashboard** | Available balance, income vs. expenses, monthly budget ring (Safe → Moderate → Warning → Exceeded), spending analytics donut, financial insights, top spending list, recent transactions |
-| **Transactions** | Full history table, live search, advanced filters (type, category, payment method, date range, min/max amount), 6 sort options, row actions (edit / duplicate / delete with confirmation) |
-| **Budgets** | Overall monthly budget (limit, spent, remaining, % used) + per-category budget cards with progress bars and colour-coded states |
-| **Categories** | 17 default categories (11 expense + 6 income), add custom categories with emoji icons, rename/archive, defaults are protected from deletion |
-| **Recurring** | Weekly / monthly / yearly templates, due-soon & overdue banners, one-click "generate due transactions" |
-| **Reports** | 6-month income vs. expenses bar chart, daily spending trend, category donut + distribution bars, generated insights, CSV / JSON export |
-| **Settings** | Dark / light theme, currency & preferences, import JSON (validated), export CSV/JSON, reset all data, data-storage overview |
-| **About** | Project info, tech stack, feature checklist, group members |
+| **Landing & Auth** | Clean introductory landing page with direct username and password authentication, registration tab, show/hide password visibility toggle, and instant validation. |
+| **Dashboard** | Real-time financial summary: Net Balance, Income, Expenses, month selector, interactive cash flow and category charts, and recent activity ledger. |
+| **Entries** | Complete financial history table, live keyword search, advanced multi-criteria filters (type, category, payment method, date range, amount bounds), 6 sorting strategies, and row actions (View, Edit, Duplicate, Delete). |
+| **Budgets** | Overall monthly spending ceiling + category-specific budget cards with progress meters and color-coded threshold alerts (Safe `<70%`, Caution `70–99%`, Over-budget `100%+`). |
+| **Categories** | Full CRUD category management (11 default expense + 6 default income categories), custom category creator, and a 24-icon Neo-Brutalism SVG picker. |
+| **Recurring** | Automated recurring payments (daily, weekly, bi-weekly, monthly, yearly), due-date alert banners, and a one-click "Generate Due" batch posting button. |
+| **Reports** | Period-scoped spending trend graphs, category distribution donut chart, and data export (CSV for spreadsheets and JSON for backups). |
+| **FAQ & Guide** | In-app Help Center with live keyword search, topic filter pills, and 10+ expandable step-by-step tutorial accordions. |
+| **Profile** | User account management, display name, username handle, initials avatar, active session telemetry, theme switcher, and currency selector. |
+| **Settings** | Theme mode (Dark / Light), currency formatting (₱, $, €, £, ¥), sample demo data loader, and clean database wipe. |
+| **About** | Project overview, technical specifications, and group member credits. |
+| **Module Tutorials** | Interactive step-by-step popup tutorial modal for every module, introducing components to first-time users with on-demand replay via toolbar buttons. |
 
-Cross-cutting features:
-
-- **Design patterns** — Factory, Singleton and Strategy (see §4)
-- **Persistence** — everything saved to `localStorage` after each change (5 keys)
-- **Theme switcher** — dark ⇄ light, remembered between visits
-- **Month navigation** — browse any month; stats, charts and budgets are month-scoped
-- **Empty states & toasts** — guided first-run experience, non-blocking feedback
-- **Accessibility** — semantic markup, ARIA labels, focus-visible rings, keyboard support (`Esc` closes modals, `Ctrl/Cmd + K` focuses search)
-- **Responsive** — desktop → laptop → tablet → mobile (stacked cards, drawer sidebar, FAB quick-add)
-- Starts **clean and raw**: ready for immediate input with "+ Add Transaction" or JSON import
-
----
-
-## 2. Getting started
-
-Simply double-click **`index.html`** in any modern web browser (Chrome, Edge, Firefox, Safari).
-* Works immediately from `file://` — **no server, no bundler, no installation required**.
-* Start immediately by clicking **+ Add Transaction** or importing your data.
+### Cross-cutting Features
+* **Design Patterns:** Factory (`TransactionFactory`), Singleton (`ExpenseTracker`), and Strategy (`SortStrategies`).
+* **Design System:** Neo-Brutalism UI with high-contrast borders (2–3px), crisp zero-blur offset drop shadows (3–8px), vibrant color blocking, and tactile mechanical press animations.
+* **100% Offline & Private:** Client-side persistence via browser `localStorage` across 8 dedicated keys. Zero cloud tracking, zero external database servers.
+* **Accessibility:** Semantic HTML5, ARIA labels, focus-visible rings, keyboard shortcuts (`Esc` closes modals, `N` opens Add Entry, Arrow keys navigate tutorials).
+* **Responsive Layout:** Adaptive desktop, tablet, and mobile views with collapsible drawer sidebar and hamburger toggle.
 
 ---
 
-## 3. Project structure
+## 2. Getting Started
+
+### Option A: Run Directly (No Setup)
+Simply double-click **`index.html`** or open it in any modern browser (Chrome, Edge, Firefox, Safari).
+* Works immediately from `file:///` — **zero server, zero bundler, zero installation required**.
+
+### Option B: Developer Workflow (Modular Build)
+If you wish to edit modular components inside `modules/`:
+```bash
+# 1. Compile modular files into index.html
+node scripts/build.js
+# or via npm
+npm run build
+
+# 2. Watch for file changes and auto-compile
+node scripts/watch.js
+# or via npm
+npm run watch
+```
+
+---
+
+## 3. Project Structure
 
 ```text
 expensetrack/
-├── index.html                   Assembled App Shell (runs 100% offline via file:// or http://)
-├── index.template.html          Master HTML template with modular injection slots
-├── package.json                 NPM scripts: `npm run build` and `npm run watch`
-├── README.md                    Project guide & documentation index
-├── modules/                     Segmented modular HTML components
-│   ├── landing/landing.html     Landing hero, stickers, auth card (login + registration)
-│   ├── sidebar/sidebar.html     Sidebar navigation, hamburger toggle, profile footer
-│   ├── topbar/topbar.html       Application header, month chip, theme toggle, logout
-│   ├── dashboard/dashboard.html Bento overview, balance, budget, recent transactions
-│   ├── transactions/transactions.html Table view, live search, advanced filters, pagination
-│   ├── budgets/budgets.html     Overall monthly meter & category budget cards
-│   ├── categories/categories.html Category manager, badges, icon picker
-│   ├── recurring/recurring.html Subscriptions, bills, schedule generator
-│   ├── reports/reports.html     Financial charts, cashflow bar, category donut
-│   ├── settings/settings.html   Preferences, currency, data backup & reset
-│   ├── about/about.html         Application guide & user instructions
-│   ├── profile/profile.html     Account credentials form & session telemetry
-│   └── modals/modals.html       Transaction, budget, category & recurring modals
-├── scripts/
-│   ├── build.js                 Assembles modules/* into index.html
-│   ├── watch.js                 Watches modules/ for changes and auto-rebuilds
-│   └── extract.js               Utility for segmenting modules from template
-├── css/
-│   ├── style.css                Neo-brutalism design tokens, surfaces & components
-│   ├── responsive.css           Breakpoints (desktop, tablet, mobile drawer)
-│   └── animations.css           Entrances & tactile micro-interactions
-├── js/
-│   ├── utils.js                 Formatting, currency, dates, helpers
-│   ├── transactionFactory.js    [FACTORY PATTERN] Object creation
-│   ├── strategies.js            [STRATEGY PATTERN] Sorting & filtering algorithms
-│   ├── expenseTracker.js        [SINGLETON PATTERN] State manager & store
-│   ├── storage.js               Persistent storage layer & AuthService
-│   ├── analytics.js             Chart.js wrappers & calculations
-│   ├── ui.js                    DOM manipulation, modals, toasts
-│   └── app.js                   Router, delegated event listeners & validation
+├── index.html                   # Standalone compiled application (runs 100% offline)
+├── index.template.html          # Master HTML template with modular injection slots
+├── package.json                 # Project scripts (`npm run build`, `npm run watch`, `npm run dev`)
+├── README.md                    # Project documentation & presentation guide
+├── modules/                     # Segmented HTML component modules (14 partials)
+│   ├── landing/landing.html     # Landing hero, features, sign-in & registration forms
+│   ├── sidebar/sidebar.html     # Collapsible sidebar navigation & hamburger toggle
+│   ├── topbar/topbar.html       # Application header, month navigation, theme switcher
+│   ├── dashboard/dashboard.html # KPI balance cards, cash flow bar, category donut, recent entries
+│   ├── transactions/transactions.html # Entries ledger, search bar, advanced filters, sorting
+│   ├── categories/categories.html     # Category manager (expense/income) & icon picker
+│   ├── budgets/budgets.html     # Monthly overall budget & category budget progress meters
+│   ├── recurring/recurring.html # Recurring bill templates, due banners, batch generator
+│   ├── reports/reports.html     # Financial charts, period filter, CSV/JSON export
+│   ├── faq/faq.html             # Help Center, interactive accordions, search & topic filters
+│   ├── about/about.html         # Project description, tech stack, feature checklist
+│   ├── profile/profile.html     # User credentials form, display name, avatar, session info
+│   ├── settings/settings.html   # Preferences, currency selector, sample data, database reset
+│   └── modals/modals.html       # Dialogs: Entry form, details, confirm, module guide modal
+├── scripts/                     # Build & developer automation scripts
+│   ├── build.js                 # Merges all modules/*.html into index.html
+│   ├── watch.js                 # Watches modules/ for file changes and auto-rebuilds
+│   └── extract.js               # Utility script for segmenting modules from template
+├── css/                         # Neo-Brutalism styling architecture
+│   ├── style.css                # Design tokens, color palette, surfaces, cards, buttons, modals
+│   ├── responsive.css           # Breakpoints (desktop >1200px, tablet 768–1199px, mobile <768px)
+│   └── animations.css           # Tactile button presses, modal transitions, and micro-interactions
+├── js/                          # Modular JavaScript engine (ES6+ / IIFEs)
+│   ├── utils.js                 # Currency formatters, date utilities, HTML escaping, icon renderers
+│   ├── transactionFactory.js    # [FACTORY PATTERN] Object creation & duplication
+│   ├── strategies.js            # [STRATEGY PATTERN] Interchangeable sorting algorithms
+│   ├── expenseTracker.js        # [SINGLETON PATTERN] State manager & financial calculations
+│   ├── storage.js               # [STORAGE & AUTH] LocalStorage persistence layer & AuthService
+│   ├── analytics.js             # Statistical calculations & Chart.js canvas wrapper
+│   ├── ui.js                    # DOM rendering, modal controller, toast notifications
+│   ├── moduleGuide.js           # Step-by-step popup tutorial modal controller & content dictionary
+│   └── app.js                   # Application bootstrap, hash router, and delegated event bus
 ├── data/
-│   └── sampleData.js            Sample data generator
-└── documentation/               Presentation guides & documentation assets
+│   └── sampleData.js            # Realistic preloaded dataset generator for demo & testing
+└── documentation/               # Course documentation & oral defense guides
+    ├── October 1, 2026.docx     # Assignment brief and rubric
+    ├── 01-project-overview.md   # Project concept, target users, and feature matrix
+    ├── 02-system-architecture.md# System architecture, file layout, and storage layers
+    ├── 03-design-patterns-guide.md# Factory, Singleton, and Strategy patterns in detail
+    └── 04-presentation-guide.md # 3-member oral defense presentation script & anticipated Q&A
 ```
 
 ---
 
-## 4. JavaScript concepts & design patterns
+## 4. JavaScript Concepts & Design Patterns
 
-### Concepts checklist
+### Concepts Checklist
 
 | Concept | Where it is used |
 |---|---|
-| **Variables & application state** | `js/ui.js` state block (`currentPage`, `currentMonth`, `filters`, `currentSort`) and the private state inside the Singleton (`transactions`, `budgets`, `categories`, `recurring`, `settings`) — `js/expenseTracker.js:42` |
-| **Objects** | `Utils`, `TransactionFactory`, `SortStrategies`, `StorageService`, `Analytics`, `SampleData`, settings/preferences records, category & budget records |
-| **Arrays** | Every collection is an array manipulated with `map`, `filter`, `reduce`, `find`, `findIndex`, `sort`, `slice` (totals, breakdowns, insights, rendering) |
-| **Functions** | Arrow functions, named functions, higher-order functions (`applySortStrategy`, debounced search, render callbacks), an IIFE that builds the Singleton, promise-based confirm dialog |
-| **DOM manipulation** | All rendering lives in `js/ui.js` — `innerHTML` templates, `createElement`, class/attribute toggling, `hidden` state, dynamic option lists, chart canvas mounting |
-| **Event listeners** | `js/app.js` — bootstrap listener, hash router, one delegated `[data-action]` click handler, form submits, input/change events, keyboard shortcuts, resize handler |
-| **localStorage** | `js/storage.js` — `saveAll`, `loadAll`, `bootstrap`, JSON export/import with validation, CSV export, `resetAll` |
-| **Modern syntax** | `const`/`let` only, destructuring, spread/rest, template literals, optional chaining, default parameters — **no `var` anywhere** |
+| **Variables & Application State** | `js/ui.js` state block (`currentPage`, `currentMonth`, `filters`, `currentSort`) and private state inside the Singleton (`transactions`, `budgets`, `categories`, `recurring`, `settings`) in `js/expenseTracker.js`. |
+| **Objects** | `Utils`, `TransactionFactory`, `SortStrategies`, `StorageService`, `AuthService`, `ModuleGuide`, `Analytics`, `SampleData`. |
+| **Arrays** | All financial collections are manipulated using modern array methods: `map`, `filter`, `reduce`, `find`, `findIndex`, `sort`, and `slice` (totals, breakdowns, insights, rendering). |
+| **Functions** | Named functions, arrow functions, higher-order functions (`applySortStrategy`, render callbacks), IIFE closures building Singletons, and Promise-based confirmation dialogs. |
+| **DOM Manipulation** | Pure vanilla DOM operations in `js/ui.js`: `innerHTML` templating, `createElement`, class/attribute toggles, dynamic options, and Chart.js canvas mounting. |
+| **Event Listeners** | `js/app.js`: bootstrap listener, hash router, delegated `[data-action]` click handler, form submissions, input/change listeners, keyboard shortcuts, and resize handlers. |
+| **localStorage** | `js/storage.js`: `saveAll`, `loadAll`, `AuthService`, JSON export/import with schema validation, CSV export, and `resetAll`. |
+| **Modern Syntax** | Strict ES2020+ standards: `const`/`let` only, destructuring, spread/rest, template literals, optional chaining, default parameters — **zero `var` anywhere**. |
 
-### Factory — `js/transactionFactory.js`
-
-`TransactionFactory.createTransaction(data)` is the **single place** where a transaction is
-born (form submission, duplicate action, generated recurring items). It guarantees every
-record has the same complete shape:
-
-```js
+### Factory Pattern — `js/transactionFactory.js`
+`TransactionFactory.createTransaction(data)` is the **single place** where every entry object is born. It guarantees every record has the exact same schema:
+```javascript
 { id, title, amount, type, category, date, paymentMethod, note, recurring, createdAt }
 ```
+*Why it matters:* One schema contract, one place to change. When duplicating an entry via `duplicateTransaction()`, the factory generates a **fresh unique ID and timestamp**, preventing ID collisions.
 
-*Why it matters:* one contract, one place to change — no half-built objects ever reach the
-state. `duplicateTransaction()` shows reuse: a copy is just another factory call, so it
-always gets a **fresh id and timestamp**.
-
-### Singleton — `js/expenseTracker.js`
-
-```js
-const tracker = ExpenseTracker.getInstance();   // the only instance, ever
+### Singleton Pattern — `js/expenseTracker.js`
+```javascript
+const tracker = ExpenseTracker.getInstance(); // The only instance, ever
 ```
+An IIFE closure keeps `instance` and data collections private. The first call instantiates the manager; every subsequent call returns that exact same manager. The Singleton owns all data collections, executes financial totals, and automatically calls `StorageService.saveAll()` after each mutation.
 
-An IIFE keeps `instance` private; the first call creates the manager, every later call
-returns the same one. The Singleton owns all data collections and exposes every CRUD +
-calculation method, then persists through `StorageService.saveAll()` after each change.
+*Why it matters:* Guarantees **one single source of truth** across UI, analytics, and storage.
 
-*Why it matters:* the whole app shares **one source of truth** — UI, analytics and storage
-can never disagree or accidentally create competing copies of the data.
-
-### Strategy — `js/strategies.js`
-
-Six sorting rules live side by side as interchangeable functions:
-
-```js
+### Strategy Pattern — `js/strategies.js`
+Six sorting algorithms live side by side as interchangeable pure functions:
+```javascript
 SortStrategies = { newest, oldest, highest, lowest, az, za }
 
-applySortStrategy("highest", transactions)   // context picks the strategy at runtime
+applySortStrategy("highest", transactions) // Context executes strategy at runtime
 ```
-
-The context (`applySortStrategy`) validates the name and returns a **new sorted array**
-(the input is never mutated). The UI simply changes `state.currentSort` — see
-`js/ui.js:696` and the sorting listener in `js/app.js`.
-
-*Why it matters:* adding a 7th sort option = adding one object entry. No `if/else` chains,
-no changes to rendering code — the open/closed principle in action.
+The context function (`applySortStrategy`) executes the selected strategy and returns a **new sorted array** without mutating the original data.
+*Why it matters:* Adding a new sorting option requires adding one function to `SortStrategies` without modifying UI or rendering code (Open/Closed Principle).
 
 ---
 
-## 5. Presentation guide (3 members)
+## 5. Oral Presentation Guide (3 Members)
 
-**Suggested flow: ~8–10 minutes total.**
+**Suggested presentation time: ~8–10 minutes total (~3 minutes per member).**
 
-### Member 1 — Live product demo (≈3 min)
-1. Open `index.html` → explain the brief (glassmorphism bento dashboard, vanilla JS).
-2. *Settings → Load Sample Data* → show the dashboard fill up (balance, budget ring, donut, insights).
-3. Add a transaction → show toast, updated totals, and the new row in **Transactions**.
-4. Show **Budgets** (warning/exceeded states) and the **month navigator** (compare vs. previous month).
+### Member 1 — Product Demo & User Experience (~3 min)
+1. Open `index.html` → show the Landing page with direct username/password authentication.
+2. Sign in to view the **Dashboard** → show KPI cards, cash flow bar, category donut, and recent activity.
+3. Open the **Module Guide** modal via the `[ ? Guide ]` toolbar button to demonstrate the step-by-step tutorial.
+4. Navigate to **Entries** → add an entry (₱450 Groceries via GCash); show instant balance recalculation and toast alert.
+5. Highlight **Budgets** (warning meters), **Recurring** (due alerts & batch generation), and the **FAQ & Help Center**.
 
-### Member 2 — Architecture & design patterns (≈3 min)
-1. Walk the file structure (`index.html` → `css/` → `js/`) and the script load order.
-2. **Factory**: open `transactionFactory.js`, point at `createTransaction()`; explain the fixed object shape; demo *Duplicate* on a transaction row.
-3. **Singleton**: open `expenseTracker.js`, show `getInstance()` + the private state; explain "one source of truth" + auto-persist.
-4. **Strategy**: open `strategies.js`; change the sort dropdown in the app and show that only `state.currentSort` changes.
-5. Mention the comment markers used across the codebase (`FACTORY / SINGLETON / STRATEGY DESIGN PATTERN`, `LOCAL STORAGE`, `DOM MANIPULATION`, `EVENT LISTENERS`, `VARIABLES AND APPLICATION STATE`).
+### Member 2 — Architecture & Design Patterns (~3 min)
+1. Walk through the modular architecture (`modules/*` partials merged by `scripts/build.js` into standalone `index.html`).
+2. **Factory:** Open `js/transactionFactory.js`, explain `createTransaction()` schema enforcement and `duplicateTransaction()`.
+3. **Singleton:** Open `js/expenseTracker.js`, explain the IIFE closure, `getInstance()`, and the single source of truth.
+4. **Strategy:** Open `js/strategies.js`, show the six interchangeable sorting algorithms and immutable array returns.
 
-### Member 3 — JS fundamentals + data & QA (≈3 min)
-1. **Variables/arrays/functions**: show the state block in `ui.js` and a `reduce` calculation in `analytics.js`.
-2. **DOM + events**: show the delegated `[data-action]` handler in `app.js` and a renderer in `ui.js`.
-3. **localStorage**: open DevTools → Application → Local Storage → inspect `ef_*` keys; reload the page to prove persistence.
-4. Finish with **Reports** (charts + insights), **Export CSV/JSON**, and *Settings → Reset All Data* to show the validated import/reset flows.
-
-### User flow to demo end-to-end
-```text
-Load sample data → Dashboard overview → Add transaction → Search/filter/sort
-→ Set/edit a budget → Check budget states → Recurring due banner →
-Reports & insights → Export CSV → Toggle theme → Reload (data persists)
-```
+### Member 3 — JS Fundamentals, LocalStorage & Security (~3 min)
+1. **Core JS:** Show array methods (`.filter()`, `.map()`, `.reduce()`) in `analytics.js` and strict ES6+ syntax.
+2. **Event Delegation:** Show the unified `[data-action]` event dispatcher in `js/app.js`.
+3. **LocalStorage & AuthService:** Open DevTools → Application → Local Storage to show the 8 `ef_*` keys; refresh to prove persistence.
+4. **Data Sovereignty:** Demonstrate **Export CSV** (for Excel/Sheets), **Export JSON** (for backups), and validated JSON import.
 
 ---
 
-## 6. Tech stack
+## 6. Tech Stack
 
-- **HTML5** · **CSS3** (custom properties, grid/flex, `backdrop-filter` glassmorphism)
-- **Vanilla JavaScript (ES2020+)** — no framework, no bundler
-- **Chart.js 4** via CDN (bar, line, doughnut)
-- **localStorage** for persistence
-- Tested in Chrome/Edge (Chromium) — desktop 1440px, laptop, tablet and 390px mobile
+* **Structure:** HTML5 (Modular components compiled via `scripts/build.js`).
+* **Styling:** Vanilla CSS3 (Neo-Brutalism design system, custom CSS variables, responsive Flexbox/Grid, zero CSS frameworks).
+* **Scripting:** Vanilla JavaScript (ES2020+, Modular IIFEs, Design Patterns).
+* **Icons:** Lucide Icons (v0.441.0) with embedded SVG sprite definitions.
+* **Charts:** Chart.js 4 via CDN.
+* **Storage:** Native browser `localStorage` (offline-first, client persistence).
+* **Tooling:** Lightweight Node.js scripts for modular compilation and live-reloading.
 
 ---
 
-*ExpenseFlow — JS Weeks 1–5 group activity.*
+*ExpenseFlow — JavaScript Weeks 1–5 Group Activity.*
