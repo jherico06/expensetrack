@@ -1,0 +1,75 @@
+<!-- ==================== REPORTS ==================== -->
+        <section class="page" id="page-reports" data-title="Reports">
+          <div class="page-toolbar">
+            <div class="month-nav">
+              <button class="icon-btn sm" data-action="month-prev" aria-label="Previous month">
+                <svg class="icon" aria-hidden="true"><use href="#icon-chevron-left"></use></svg>
+              </button>
+              <div class="month-nav-label">
+                <span class="month-nav-title" data-month-label>October 2026</span>
+                <button class="link-btn" data-action="month-current">Go to current month</button>
+              </div>
+              <button class="icon-btn sm" data-action="month-next" aria-label="Next month">
+                <svg class="icon" aria-hidden="true"><use href="#icon-chevron-right"></use></svg>
+              </button>
+            </div>
+            <div class="toolbar-actions">
+              <button class="btn btn-outline btn-sm module-guide-trigger" data-action="open-module-guide" data-module="reports" title="View Reports tutorial and component guide">
+                <svg class="icon sm" aria-hidden="true"><use href="#icon-help"></use></svg><span>Guide</span>
+              </button>
+              <button class="btn btn-soft btn-sm" data-action="export-csv">
+                <svg class="icon" aria-hidden="true"><use href="#icon-download"></use></svg><span>Export CSV</span>
+              </button>
+              <button class="btn btn-soft btn-sm" data-action="export-json">
+                <svg class="icon" aria-hidden="true"><use href="#icon-download"></use></svg><span>Export JSON</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="report-grid">
+            <article class="card span-7">
+              <div class="card-head">
+                <div>
+                  <p class="eyebrow">Monthly Income vs Expenses</p>
+                  <p class="muted small">Last 6 months comparison</p>
+                </div>
+                <span class="legend-inline"><i class="dot green"></i>Income <i class="dot red"></i>Expenses</span>
+              </div>
+              <div class="chart-box"><canvas id="chartReportBar" aria-label="Monthly income versus expenses bar chart" role="img"></canvas><p class="chart-fallback" hidden>Chart.js could not be loaded.</p></div>
+            </article>
+
+            <article class="card span-5">
+              <div class="card-head">
+                <div>
+                  <p class="eyebrow">Spending Trend</p>
+                  <p class="muted small">Daily expenses in <span data-month-label>October 2026</span></p>
+                </div>
+              </div>
+              <div class="chart-box"><canvas id="chartReportLine" aria-label="Daily spending trend line chart" role="img"></canvas><p class="chart-fallback" hidden>Chart.js could not be loaded.</p></div>
+            </article>
+
+            <article class="card span-5">
+              <div class="card-head">
+                <p class="eyebrow">Spending by Category</p>
+                <span class="muted small" data-month-label>October 2026</span>
+              </div>
+              <div class="chart-box"><canvas id="chartReportDoughnut" aria-label="Spending by category doughnut chart" role="img"></canvas><p class="chart-fallback" hidden>Chart.js could not be loaded.</p></div>
+            </article>
+
+            <article class="card span-7">
+              <div class="card-head">
+                <p class="eyebrow">Category Distribution</p>
+                <span class="muted small">Percentage of total spending</span>
+              </div>
+              <ul class="dist-list" id="distributionList"></ul>
+            </article>
+
+            <article class="card span-12">
+              <div class="card-head">
+                <p class="eyebrow amber">Financial Insights</p>
+                <span class="dot-icon amber"><svg class="icon" aria-hidden="true"><use href="#icon-bulb"></use></svg></span>
+              </div>
+              <ul class="insight-list two" id="reportInsights"></ul>
+            </article>
+          </div>
+        </section>

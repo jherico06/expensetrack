@@ -1,0 +1,519 @@
+<!-- ==================== FAQ & USER GUIDE ==================== -->
+<section class="page" id="page-faq" data-title="FAQ & Guide">
+  <div class="faq-container">
+
+    <!-- FAQ Hero Banner -->
+    <article class="card faq-hero-card">
+      <div class="faq-hero-header">
+        <span class="brand-mark lg"><svg class="icon" aria-hidden="true"><use href="#icon-help"></use></svg></span>
+        <div style="flex: 1;">
+          <p class="eyebrow amber">Help Center &amp; Documentation</p>
+          <h2>Frequently Asked Questions &amp; User Tutorial</h2>
+          <p class="muted">Master ExpenseFlow with our complete step-by-step tutorial. Learn how to log entries, set category budgets, automate recurring subscriptions, analyze spending, and securely back up your records.</p>
+        </div>
+        <button class="btn btn-outline btn-sm module-guide-trigger" data-action="open-module-guide" data-module="faq" title="View FAQ module tutorial">
+          <svg class="icon sm" aria-hidden="true"><use href="#icon-help"></use></svg>
+          <span>Guide</span>
+        </button>
+      </div>
+
+      <!-- FAQ Search and Topic Filter -->
+      <div class="faq-search-box">
+        <div class="faq-input-wrapper">
+          <svg class="icon faq-search-icon" aria-hidden="true"><use href="#icon-search"></use></svg>
+          <input type="search" id="faqSearchInput" placeholder="Search tutorials &amp; questions (e.g. 'budget', 'add entry', 'export', 'category')..." aria-label="Search FAQ" />
+          <button type="button" class="btn btn-soft btn-sm" id="faqClearSearch" style="display: none;">Clear</button>
+        </div>
+        <div class="faq-filter-pills" id="faqFilterPills" role="tablist" aria-label="FAQ Categories">
+          <button class="pill-btn active" data-faq-filter="all">All Topics</button>
+          <button class="pill-btn" data-faq-filter="tutorial">Step-by-Step Tutorials</button>
+          <button class="pill-btn" data-faq-filter="entries">Entries</button>
+          <button class="pill-btn" data-faq-filter="budgets">Budgets</button>
+          <button class="pill-btn" data-faq-filter="categories">Categories</button>
+          <button class="pill-btn" data-faq-filter="recurring">Recurring</button>
+          <button class="pill-btn" data-faq-filter="reports">Reports</button>
+          <button class="pill-btn" data-faq-filter="privacy">Privacy &amp; Backups</button>
+        </div>
+      </div>
+    </article>
+
+    <!-- SECTION 1: DETAILED STEP-BY-STEP TUTORIALS -->
+    <div class="faq-section-header">
+      <h3 class="section-title">
+        <svg class="icon" aria-hidden="true"><use href="#icon-bulb"></use></svg>
+        <span>Complete Step-by-Step User Guides</span>
+      </h3>
+      <p class="muted small">Walkthroughs explaining every major module and feature in ExpenseFlow.</p>
+    </div>
+
+    <div class="faq-tutorials-grid" id="faqTutorialsList">
+
+      <!-- Tutorial 1: Account & Setup -->
+      <article class="card tutorial-card" data-category="tutorial privacy">
+        <div class="tutorial-card-head">
+          <span class="step-badge purple">Guide 1</span>
+          <div>
+            <h4>Getting Started &amp; Your Local Account</h4>
+            <p class="muted small">How account creation, authentication, and your profile work.</p>
+          </div>
+        </div>
+        <div class="tutorial-steps">
+          <div class="step-item">
+            <span class="step-num">1</span>
+            <div class="step-body">
+              <strong>Create Your Account</strong>
+              <p>On the landing page, switch to the <em>Register</em> tab. Enter your Display Name, a unique Username, and Password. Your account is created locally on your device with no third-party servers.</p>
+            </div>
+          </div>
+          <div class="step-item">
+            <span class="step-num">2</span>
+            <div class="step-body">
+              <strong>Configure Your Currency in Profile</strong>
+              <p>Click your avatar or name at the bottom of the sidebar to visit your <strong>Profile</strong>. Choose your preferred currency (₱ PHP, $ USD, € EUR, £ GBP, or ¥ JPY). All calculations immediately adapt.</p>
+            </div>
+          </div>
+          <div class="step-item">
+            <span class="step-num">3</span>
+            <div class="step-body">
+              <strong>Stay Signed In Locally</strong>
+              <p>Your session stays active across page reloads. Whenever you wish to switch users or lock your session, click <strong>Log Out</strong> from the sidebar or Profile banner.</p>
+            </div>
+          </div>
+        </div>
+        <div class="tutorial-footer">
+          <a href="#/profile" class="btn btn-soft btn-sm" data-action="nav" data-page="profile">Open My Profile &rarr;</a>
+        </div>
+      </article>
+
+      <!-- Tutorial 2: Entries -->
+      <article class="card tutorial-card" data-category="tutorial entries">
+        <div class="tutorial-card-head">
+          <span class="step-badge yellow">Guide 2</span>
+          <div>
+            <h4>Recording &amp; Managing Entries</h4>
+            <p class="muted small">Logging expenses and income, applying filters, and editing records.</p>
+          </div>
+        </div>
+        <div class="tutorial-steps">
+          <div class="step-item">
+            <span class="step-num">1</span>
+            <div class="step-body">
+              <strong>Click "+ Add Entry"</strong>
+              <p>Navigate to <strong>Entries</strong> in the sidebar, or click the yellow <em>+ Add Entry</em> button in the header toolbar to open the entry creation window.</p>
+            </div>
+          </div>
+          <div class="step-item">
+            <span class="step-num">2</span>
+            <div class="step-body">
+              <strong>Choose Type: Expense or Income</strong>
+              <p>Select <em>Expense</em> (money spent) or <em>Income</em> (money earned). Select a relevant category (Food, Salary, Bills, etc.) and enter the amount.</p>
+            </div>
+          </div>
+          <div class="step-item">
+            <span class="step-num">3</span>
+            <div class="step-body">
+              <strong>Specify Payment Method, Date &amp; Notes</strong>
+              <p>Pick how it was paid (Cash, Bank Transfer, GCash / E-Wallet, Credit Card), the date of the record, and optional notes (e.g., store name, receipt reference).</p>
+            </div>
+          </div>
+          <div class="step-item">
+            <span class="step-num">4</span>
+            <div class="step-body">
+              <strong>Filter, Search &amp; Sort Entries</strong>
+              <p>Use the comprehensive filters in the Entries module to search by keyword, filter by category, payment method, date range, or amount limits. Sort by newest, highest, or lowest.</p>
+            </div>
+          </div>
+          <div class="step-item">
+            <span class="step-num">5</span>
+            <div class="step-body">
+              <strong>Edit, Duplicate or Delete</strong>
+              <p>Click the three dots (•••) on any entry row to view full details, duplicate the entry to save time, edit its details, or delete it.</p>
+            </div>
+          </div>
+        </div>
+        <div class="tutorial-footer">
+          <a href="#/transactions" class="btn btn-soft btn-sm" data-action="nav" data-page="transactions">Go to Entries &rarr;</a>
+        </div>
+      </article>
+
+      <!-- Tutorial 3: Budgets -->
+      <article class="card tutorial-card" data-category="tutorial budgets">
+        <div class="tutorial-card-head">
+          <span class="step-badge cyan">Guide 3</span>
+          <div>
+            <h4>Setting Monthly &amp; Category Budgets</h4>
+            <p class="muted small">Stay disciplined with automated progress bars and threshold warnings.</p>
+          </div>
+        </div>
+        <div class="tutorial-steps">
+          <div class="step-item">
+            <span class="step-num">1</span>
+            <div class="step-body">
+              <strong>Set an Overall Monthly Budget</strong>
+              <p>Go to the <strong>Budgets</strong> module. Click <em>Set Monthly Budget</em> and enter your target maximum spending for the current month (e.g. ₱20,000).</p>
+            </div>
+          </div>
+          <div class="step-item">
+            <span class="step-num">2</span>
+            <div class="step-body">
+              <strong>Add Category-Specific Limits</strong>
+              <p>Click <em>+ Add Category Budget</em> to place limits on high-spending categories like <em>Food &amp; Dining</em>, <em>Shopping</em>, or <em>Transportation</em>.</p>
+            </div>
+          </div>
+          <div class="step-item">
+            <span class="step-num">3</span>
+            <div class="step-body">
+              <strong>Understand Color-Coded Budget Alerts</strong>
+              <p>Watch the progress meter update in real time with each logged expense:</p>
+              <ul class="bullet-list-sm">
+                <li><span class="color-dot safe"></span> <strong>Safe (0% – 79%):</strong> Green bar — you are well within your spending target.</li>
+                <li><span class="color-dot warning"></span> <strong>Warning (80% – 99%):</strong> Amber bar — you are approaching your limit.</li>
+                <li><span class="color-dot danger"></span> <strong>Exceeded (&ge;100%):</strong> Red bar — over-budget! An alert is triggered in the notification bell.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="tutorial-footer">
+          <a href="#/budgets" class="btn btn-soft btn-sm" data-action="nav" data-page="budgets">Configure Budgets &rarr;</a>
+        </div>
+      </article>
+
+      <!-- Tutorial 4: Categories -->
+      <article class="card tutorial-card" data-category="tutorial categories">
+        <div class="tutorial-card-head">
+          <span class="step-badge lime">Guide 4</span>
+          <div>
+            <h4>Organizing, Adding &amp; Deleting Categories</h4>
+            <p class="muted small">Customize how your spending and earnings are grouped.</p>
+          </div>
+        </div>
+        <div class="tutorial-steps">
+          <div class="step-item">
+            <span class="step-num">1</span>
+            <div class="step-body">
+              <strong>Browse Active Categories</strong>
+              <p>Visit <strong>Categories</strong> in the sidebar. Switch between <em>Expenses</em> and <em>Income</em> tabs to see all current classifications with their icons and usage counts.</p>
+            </div>
+          </div>
+          <div class="step-item">
+            <span class="step-num">2</span>
+            <div class="step-body">
+              <strong>Add a Custom Category</strong>
+              <p>Click <em>+ New Category</em>. Enter a descriptive title (e.g., "Gym &amp; Fitness", "Pet Care", "Side Hustle"), choose whether it is an Expense or Income, and select one of 24 Lucide icons.</p>
+            </div>
+          </div>
+          <div class="step-item">
+            <span class="step-num">3</span>
+            <div class="step-body">
+              <strong>Edit or Delete Any Category</strong>
+              <p>Every category can be edited or deleted. Click the pencil icon to rename or update its icon, or click the trash icon to remove it. When deleted, associated records are safely tagged as "Other".</p>
+            </div>
+          </div>
+        </div>
+        <div class="tutorial-footer">
+          <a href="#/categories" class="btn btn-soft btn-sm" data-action="nav" data-page="categories">Manage Categories &rarr;</a>
+        </div>
+      </article>
+
+      <!-- Tutorial 5: Recurring -->
+      <article class="card tutorial-card" data-category="tutorial recurring">
+        <div class="tutorial-card-head">
+          <span class="step-badge purple">Guide 5</span>
+          <div>
+            <h4>Automating Recurring Expenses &amp; Bills</h4>
+            <p class="muted small">Never miss a recurring subscription, rent, or scheduled allowance.</p>
+          </div>
+        </div>
+        <div class="tutorial-steps">
+          <div class="step-item">
+            <span class="step-num">1</span>
+            <div class="step-body">
+              <strong>Create a Recurring Rule</strong>
+              <p>In the <strong>Recurring</strong> module, click <em>+ New Recurring</em>. Give it a name (e.g., "Apartment Rent", "Spotify", "Monthly Allowance"), select the category, amount, and frequency (Daily, Weekly, Monthly, Yearly).</p>
+            </div>
+          </div>
+          <div class="step-item">
+            <span class="step-num">2</span>
+            <div class="step-body">
+              <strong>Pause or Resume Subscriptions</strong>
+              <p>Toggle the status switch on any recurring item between <em>Active</em> and <em>Paused</em>. Paused subscriptions won't trigger due alerts.</p>
+            </div>
+          </div>
+          <div class="step-item">
+            <span class="step-num">3</span>
+            <div class="step-body">
+              <strong>1-Click Convert to Logged Entry</strong>
+              <p>When a recurring expense is due, ExpenseFlow highlights it. Click the play button (<strong>Log Entry</strong>) to automatically record it as an active entry for today's date without retyping details.</p>
+            </div>
+          </div>
+        </div>
+        <div class="tutorial-footer">
+          <a href="#/recurring" class="btn btn-soft btn-sm" data-action="nav" data-page="recurring">Open Recurring &rarr;</a>
+        </div>
+      </article>
+
+      <!-- Tutorial 6: Reports -->
+      <article class="card tutorial-card" data-category="tutorial reports">
+        <div class="tutorial-card-head">
+          <span class="step-badge yellow">Guide 6</span>
+          <div>
+            <h4>Analytics, Visual Charts &amp; Financial Insights</h4>
+            <p class="muted small">Understand where every peso goes with interactive visual reports.</p>
+          </div>
+        </div>
+        <div class="tutorial-steps">
+          <div class="step-item">
+            <span class="step-num">1</span>
+            <div class="step-body">
+              <strong>Review the Category Breakdown Donut</strong>
+              <p>The <strong>Reports</strong> module charts your spending distribution across categories so you can instantly see which area consumes the largest slice of your income.</p>
+            </div>
+          </div>
+          <div class="step-item">
+            <span class="step-num">2</span>
+            <div class="step-body">
+              <strong>Track Monthly Income vs. Expenses</strong>
+              <p>The Monthly Comparison bar chart shows whether you operated at a surplus or deficit, and calculates your personal Savings Rate percentage.</p>
+            </div>
+          </div>
+          <div class="step-item">
+            <span class="step-num">3</span>
+            <div class="step-body">
+              <strong>Read Smart Financial Recommendations</strong>
+              <p>ExpenseFlow generates automated financial insights highlighting rapid spending increases, categories nearing limits, and advice on building an emergency reserve.</p>
+            </div>
+          </div>
+        </div>
+        <div class="tutorial-footer">
+          <a href="#/reports" class="btn btn-soft btn-sm" data-action="nav" data-page="reports">View Reports &rarr;</a>
+        </div>
+      </article>
+
+      <!-- Tutorial 7: Privacy & Backup -->
+      <article class="card tutorial-card" data-category="tutorial privacy">
+        <div class="tutorial-card-head">
+          <span class="step-badge cyan">Guide 7</span>
+          <div>
+            <h4>Data Privacy, CSV Export &amp; JSON Backups</h4>
+            <p class="muted small">Keep your financial records safe and portable forever.</p>
+          </div>
+        </div>
+        <div class="tutorial-steps">
+          <div class="step-item">
+            <span class="step-num">1</span>
+            <div class="step-body">
+              <strong>100% Local Storage Architecture</strong>
+              <p>Your financial entries, budgets, and categories never leave your computer. There are no cloud servers, no databases, and no trackers looking at your finances.</p>
+            </div>
+          </div>
+          <div class="step-item">
+            <span class="step-num">2</span>
+            <div class="step-body">
+              <strong>Download Regular Backups</strong>
+              <p>Visit <strong>Settings</strong> or <strong>Profile</strong> and click <em>Export JSON</em> (or <em>Back Up My Records</em>). Save the generated file to your Documents or cloud drive once a week.</p>
+            </div>
+          </div>
+          <div class="step-item">
+            <span class="step-num">3</span>
+            <div class="step-body">
+              <strong>Transfer to Another Computer</strong>
+              <p>To transfer your data to a new laptop, copy your saved JSON backup file. On the new laptop, open ExpenseFlow, click <em>Import JSON</em> in Settings, and choose the file. All your records will be restored instantly.</p>
+            </div>
+          </div>
+        </div>
+        <div class="tutorial-footer">
+          <a href="#/settings" class="btn btn-soft btn-sm" data-action="nav" data-page="settings">Go to Settings &rarr;</a>
+        </div>
+      </article>
+
+    </div>
+
+    <!-- SECTION 2: FREQUENTLY ASKED QUESTIONS (ACCORDION) -->
+    <div class="faq-section-header" style="margin-top: 40px;">
+      <h3 class="section-title">
+        <svg class="icon" aria-hidden="true"><use href="#icon-help"></use></svg>
+        <span>Frequently Asked Questions</span>
+      </h3>
+      <p class="muted small">Direct answers to the most common questions about ExpenseFlow.</p>
+    </div>
+
+    <div class="faq-accordion-list" id="faqAccordionList">
+
+      <!-- FAQ Item 1 -->
+      <details class="faq-item" data-category="privacy" open>
+        <summary class="faq-summary">
+          <div class="faq-summary-content">
+            <span class="faq-tag cyan">Privacy</span>
+            <span class="faq-question">Where is my financial data stored? Can anyone else see it?</span>
+          </div>
+          <svg class="icon faq-chevron" aria-hidden="true"><use href="#icon-chevron-down"></use></svg>
+        </summary>
+        <div class="faq-answer">
+          <p><strong>100% on your device.</strong> All your financial entries, categories, budgets, and profile details are saved inside your web browser's local storage (<code>localStorage</code>).</p>
+          <p>ExpenseFlow does not have a central database server, does not connect to external financial institutions, and has zero advertising or analytics trackers. Nobody except someone sitting directly in front of your unlocked browser can view your records.</p>
+        </div>
+      </details>
+
+      <!-- FAQ Item 2 -->
+      <details class="faq-item" data-category="privacy">
+        <summary class="faq-summary">
+          <div class="faq-summary-content">
+            <span class="faq-tag purple">Data Safety</span>
+            <span class="faq-question">What happens if I clear my browser history, cache, or cookies?</span>
+          </div>
+          <svg class="icon faq-chevron" aria-hidden="true"><use href="#icon-chevron-down"></use></svg>
+        </summary>
+        <div class="faq-answer">
+          <p>If you click "Clear all website data" in your browser settings, the browser will erase all local storage keys, which will reset ExpenseFlow.</p>
+          <p><strong>How to protect your records:</strong> We strongly advise using the <strong>Back Up My Records</strong> button (in Profile or Settings) to export a <code>.json</code> backup to your computer or Google Drive. Restoring from a backup takes less than 5 seconds!</p>
+        </div>
+      </details>
+
+      <!-- FAQ Item 3 -->
+      <details class="faq-item" data-category="entries">
+        <summary class="faq-summary">
+          <div class="faq-summary-content">
+            <span class="faq-tag yellow">Entries</span>
+            <span class="faq-question">What is the difference between an Expense and an Income entry?</span>
+          </div>
+          <svg class="icon faq-chevron" aria-hidden="true"><use href="#icon-chevron-down"></use></svg>
+        </summary>
+        <div class="faq-answer">
+          <p>An <strong>Expense</strong> represents money leaving your wallet or bank account (such as groceries, tuition, bills, transportation). Expenses decrease your available balance and count against your active budgets.</p>
+          <p>An <strong>Income</strong> represents money entering your balance (such as salary, monthly allowance, freelancing, gifts). Income increases your available balance and is highlighted in vibrant green.</p>
+        </div>
+      </details>
+
+      <!-- FAQ Item 4 -->
+      <details class="faq-item" data-category="categories">
+        <summary class="faq-summary">
+          <div class="faq-summary-content">
+            <span class="faq-tag lime">Categories</span>
+            <span class="faq-question">Can I edit, delete, or add new categories?</span>
+          </div>
+          <svg class="icon faq-chevron" aria-hidden="true"><use href="#icon-chevron-down"></use></svg>
+        </summary>
+        <div class="faq-answer">
+          <p><strong>Yes, absolutely!</strong> ExpenseFlow provides complete CRUD (Create, Read, Update, Delete) control over all categories.</p>
+          <ul class="bullet-list-sm">
+            <li>To <strong>add</strong>: click <em>+ New Category</em> in the Categories module and choose a name, type, and icon.</li>
+            <li>To <strong>edit</strong>: click the pencil icon on any category card to change its title or icon.</li>
+            <li>To <strong>delete</strong>: click the trash button. If any existing entries were using that category, they are safely preserved and reassigned to "Other".</li>
+          </ul>
+        </div>
+      </details>
+
+      <!-- FAQ Item 5 -->
+      <details class="faq-item" data-category="budgets">
+        <summary class="faq-summary">
+          <div class="faq-summary-content">
+            <span class="faq-tag cyan">Budgets</span>
+            <span class="faq-question">How do the budget warnings and alerts work?</span>
+          </div>
+          <svg class="icon faq-chevron" aria-hidden="true"><use href="#icon-chevron-down"></use></svg>
+        </summary>
+        <div class="faq-answer">
+          <p>ExpenseFlow monitors your total spending against your set budget limits:</p>
+          <ul class="bullet-list-sm">
+            <li><strong>Under 80%:</strong> Displayed in green, indicating you are on track.</li>
+            <li><strong>80% to 99%:</strong> Marked with an amber warning badge to caution you that you are nearing your ceiling.</li>
+            <li><strong>100% or above:</strong> The bar turns solid red, and an immediate notification badge is added to the bell icon in the top header.</li>
+          </ul>
+        </div>
+      </details>
+
+      <!-- FAQ Item 6 -->
+      <details class="faq-item" data-category="recurring">
+        <summary class="faq-summary">
+          <div class="faq-summary-content">
+            <span class="faq-tag purple">Recurring</span>
+            <span class="faq-question">How do recurring expenses work? Does it automatically charge my account?</span>
+          </div>
+          <svg class="icon faq-chevron" aria-hidden="true"><use href="#icon-chevron-down"></use></svg>
+        </summary>
+        <div class="faq-answer">
+          <p>ExpenseFlow is a <strong>tracker and ledger</strong>, not a payment gateway, so it does not pull money from your bank account or card.</p>
+          <p>Instead, the <strong>Recurring</strong> module tracks upcoming bills (like rent, phone bills, tuition, or Netflix) and calculates next due dates. When a bill is due, a badge alert notifies you, and with a single click of the <em>Log Entry</em> play button, ExpenseFlow logs that transaction into your Entries table.</p>
+        </div>
+      </details>
+
+      <!-- FAQ Item 7 -->
+      <details class="faq-item" data-category="privacy">
+        <summary class="faq-summary">
+          <div class="faq-summary-content">
+            <span class="faq-tag yellow">Profile</span>
+            <span class="faq-question">How do I change my currency from Philippine Peso (PHP) to USD or EUR?</span>
+          </div>
+          <svg class="icon faq-chevron" aria-hidden="true"><use href="#icon-chevron-down"></use></svg>
+        </summary>
+        <div class="faq-answer">
+          <p>Click your user profile in the bottom of the sidebar or navigate to <code>#/profile</code>. In the <strong>Preferred Currency</strong> dropdown, select your desired currency (PHP ₱, USD $, EUR €, GBP £, or JPY ¥) and click <strong>Update Profile</strong>. All amounts across your dashboard, tables, and reports will instantly format with your chosen currency symbol.</p>
+        </div>
+      </details>
+
+      <!-- FAQ Item 8 -->
+      <details class="faq-item" data-category="reports">
+        <summary class="faq-summary">
+          <div class="faq-summary-content">
+            <span class="faq-tag lime">Export</span>
+            <span class="faq-question">Can I export my data to Microsoft Excel or Google Sheets?</span>
+          </div>
+          <svg class="icon faq-chevron" aria-hidden="true"><use href="#icon-chevron-down"></use></svg>
+        </summary>
+        <div class="faq-answer">
+          <p><strong>Yes!</strong> Go to the <strong>Settings</strong> module and click <strong>Export CSV</strong>. A clean, formatted <code>.csv</code> spreadsheet containing every recorded entry (Date, Title, Type, Category, Amount, Payment Method, and Notes) will download immediately for opening in Excel, Apple Numbers, or Google Sheets.</p>
+        </div>
+      </details>
+
+      <!-- FAQ Item 9 -->
+      <details class="faq-item" data-category="privacy">
+        <summary class="faq-summary">
+          <div class="faq-summary-content">
+            <span class="faq-tag cyan">Multi-User</span>
+            <span class="faq-question">Can multiple people use ExpenseFlow on the same computer?</span>
+          </div>
+          <svg class="icon faq-chevron" aria-hidden="true"><use href="#icon-chevron-down"></use></svg>
+        </summary>
+        <div class="faq-answer">
+          <p>Yes. If you share a family or school computer, you can click <strong>Log Out</strong>. Another person can register their own unique username and password. Each user gets their own personalized greeting and session credentials.</p>
+        </div>
+      </details>
+
+      <!-- FAQ Item 10 -->
+      <details class="faq-item" data-category="privacy">
+        <summary class="faq-summary">
+          <div class="faq-summary-content">
+            <span class="faq-tag purple">Reset</span>
+            <span class="faq-question">How do I start completely fresh with zero entries?</span>
+          </div>
+          <svg class="icon faq-chevron" aria-hidden="true"><use href="#icon-chevron-down"></use></svg>
+        </summary>
+        <div class="faq-answer">
+          <p>Go to <strong>Settings</strong> &rarr; <strong>Data Management</strong> &rarr; click <strong>Reset All Data</strong>. You will be prompted with a confirmation dialog. Confirming will reset your ledger, budgets, and categories back to clean defaults.</p>
+        </div>
+      </details>
+
+    </div>
+
+    <!-- SECTION 3: QUICK HELP ACTIONS -->
+    <article class="card faq-action-banner" style="margin-top: 30px;">
+      <div class="faq-action-content">
+        <div>
+          <h3>Ready to take control of your personal finances?</h3>
+          <p class="muted">Add your first income or expense entry right now, or establish your monthly spending budget.</p>
+        </div>
+        <div class="faq-action-buttons">
+          <button class="btn btn-primary" data-action="open-modal" data-modal="txModal">
+            <svg class="icon" aria-hidden="true"><use href="#icon-plus"></use></svg>
+            <span>Add Entry</span>
+          </button>
+          <a href="#/budgets" class="btn btn-soft" data-action="nav" data-page="budgets">
+            <svg class="icon" aria-hidden="true"><use href="#icon-wallet"></use></svg>
+            <span>Set Budgets</span>
+          </a>
+        </div>
+      </div>
+    </article>
+
+  </div>
+</section>

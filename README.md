@@ -1,7 +1,7 @@
 # ExpenseFlow — Smart Personal Expense Tracker
 
 A complete, dependency-light personal finance dashboard built with **HTML, CSS and vanilla
-JavaScript** (Weeks 1–5 group activity). Glassmorphism + bento-grid dark fintech design,
+JavaScript** (Weeks 1–5 group activity). Neo-Brutalism (Neubrutalism) bento-grid design,
 fully responsive, persistent through `localStorage`, with interactive charts via Chart.js.
 
 > Open `index.html` in any modern browser — no build step, no server required.
@@ -18,7 +18,7 @@ fully responsive, persistent through `localStorage`, with interactive charts via
 | **Categories** | 17 default categories (11 expense + 6 income), add custom categories with emoji icons, rename/archive, defaults are protected from deletion |
 | **Recurring** | Weekly / monthly / yearly templates, due-soon & overdue banners, one-click "generate due transactions" |
 | **Reports** | 6-month income vs. expenses bar chart, daily spending trend, category donut + distribution bars, generated insights, CSV / JSON export |
-| **Settings** | Dark / light theme, currency & preferences, import JSON (validated), load sample data, reset all data, data-storage overview |
+| **Settings** | Dark / light theme, currency & preferences, import JSON (validated), export CSV/JSON, reset all data, data-storage overview |
 | **About** | Project info, tech stack, feature checklist, group members |
 
 Cross-cutting features:
@@ -30,59 +30,61 @@ Cross-cutting features:
 - **Empty states & toasts** — guided first-run experience, non-blocking feedback
 - **Accessibility** — semantic markup, ARIA labels, focus-visible rings, keyboard support (`Esc` closes modals, `Ctrl/Cmd + K` focuses search)
 - **Responsive** — desktop → laptop → tablet → mobile (stacked cards, drawer sidebar, FAB quick-add)
-- Starts **empty on purpose**: use *Settings → Load Sample Data* to populate a realistic demo
+- Starts **clean and raw**: ready for immediate input with "+ Add Transaction" or JSON import
 
 ---
 
 ## 2. Getting started
 
-```text
-1. Double-click index.html            (works from file://)
-2. Optional: Settings → Load Sample Data
-3. Add a transaction with the "Add Transaction" button
-```
-
-Optional local server (any is fine):
-
-```bash
-npx serve .
-# or
-python -m http.server 8080
-```
-
-**Note:** Chart.js is loaded from the jsDelivr CDN. Without internet the app still works
-fully — charts simply show a friendly "charts unavailable offline" message.
+Simply double-click **`index.html`** in any modern web browser (Chrome, Edge, Firefox, Safari).
+* Works immediately from `file://` — **no server, no bundler, no installation required**.
+* Start immediately by clicking **+ Add Transaction** or importing your data.
 
 ---
 
 ## 3. Project structure
 
 ```text
-Expense Tracker/
-├── index.html                 app shell · SVG icon sprite · modals/forms · script tags
+expensetrack/
+├── index.html                   Assembled App Shell (runs 100% offline via file:// or http://)
+├── index.template.html          Master HTML template with modular injection slots
+├── package.json                 NPM scripts: `npm run build` and `npm run watch`
+├── README.md                    Project guide & documentation index
+├── modules/                     Segmented modular HTML components
+│   ├── landing/landing.html     Landing hero, stickers, auth card (login + registration)
+│   ├── sidebar/sidebar.html     Sidebar navigation, hamburger toggle, profile footer
+│   ├── topbar/topbar.html       Application header, month chip, theme toggle, logout
+│   ├── dashboard/dashboard.html Bento overview, balance, budget, recent transactions
+│   ├── transactions/transactions.html Table view, live search, advanced filters, pagination
+│   ├── budgets/budgets.html     Overall monthly meter & category budget cards
+│   ├── categories/categories.html Category manager, badges, icon picker
+│   ├── recurring/recurring.html Subscriptions, bills, schedule generator
+│   ├── reports/reports.html     Financial charts, cashflow bar, category donut
+│   ├── settings/settings.html   Preferences, currency, data backup & reset
+│   ├── about/about.html         Application guide & user instructions
+│   ├── profile/profile.html     Account credentials form & session telemetry
+│   └── modals/modals.html       Transaction, budget, category & recurring modals
+├── scripts/
+│   ├── build.js                 Assembles modules/* into index.html
+│   ├── watch.js                 Watches modules/ for changes and auto-rebuilds
+│   └── extract.js               Utility for segmenting modules from template
 ├── css/
-│   ├── style.css              design tokens · glassmorphism · bento grid · components
-│   ├── responsive.css          breakpoints: 1360 / 1200 / 992 / 768 / 480 / 1800+
-│   └── animations.css          entrances, micro-interactions, reduced-motion support
+│   ├── style.css                Neo-brutalism design tokens, surfaces & components
+│   ├── responsive.css           Breakpoints (desktop, tablet, mobile drawer)
+│   └── animations.css           Entrances & tactile micro-interactions
 ├── js/
-│   ├── utils.js               formatting, dates, debounce, ids, validation helpers
-│   ├── transactionFactory.js   FACTORY design pattern
-│   ├── strategies.js           STRATEGY design pattern
-│   ├── expenseTracker.js       SINGLETON design pattern + business logic
-│   ├── storage.js              LOCAL STORAGE layer (load/save/export/import/reset)
-│   ├── analytics.js            stats, insights, notifications, Chart.js wrappers
-│   ├── ui.js                   DOM MANIPULATION — renderers, modals, toasts, filters
-│   └── app.js                  EVENT LISTENERS — bootstrap, hash router, delegation
+│   ├── utils.js                 Formatting, currency, dates, helpers
+│   ├── transactionFactory.js    [FACTORY PATTERN] Object creation
+│   ├── strategies.js            [STRATEGY PATTERN] Sorting & filtering algorithms
+│   ├── expenseTracker.js        [SINGLETON PATTERN] State manager & store
+│   ├── storage.js               Persistent storage layer & AuthService
+│   ├── analytics.js             Chart.js wrappers & calculations
+│   ├── ui.js                    DOM manipulation, modals, toasts
+│   └── app.js                   Router, delegated event listeners & validation
 ├── data/
-│   └── sampleData.js           generator for the demo dataset
-└── assets/
-    ├── icons/                  (reserved — icons ship as an inline SVG sprite)
-    └── images/                 (reserved)
+│   └── sampleData.js            Sample data generator
+└── documentation/               Presentation guides & documentation assets
 ```
-
-Scripts load as classic `<script>` tags in dependency order (works from `file://`).
-
-**Storage keys:** `ef_transactions` · `ef_budgets` · `ef_categories` · `ef_recurring` · `ef_settings`
 
 ---
 

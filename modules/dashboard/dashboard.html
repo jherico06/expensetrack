@@ -1,0 +1,193 @@
+<!-- ==================== DASHBOARD ==================== -->
+        <section class="page active" id="page-dashboard" data-title="Dashboard">
+          <div class="page-toolbar">
+            <div class="month-nav">
+              <button class="icon-btn sm" data-action="month-prev" aria-label="Previous month">
+                <svg class="icon" aria-hidden="true"><use href="#icon-chevron-left"></use></svg>
+              </button>
+              <div class="month-nav-label">
+                <span class="month-nav-title" data-month-label>October 2026</span>
+                <button class="link-btn" data-action="month-current">Go to current month</button>
+              </div>
+              <button class="icon-btn sm" data-action="month-next" aria-label="Next month">
+                <svg class="icon" aria-hidden="true"><use href="#icon-chevron-right"></use></svg>
+              </button>
+            </div>
+            <div class="toolbar-actions">
+              <button class="btn btn-outline btn-sm module-guide-trigger" data-action="open-module-guide" data-module="dashboard" title="View Dashboard tutorial and component guide">
+                <svg class="icon sm" aria-hidden="true"><use href="#icon-help"></use></svg>
+                <span>Guide</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="empty-state" id="dashEmpty" hidden>
+            <span class="empty-icon"><svg class="icon" aria-hidden="true"><use href="#icon-inbox"></use></svg></span>
+            <h2>No entries yet</h2>
+            <p>Start tracking your finances by adding your first entry.</p>
+            <button class="btn btn-primary" data-action="go-transactions">
+              <svg class="icon" aria-hidden="true"><use href="#icon-list"></use></svg>
+              <span>Go to Entries</span>
+            </button>
+          </div>
+
+          <div class="bento" id="dashContent">
+            <!-- Available Balance -->
+            <article class="card bento-balance">
+              <div class="card-head">
+                <div>
+                  <p class="eyebrow">Available Balance</p>
+                  <h2 class="balance-amount" id="balanceAmount">₱0.00</h2>
+                </div>
+                <span class="status-chip" id="balanceChangeWrap">
+                  <svg class="icon" aria-hidden="true"><use href="#icon-arrow-up"></use></svg>
+                  <span id="balanceChange">0%</span>
+                </span>
+              </div>
+              <p class="muted small" id="balancePeriodLabel">vs previous month</p>
+              <div class="balance-split">
+                <div class="split-item positive">
+                  <span class="split-label">Total Income</span>
+                  <strong id="balanceIncome">₱0.00</strong>
+                </div>
+                <div class="split-item negative">
+                  <span class="split-label">Total Expenses</span>
+                  <strong id="balanceExpense">₱0.00</strong>
+                </div>
+              </div>
+              <div class="balance-visual" aria-hidden="true">
+                <span class="bar-grow income" id="balanceIncomeBar"></span>
+                <span class="bar-grow expense" id="balanceExpenseBar"></span>
+              </div>
+            </article>
+
+            <!-- Monthly Budget -->
+            <article class="card bento-budget">
+              <div class="card-head">
+                <p class="eyebrow purple">Monthly Budget</p>
+                <button class="icon-btn sm" data-action="budget-edit-monthly" aria-label="Edit monthly budget">
+                  <svg class="icon" aria-hidden="true"><use href="#icon-edit"></use></svg>
+                </button>
+              </div>
+              <div id="budgetCardBody">
+                <div class="budget-numbers">
+                  <div>
+                    <span class="muted small">Limit</span>
+                    <strong class="budget-limit" id="budgetLimit">₱0</strong>
+                  </div>
+                  <div>
+                    <span class="muted small">Spent</span>
+                    <strong id="budgetSpent">₱0</strong>
+                  </div>
+                  <div>
+                    <span class="muted small">Remaining</span>
+                    <strong id="budgetRemaining">₱0</strong>
+                  </div>
+                </div>
+                <div class="progress" role="progressbar" aria-label="Monthly budget usage" id="budgetBar">
+                  <span class="progress-fill" id="budgetBarFill"></span>
+                </div>
+                <div class="progress-meta">
+                  <span class="chip-state" id="budgetState">Safe</span>
+                  <strong id="budgetPercent">0%</strong>
+                </div>
+              </div>
+              <div class="mini-empty" id="budgetCardEmpty" hidden>
+                <p>No budget set for this month.</p>
+                <button class="btn btn-soft btn-sm" data-action="budget-add" data-scope="monthly">Set Monthly Budget</button>
+              </div>
+            </article>
+
+            <!-- Income summary -->
+            <article class="card bento-income">
+              <div class="card-head">
+                <p class="eyebrow green">Income</p>
+                <span class="dot-icon green"><svg class="icon" aria-hidden="true"><use href="#icon-arrow-up"></use></svg></span>
+              </div>
+              <h3 class="stat-amount positive" id="incomeTotal">₱0.00</h3>
+              <ul class="stat-list">
+                <li><span>Entries</span><strong id="incomeCount">0</strong></li>
+                <li><span>Largest income</span><strong id="incomeLargest">₱0</strong></li>
+                <li><span>Most recent</span><strong id="incomeRecent">—</strong></li>
+              </ul>
+            </article>
+
+            <!-- Expense summary -->
+            <article class="card bento-expense">
+              <div class="card-head">
+                <p class="eyebrow red">Expenses</p>
+                <span class="dot-icon red"><svg class="icon" aria-hidden="true"><use href="#icon-arrow-down"></use></svg></span>
+              </div>
+              <h3 class="stat-amount negative" id="expenseTotal">₱0.00</h3>
+              <ul class="stat-list">
+                <li><span>Entries</span><strong id="expenseCount">0</strong></li>
+                <li><span>Highest expense</span><strong id="expenseHighest">₱0</strong></li>
+                <li><span>Average expense</span><strong id="expenseAvg">₱0</strong></li>
+              </ul>
+              <p class="compare-line" id="expenseCompare"></p>
+            </article>
+
+            <!-- Budget usage ring -->
+            <article class="card bento-usage">
+              <div class="card-head">
+                <p class="eyebrow purple">Budget Usage</p>
+              </div>
+              <div class="usage-wrap">
+                <div class="ring" id="usageRing">
+                  <div class="ring-inner">
+                    <strong id="usagePercent">0%</strong>
+                    <span id="usageLabel">of budget</span>
+                  </div>
+                </div>
+                <div class="usage-side">
+                  <span class="chip-state" id="usageState">Safe</span>
+                  <p class="muted small" id="usageHint">Set a budget to start monitoring usage.</p>
+                </div>
+              </div>
+            </article>
+
+            <!-- Spending analytics -->
+            <article class="card bento-analytics">
+              <div class="card-head">
+                <p class="eyebrow">Spending Analytics</p>
+                <span class="muted small" data-month-label>October 2026</span>
+              </div>
+              <div class="chart-box tall">
+                <canvas id="chartDashCategory" aria-label="Spending by category doughnut chart" role="img"></canvas>
+                <p class="chart-fallback" hidden>Chart.js could not be loaded.</p>
+              </div>
+            </article>
+
+            <!-- Insights -->
+            <article class="card bento-insights">
+              <div class="card-head">
+                <p class="eyebrow amber">Financial Insights</p>
+                <span class="dot-icon amber"><svg class="icon" aria-hidden="true"><use href="#icon-bulb"></use></svg></span>
+              </div>
+              <ul class="insight-list" id="dashInsights"></ul>
+            </article>
+
+            <!-- Top spending -->
+            <article class="card bento-top">
+              <div class="card-head">
+                <p class="eyebrow">Top Spending</p>
+                <span class="muted small" data-month-label>October 2026</span>
+              </div>
+              <ol class="top-list" id="topSpendingList"></ol>
+              <p class="mini-empty" id="topSpendingEmpty" hidden>No expenses recorded this month.</p>
+            </article>
+
+            <!-- Recent transactions -->
+            <article class="card bento-recent">
+              <div class="card-head">
+                <div>
+                  <p class="eyebrow">Recent Entries</p>
+                  <p class="muted small">Your latest financial activity</p>
+                </div>
+                <button class="btn btn-soft btn-sm" data-action="go-transactions">View All Entries</button>
+              </div>
+              <ul class="recent-list" id="recentList"></ul>
+              <p class="mini-empty" id="recentEmpty" hidden>No entries yet.</p>
+            </article>
+          </div>
+        </section>

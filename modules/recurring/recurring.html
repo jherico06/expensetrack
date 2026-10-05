@@ -1,0 +1,37 @@
+<!-- ==================== RECURRING ==================== -->
+        <section class="page" id="page-recurring" data-title="Recurring Expenses">
+          <div class="page-toolbar">
+            <p class="muted">Bills, subscriptions and allowances that repeat on a schedule.</p>
+            <div class="toolbar-actions">
+              <button class="btn btn-outline btn-sm module-guide-trigger" data-action="open-module-guide" data-module="recurring" title="View Recurring tutorial and component guide">
+                <svg class="icon sm" aria-hidden="true"><use href="#icon-help"></use></svg>
+                <span>Guide</span>
+              </button>
+              <button class="btn btn-primary" data-action="recurring-add">
+                <svg class="icon" aria-hidden="true"><use href="#icon-plus"></use></svg>
+                <span>Add Recurring</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="due-banner" id="recurringDueBanner" hidden>
+            <span class="dot-icon amber"><svg class="icon" aria-hidden="true"><use href="#icon-alert"></use></svg></span>
+            <div>
+              <strong id="recurringDueText">Recurring payments are due.</strong>
+              <p class="muted small">Generate entries for items whose next due date has passed.</p>
+            </div>
+            <button class="btn btn-primary btn-sm" data-action="recurring-generate">
+              <svg class="icon" aria-hidden="true"><use href="#icon-refresh"></use></svg>
+              <span>Generate Due</span>
+            </button>
+          </div>
+
+          <div class="recurring-grid" id="recurringList"></div>
+
+          <div class="empty-state" id="recurringEmpty">
+            <span class="empty-icon"><svg class="icon" aria-hidden="true"><use href="#icon-repeat"></use></svg></span>
+            <h3>No recurring expenses</h3>
+            <p>Add subscriptions, bills and allowances that repeat every week, month or year.</p>
+            <button class="btn btn-primary btn-sm" data-action="recurring-add">Add Recurring</button>
+          </div>
+        </section>

@@ -1,0 +1,17 @@
+{
+  "name": "expenseflow",
+  "version": "1.0.0",
+  "description": "Smart Personal Expense Tracker with Neo-Brutalism UI",
+  "private": true,
+  "scripts": {
+    "build": "node scripts/build.js",
+    "watch": "node scripts/watch.js"
+  },
+  "keywords": [
+    "expense-tracker",
+    "personal-finance",
+    "neo-brutalism",
+    "vanilla-js"
+  ],
+  "license": "MIT"
+}

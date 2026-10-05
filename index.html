@@ -3,8 +3,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="ExpenseFlow – Smart Personal Expense Tracker. A glassmorphism bento-grid finance dashboard built with HTML, CSS and vanilla JavaScript." />
+  <meta name="description" content="ExpenseFlow – Smart Personal Expense Tracker. Track your daily expenses, set budgets, and understand your money habits with 100% privacy on your device." />
   <title>ExpenseFlow – Smart Personal Expense Tracker</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Space+Grotesk:wght@500;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
   <link rel="preconnect" href="https://cdn.jsdelivr.net" />
   <link rel="stylesheet" href="css/style.css" />
   <link rel="stylesheet" href="css/animations.css" />
@@ -13,204 +16,271 @@
 <body>
 
   <!-- ==================== SVG ICON SPRITE ==================== -->
-  <svg xmlns="http://www.w3.org/2000/svg" class="svg-sprite" aria-hidden="true" focusable="false">
-    <symbol id="icon-logo" viewBox="0 0 32 32">
-      <rect x="2" y="2" width="28" height="28" rx="9" />
-      <path d="M8 21l5.5-6 3.5 2.5L24 10" />
-      <circle cx="24" cy="10" r="2.2" />
-    </symbol>
-    <symbol id="icon-grid" viewBox="0 0 24 24">
-      <rect x="3" y="3" width="7" height="7" rx="1.5" />
-      <rect x="14" y="3" width="7" height="7" rx="1.5" />
-      <rect x="3" y="14" width="7" height="7" rx="1.5" />
-      <rect x="14" y="14" width="7" height="7" rx="1.5" />
-    </symbol>
-    <symbol id="icon-list" viewBox="0 0 24 24">
-      <line x1="9" y1="6" x2="21" y2="6" />
-      <line x1="9" y1="12" x2="21" y2="12" />
-      <line x1="9" y1="18" x2="21" y2="18" />
-      <circle cx="4.5" cy="6" r="1.4" />
-      <circle cx="4.5" cy="12" r="1.4" />
-      <circle cx="4.5" cy="18" r="1.4" />
-    </symbol>
-    <symbol id="icon-plus" viewBox="0 0 24 24">
-      <line x1="12" y1="5" x2="12" y2="19" />
-      <line x1="5" y1="12" x2="19" y2="12" />
-    </symbol>
-    <symbol id="icon-wallet" viewBox="0 0 24 24">
-      <path d="M20 7H5a2 2 0 0 1 0-4h13v4" />
-      <path d="M3 5v14a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1V8a1 1 0 0 0-1-1" />
-      <path d="M16 13.5h.01" />
-    </symbol>
-    <symbol id="icon-tag" viewBox="0 0 24 24">
-      <path d="M20.6 13.4 13.4 20.6a2 2 0 0 1-2.8 0L3 13V3h10l7.6 7.6a2 2 0 0 1 0 2.8z" />
-      <circle cx="7.5" cy="7.5" r="1.4" />
-    </symbol>
-    <symbol id="icon-repeat" viewBox="0 0 24 24">
-      <path d="M17 2l4 4-4 4" />
-      <path d="M3 11V9a4 4 0 0 1 4-4h14" />
-      <path d="M7 22l-4-4 4-4" />
-      <path d="M21 13v2a4 4 0 0 1-4 4H3" />
-    </symbol>
-    <symbol id="icon-chart" viewBox="0 0 24 24">
-      <line x1="3" y1="21" x2="21" y2="21" />
-      <rect x="5" y="11" width="3.5" height="7" rx="1" />
-      <rect x="10.5" y="6" width="3.5" height="12" rx="1" />
-      <rect x="16" y="14" width="3.5" height="4" rx="1" />
-    </symbol>
-    <symbol id="icon-pie" viewBox="0 0 24 24">
-      <path d="M21.2 15.9A10 10 0 1 1 8 2.8" />
-      <path d="M22 12A10 10 0 0 0 12 2v10z" />
-    </symbol>
-    <symbol id="icon-gear" viewBox="0 0 24 24">
-      <circle cx="12" cy="12" r="3.2" />
-      <path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1A1.7 1.7 0 0 0 4.6 9a1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z" />
-    </symbol>
-    <symbol id="icon-info" viewBox="0 0 24 24">
-      <circle cx="12" cy="12" r="9" />
-      <line x1="12" y1="11" x2="12" y2="16.5" />
-      <line x1="12" y1="7.8" x2="12.01" y2="7.8" />
-    </symbol>
-    <symbol id="icon-search" viewBox="0 0 24 24">
-      <circle cx="11" cy="11" r="7" />
-      <line x1="21" y1="21" x2="16.6" y2="16.6" />
-    </symbol>
-    <symbol id="icon-bell" viewBox="0 0 24 24">
-      <path d="M18 8a6 6 0 1 0-12 0c0 7-3 9-3 9h18s-3-2-3-9" />
-      <path d="M13.7 21a2 2 0 0 1-3.4 0" />
-    </symbol>
-    <symbol id="icon-sun" viewBox="0 0 24 24">
-      <circle cx="12" cy="12" r="4" />
-      <line x1="12" y1="2" x2="12" y2="4.5" />
-      <line x1="12" y1="19.5" x2="12" y2="22" />
-      <line x1="2" y1="12" x2="4.5" y2="12" />
-      <line x1="19.5" y1="12" x2="22" y2="12" />
-      <line x1="4.9" y1="4.9" x2="6.7" y2="6.7" />
-      <line x1="17.3" y1="17.3" x2="19.1" y2="19.1" />
-      <line x1="4.9" y1="19.1" x2="6.7" y2="17.3" />
-      <line x1="17.3" y1="6.7" x2="19.1" y2="4.9" />
-    </symbol>
-    <symbol id="icon-moon" viewBox="0 0 24 24">
-      <path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z" />
-    </symbol>
-    <symbol id="icon-menu" viewBox="0 0 24 24">
-      <line x1="3" y1="6" x2="21" y2="6" />
-      <line x1="3" y1="12" x2="21" y2="12" />
-      <line x1="3" y1="18" x2="21" y2="18" />
-    </symbol>
-    <symbol id="icon-chevron-left" viewBox="0 0 24 24">
-      <polyline points="14.5 5 8 12 14.5 19" />
-    </symbol>
-    <symbol id="icon-chevron-right" viewBox="0 0 24 24">
-      <polyline points="9.5 5 16 12 9.5 19" />
-    </symbol>
-    <symbol id="icon-chevron-down" viewBox="0 0 24 24">
-      <polyline points="5 9 12 16 19 9" />
-    </symbol>
-    <symbol id="icon-dots" viewBox="0 0 24 24">
-      <circle cx="12" cy="5" r="1.6" />
-      <circle cx="12" cy="12" r="1.6" />
-      <circle cx="12" cy="19" r="1.6" />
-    </symbol>
-    <symbol id="icon-eye" viewBox="0 0 24 24">
-      <path d="M1.5 12S5.5 5 12 5s10.5 7 10.5 7-4 7-10.5 7S1.5 12 1.5 12z" />
-      <circle cx="12" cy="12" r="3" />
-    </symbol>
-    <symbol id="icon-edit" viewBox="0 0 24 24">
-      <path d="M17 3a2.83 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5z" />
-    </symbol>
-    <symbol id="icon-copy" viewBox="0 0 24 24">
-      <rect x="9" y="9" width="12" height="12" rx="2" />
-      <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
-    </symbol>
-    <symbol id="icon-trash" viewBox="0 0 24 24">
-      <line x1="3" y1="6" x2="21" y2="6" />
-      <path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
-      <path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6" />
-      <line x1="10" y1="11" x2="10" y2="17" />
-      <line x1="14" y1="11" x2="14" y2="17" />
-    </symbol>
-    <symbol id="icon-x" viewBox="0 0 24 24">
-      <line x1="6" y1="6" x2="18" y2="18" />
-      <line x1="18" y1="6" x2="6" y2="18" />
-    </symbol>
-    <symbol id="icon-download" viewBox="0 0 24 24">
-      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-      <polyline points="7.5 11 12 15.5 16.5 11" />
-      <line x1="12" y1="15.5" x2="12" y2="3" />
-    </symbol>
-    <symbol id="icon-upload" viewBox="0 0 24 24">
-      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-      <polyline points="7.5 8.5 12 4 16.5 8.5" />
-      <line x1="12" y1="4" x2="12" y2="16" />
-    </symbol>
-    <symbol id="icon-filter" viewBox="0 0 24 24">
-      <polygon points="21.5 3.5 2.5 3.5 10.2 12.6 10.2 19.5 13.8 21.3 13.8 12.6 21.5 3.5" />
-    </symbol>
-    <symbol id="icon-arrow-up" viewBox="0 0 24 24">
-      <line x1="12" y1="20" x2="12" y2="5" />
-      <polyline points="6 11 12 5 18 11" />
-    </symbol>
-    <symbol id="icon-arrow-down" viewBox="0 0 24 24">
-      <line x1="12" y1="4" x2="12" y2="19" />
-      <polyline points="6 13 12 19 18 13" />
-    </symbol>
-    <symbol id="icon-check" viewBox="0 0 24 24">
-      <polyline points="4.5 12.5 9.5 17.5 19.5 6.5" />
-    </symbol>
-    <symbol id="icon-alert" viewBox="0 0 24 24">
-      <path d="M10.3 3.9 1.9 18a2 2 0 0 0 1.7 3h16.8a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z" />
-      <line x1="12" y1="9.5" x2="12" y2="14" />
-      <line x1="12" y1="17.5" x2="12.01" y2="17.5" />
-    </symbol>
-    <symbol id="icon-calendar" viewBox="0 0 24 24">
-      <rect x="3" y="5" width="18" height="16" rx="2" />
-      <line x1="16" y1="3" x2="16" y2="7" />
-      <line x1="8" y1="3" x2="8" y2="7" />
-      <line x1="3" y1="10.5" x2="21" y2="10.5" />
-    </symbol>
-    <symbol id="icon-bulb" viewBox="0 0 24 24">
-      <path d="M9.5 18h5" />
-      <path d="M10 21.5h4" />
-      <path d="M12 2.5a6.8 6.8 0 0 0-4 12.3c.7.5 1.1 1.4 1.1 2.3h5.8c0-.9.4-1.8 1.1-2.3A6.8 6.8 0 0 0 12 2.5z" />
-    </symbol>
-    <symbol id="icon-inbox" viewBox="0 0 24 24">
-      <path d="M22 12h-6l-2 3h-4l-2-3H2" />
-      <path d="M5.5 5.5 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.5-6.5A2 2 0 0 0 16.7 4H7.3a2 2 0 0 0-1.8 1.5z" />
-    </symbol>
-    <symbol id="icon-pause" viewBox="0 0 24 24">
-      <rect x="6" y="4.5" width="4" height="15" rx="1.2" />
-      <rect x="14" y="4.5" width="4" height="15" rx="1.2" />
-    </symbol>
-    <symbol id="icon-play" viewBox="0 0 24 24">
-      <polygon points="7 4.5 19 12 7 19.5" />
-    </symbol>
-    <symbol id="icon-refresh" viewBox="0 0 24 24">
-      <polyline points="21 4 21 10 15 10" />
-      <path d="M20.5 14a9 9 0 1 1-2.1-9.4L21 10" />
-    </symbol>
-    <symbol id="icon-swap" viewBox="0 0 24 24">
-      <polyline points="16 3 20 7 16 11" />
-      <line x1="20" y1="7" x2="4" y2="7" />
-      <polyline points="8 13 4 17 8 21" />
-      <line x1="4" y1="17" x2="20" y2="17" />
-    </symbol>
-    <symbol id="icon-file" viewBox="0 0 24 24">
-      <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
-      <polyline points="14 2 14 8 20 8" />
-    </symbol>
+  <svg xmlns="http://www.w3.org/2000/svg" class="svg-sprite" style="display: none !important; position: absolute; width: 0; height: 0; overflow: hidden;" aria-hidden="true" focusable="false">
+    <symbol id="icon-user" viewBox="0 0 24 24"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" /><circle cx="12" cy="7" r="4" /></symbol>
+    <symbol id="icon-log-out" viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" /><polyline points="16 17 21 12 16 7" /><line x1="21" y1="12" x2="9" y2="12" /></symbol>
+    <symbol id="icon-arrow-right" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12" /><polyline points="12 5 19 12 12 19" /></symbol>
+    <symbol id="icon-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" /><polyline points="12 6 12 12 16 14" /></symbol>
+    <symbol id="icon-eye-off" viewBox="0 0 24 24"><path d="M9.9 4.2A10.4 10.4 0 0 1 12 4c6.5 0 10 8 10 8a17.6 17.6 0 0 1-2.2 3.2" /><path d="M6.6 6.6C3.9 8.3 2 12 2 12s3.5 8 10 8a9.7 9.7 0 0 0 5.4-1.6" /><path d="M9.9 9.9a3 3 0 0 0 4.2 4.2" /><line x1="2" y1="2" x2="22" y2="22" /></symbol>
+    <symbol id="icon-shield" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" /></symbol>
+    <symbol id="icon-logo" viewBox="0 0 32 32"><rect x="2" y="2" width="28" height="28" rx="9" /><path d="M8 21l5.5-6 3.5 2.5L24 10" /><circle cx="24" cy="10" r="2.2" /></symbol>
+    <symbol id="icon-grid" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.5" /><rect x="14" y="3" width="7" height="7" rx="1.5" /><rect x="3" y="14" width="7" height="7" rx="1.5" /><rect x="14" y="14" width="7" height="7" rx="1.5" /></symbol>
+    <symbol id="icon-list" viewBox="0 0 24 24"><line x1="9" y1="6" x2="21" y2="6" /><line x1="9" y1="12" x2="21" y2="12" /><line x1="9" y1="18" x2="21" y2="18" /><circle cx="4.5" cy="6" r="1.4" /><circle cx="4.5" cy="12" r="1.4" /><circle cx="4.5" cy="18" r="1.4" /></symbol>
+    <symbol id="icon-plus" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19" /><line x1="5" y1="12" x2="19" y2="12" /></symbol>
+    <symbol id="icon-wallet" viewBox="0 0 24 24"><path d="M20 7H5a2 2 0 0 1 0-4h13v4" /><path d="M3 5v14a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1V8a1 1 0 0 0-1-1" /><path d="M16 13.5h.01" /></symbol>
+    <symbol id="icon-tag" viewBox="0 0 24 24"><path d="M20.6 13.4 13.4 20.6a2 2 0 0 1-2.8 0L3 13V3h10l7.6 7.6a2 2 0 0 1 0 2.8z" /><circle cx="7.5" cy="7.5" r="1.4" /></symbol>
+    <symbol id="icon-repeat" viewBox="0 0 24 24"><path d="M17 2l4 4-4 4" /><path d="M3 11V9a4 4 0 0 1 4-4h14" /><path d="M7 22l-4-4 4-4" /><path d="M21 13v2a4 4 0 0 1-4 4H3" /></symbol>
+    <symbol id="icon-chart" viewBox="0 0 24 24"><line x1="3" y1="21" x2="21" y2="21" /><rect x="5" y="11" width="3.5" height="7" rx="1" /><rect x="10.5" y="6" width="3.5" height="12" rx="1" /><rect x="16" y="14" width="3.5" height="4" rx="1" /></symbol>
+    <symbol id="icon-pie" viewBox="0 0 24 24"><path d="M21.2 15.9A10 10 0 1 1 8 2.8" /><path d="M22 12A10 10 0 0 0 12 2v10z" /></symbol>
+    <symbol id="icon-gear" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3.2" /><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1A1.7 1.7 0 0 0 4.6 9a1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z" /></symbol>
+    <symbol id="icon-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" /><line x1="12" y1="11" x2="12" y2="16.5" /><line x1="12" y1="7.8" x2="12.01" y2="7.8" /></symbol>
+    <symbol id="icon-help" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" /><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" /><line x1="12" y1="17" x2="12.01" y2="17" /></symbol>
+    <symbol id="icon-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7" /><line x1="21" y1="21" x2="16.6" y2="16.6" /></symbol>
+    <symbol id="icon-bell" viewBox="0 0 24 24"><path d="M18 8a6 6 0 1 0-12 0c0 7-3 9-3 9h18s-3-2-3-9" /><path d="M13.7 21a2 2 0 0 1-3.4 0" /></symbol>
+    <symbol id="icon-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4" /><line x1="12" y1="2" x2="12" y2="4.5" /><line x1="12" y1="19.5" x2="12" y2="22" /><line x1="2" y1="12" x2="4.5" y2="12" /><line x1="19.5" y1="12" x2="22" y2="12" /><line x1="4.9" y1="4.9" x2="6.7" y2="6.7" /><line x1="17.3" y1="17.3" x2="19.1" y2="19.1" /><line x1="4.9" y1="19.1" x2="6.7" y2="17.3" /><line x1="17.3" y1="6.7" x2="19.1" y2="4.9" /></symbol>
+    <symbol id="icon-moon" viewBox="0 0 24 24"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z" /></symbol>
+    <symbol id="icon-menu" viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6" /><line x1="3" y1="12" x2="21" y2="12" /><line x1="3" y1="18" x2="21" y2="18" /></symbol>
+    <symbol id="icon-chevron-left" viewBox="0 0 24 24"><polyline points="14.5 5 8 12 14.5 19" /></symbol>
+    <symbol id="icon-chevron-right" viewBox="0 0 24 24"><polyline points="9.5 5 16 12 9.5 19" /></symbol>
+    <symbol id="icon-chevron-down" viewBox="0 0 24 24"><polyline points="5 9 12 16 19 9" /></symbol>
+    <symbol id="icon-dots" viewBox="0 0 24 24"><circle cx="12" cy="5" r="1.6" /><circle cx="12" cy="12" r="1.6" /><circle cx="12" cy="19" r="1.6" /></symbol>
+    <symbol id="icon-eye" viewBox="0 0 24 24"><path d="M1.5 12S5.5 5 12 5s10.5 7 10.5 7-4 7-10.5 7S1.5 12 1.5 12z" /><circle cx="12" cy="12" r="3" /></symbol>
+    <symbol id="icon-edit" viewBox="0 0 24 24"><path d="M17 3a2.83 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5z" /></symbol>
+    <symbol id="icon-copy" viewBox="0 0 24 24"><rect x="9" y="9" width="12" height="12" rx="2" /><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" /></symbol>
+    <symbol id="icon-trash" viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6" /><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" /><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6" /><line x1="10" y1="11" x2="10" y2="17" /><line x1="14" y1="11" x2="14" y2="17" /></symbol>
+    <symbol id="icon-x" viewBox="0 0 24 24"><line x1="6" y1="6" x2="18" y2="18" /><line x1="18" y1="6" x2="6" y2="18" /></symbol>
+    <symbol id="icon-download" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" /><polyline points="7.5 11 12 15.5 16.5 11" /><line x1="12" y1="15.5" x2="12" y2="3" /></symbol>
+    <symbol id="icon-upload" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" /><polyline points="7.5 8.5 12 4 16.5 8.5" /><line x1="12" y1="4" x2="12" y2="16" /></symbol>
+    <symbol id="icon-filter" viewBox="0 0 24 24"><polygon points="21.5 3.5 2.5 3.5 10.2 12.6 10.2 19.5 13.8 21.3 13.8 12.6 21.5 3.5" /></symbol>
+    <symbol id="icon-arrow-up" viewBox="0 0 24 24"><line x1="12" y1="20" x2="12" y2="5" /><polyline points="6 11 12 5 18 11" /></symbol>
+    <symbol id="icon-arrow-down" viewBox="0 0 24 24"><line x1="12" y1="4" x2="12" y2="19" /><polyline points="6 13 12 19 18 13" /></symbol>
+    <symbol id="icon-check" viewBox="0 0 24 24"><polyline points="4.5 12.5 9.5 17.5 19.5 6.5" /></symbol>
+    <symbol id="icon-alert" viewBox="0 0 24 24"><path d="M10.3 3.9 1.9 18a2 2 0 0 0 1.7 3h16.8a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z" /><line x1="12" y1="9.5" x2="12" y2="14" /><line x1="12" y1="17.5" x2="12.01" y2="17.5" /></symbol>
+    <symbol id="icon-calendar" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2" /><line x1="16" y1="3" x2="16" y2="7" /><line x1="8" y1="3" x2="8" y2="7" /><line x1="3" y1="10.5" x2="21" y2="10.5" /></symbol>
+    <symbol id="icon-refresh" viewBox="0 0 24 24"><path d="M21.5 2v6h-6" /><path d="M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67" /></symbol>
+    <symbol id="icon-inbox" viewBox="0 0 24 24"><polyline points="22 12 16 12 14 15 10 15 8 12 2 12" /><path d="M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z" /></symbol>
+    <symbol id="icon-play" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3" /></symbol>
+    <symbol id="icon-pause" viewBox="0 0 24 24"><rect x="6" y="4" width="4" height="16" rx="1" /><rect x="14" y="4" width="4" height="16" rx="1" /></symbol>
+    <symbol id="icon-bulb" viewBox="0 0 24 24"><path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5" /><path d="M9 18h6" /><path d="M10 22h4" /></symbol>
+    <symbol id="lucide-utensils" viewBox="0 0 24 24"><path d="M18 2v6a3 3 0 0 1-3 3 3 3 0 0 1-3-3V2" /><path d="M15 2v19a1 1 0 0 1-1 1h-1a1 1 0 0 1-1-1V2" /><path d="M5 2v8a3 3 0 0 0 3 3 3 3 0 0 0 3-3V2" /><path d="M8 2v19a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V2" /></symbol>
+    <symbol id="lucide-car" viewBox="0 0 24 24"><path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.4-1.4.9l-1.4 2.9A3.7 3.7 0 0 0 2 12v4c0 .6.4 1 1 1h2" /><circle cx="7" cy="17" r="2" /><path d="M9 17h6" /><circle cx="17" cy="17" r="2" /></symbol>
+    <symbol id="lucide-graduation-cap" viewBox="0 0 24 24"><path d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0z" /><path d="M22 10v6" /><path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5" /></symbol>
+    <symbol id="lucide-receipt" viewBox="0 0 24 24"><path d="M4 2v20l2-1 2 1 2-1 2 1 2-1 2 1 2-1 2 1V2l-2 1-2-1-2 1-2-1-2 1-2-1-2 1Z" /><path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8" /><path d="M12 17.5v-11" /></symbol>
+    <symbol id="lucide-shopping-bag" viewBox="0 0 24 24"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z" /><path d="M3 6h18" /><path d="M16 10a4 4 0 0 1-8 0" /></symbol>
+    <symbol id="lucide-clapperboard" viewBox="0 0 24 24"><path d="M20.2 6 3 11l-.9-2.4c-.4-1.1.2-2.4 1.3-2.8l13.6-5c1.1-.4 2.4.2 2.8 1.3Z" /><path d="m6.2 5.3 3.1 4.2" /><path d="m11.5 3.3 3.1 4.2" /><path d="m16.8 1.4 3.1 4.2" /><rect width="20" height="12" x="2" y="8" rx="2" /><path d="M2 12h20" /></symbol>
+    <symbol id="lucide-heart-pulse" viewBox="0 0 24 24"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" /><path d="M3.22 12H9.5l.5-1 2 4.5 2-7 1.5 3.5h5.27" /></symbol>
+    <symbol id="lucide-scissors" viewBox="0 0 24 24"><circle cx="6" cy="6" r="3" /><circle cx="6" cy="18" r="3" /><line x1="20" y1="4" x2="8.12" y2="15.88" /><line x1="14.47" y1="14.48" x2="20" y2="20" /><line x1="8.12" y1="8.12" x2="12" y2="12" /></symbol>
+    <symbol id="lucide-smartphone" viewBox="0 0 24 24"><rect width="14" height="20" x="5" y="2" rx="2" ry="2" /><path d="M12 18h.01" /></symbol>
+    <symbol id="lucide-plane" viewBox="0 0 24 24"><path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z" /></symbol>
+    <symbol id="lucide-package" viewBox="0 0 24 24"><path d="m7.5 4.27 9 5.15" /><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z" /><path d="m3.3 7 8.7 5 8.7-5" /><path d="M12 22V12" /></symbol>
+    <symbol id="lucide-briefcase" viewBox="0 0 24 24"><rect width="20" height="14" x="2" y="7" rx="2" ry="2" /><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" /></symbol>
+    <symbol id="lucide-wallet" viewBox="0 0 24 24"><path d="M19 7V4a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v4h-3a2 2 0 0 0 0 4h3a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1" /><path d="M3 5v14a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1v-4" /></symbol>
+    <symbol id="lucide-laptop" viewBox="0 0 24 24"><path d="M20 16V7a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v9m16 0H4m16 0 1.28 2.55a1 1 0 0 1-.9 1.45H3.62a1 1 0 0 1-.9-1.45L4 16" /></symbol>
+    <symbol id="lucide-building-2" viewBox="0 0 24 24"><path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z" /><path d="M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2" /><path d="M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2" /><path d="M10 6h4" /><path d="M10 10h4" /><path d="M10 14h4" /><path d="M10 18h4" /></symbol>
+    <symbol id="lucide-gift" viewBox="0 0 24 24"><rect x="3" y="8" width="18" height="4" rx="1" /><path d="M12 8v13" /><path d="M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7" /><path d="M7.5 8a2.5 2.5 0 0 1 0-5A4.8 8 0 0 1 12 8a4.8 8 0 0 1 4.5-5 2.5 2.5 0 0 1 0 5" /></symbol>
+    <symbol id="lucide-coins" viewBox="0 0 24 24"><circle cx="8" cy="8" r="6" /><path d="M18.09 10.37A6 6 0 1 1 10.34 18" /><path d="M7 6h1v4" /><path d="m16.71 13.88.7.71-2.82 2.82" /></symbol>
+    <symbol id="lucide-coffee" viewBox="0 0 24 24"><path d="M10 2v2" /><path d="M14 2v2" /><path d="M16 8a1 1 0 0 1 1 1v8a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V9a1 1 0 0 1 1-1h12Z" /><path d="M6 2v2" /><path d="M17 10h1a3 3 0 0 1 3 3v1a3 3 0 0 1-3 3h-1" /></symbol>
+    <symbol id="lucide-bus" viewBox="0 0 24 24"><path d="M8 6v6" /><path d="M15 6v6" /><path d="M2 12h19.6" /><path d="M18 18h3s.5-1.7.8-2.8c.1-.4.2-.8.2-1.2 0-.4-.1-.8-.2-1.2l-1.4-5C20.1 6.8 19.1 6 18 6H4a2 2 0 0 0-2 2v10h3" /><circle cx="7" cy="18" r="2" /><path d="M9 18h5" /><circle cx="16" cy="18" r="2" /></symbol>
+    <symbol id="lucide-shopping-cart" viewBox="0 0 24 24"><circle cx="8" cy="21" r="1" /><circle cx="19" cy="21" r="1" /><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12" /></symbol>
+    <symbol id="lucide-gamepad-2" viewBox="0 0 24 24"><line x1="6" x2="10" y1="11" y2="11" /><line x1="8" x2="8" y1="9" y2="13" /><line x1="15" x2="15.01" y1="12" y2="12" /><line x1="18" x2="18.01" y1="10" y2="10" /><path d="M17.32 5H6.68a4 4 0 0 0-3.978 3.59c-.006.052-.01.101-.017.152C2.604 9.416 2 14.456 2 16a3 3 0 0 0 3 3c1 0 1.5-.5 2-1l1.414-1.414A2 2 0 0 1 9.828 16h4.344a2 2 0 0 1 1.414.586L17 18c.5.5 1 1 2 1a3 3 0 0 0 3-3c0-1.545-.604-6.584-.685-7.258-.007-.05-.011-.1-.017-.151A4 4 0 0 0 17.32 5z" /></symbol>
+    <symbol id="lucide-home" viewBox="0 0 24 24"><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8" /><path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" /></symbol>
+    <symbol id="lucide-dumbbell" viewBox="0 0 24 24"><path d="m6.5 6.5 11 11" /><path d="m21 21-1-1a2 2 0 0 0-2.83 0l-2.5 2.5a2 2 0 0 1-2.83 0l-1.34-1.34a2 2 0 0 1 0-2.83l2.5-2.5a2 2 0 0 0 0-2.83l-1-1" /><path d="m3 3 1 1a2 2 0 0 0 2.83 0l2.5-2.5a2 2 0 0 1 2.83 0l1.34 1.34a2 2 0 0 1 0 2.83l-2.5 2.5a2 2 0 0 0 0 2.83l1 1" /></symbol>
+    <symbol id="lucide-paw-print" viewBox="0 0 24 24"><circle cx="11" cy="4" r="2" /><circle cx="18" cy="8" r="2" /><circle cx="20" cy="16" r="2" /><path d="M9 10a5 5 0 0 1 5 5v3.5a3.5 3.5 0 0 1-6.84 1.045Q6.52 17.48 4.46 16.84A3.5 3.5 0 0 1 5.5 10Z" /></symbol>
+    <symbol id="lucide-lightbulb" viewBox="0 0 24 24"><path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5" /><path d="M9 18h6" /><path d="M10 22h4" /></symbol>
+    <symbol id="lucide-music" viewBox="0 0 24 24"><path d="M9 18V5l12-2v13" /><circle cx="6" cy="18" r="3" /><circle cx="18" cy="16" r="3" /></symbol>
   </svg>
+
+  <!-- ==================== PUBLIC LANDING PAGE ==================== -->
+  <div id="landingPage" class="landing-page" hidden>
+    <!-- Topbar -->
+    <header class="landing-nav">
+      <div class="landing-nav-brand">
+        <span class="brand-mark"><svg class="icon" aria-hidden="true"><use href="#icon-logo"></use></svg></span>
+        <strong>ExpenseFlow</strong>
+      </div>
+      <div class="landing-nav-actions">
+        <button class="icon-btn" data-action="toggle-theme" aria-label="Toggle dark and light theme">
+          <svg class="icon theme-icon theme-icon-dark" aria-hidden="true"><use href="#icon-sun"></use></svg>
+          <svg class="icon theme-icon theme-icon-light" aria-hidden="true"><use href="#icon-moon"></use></svg>
+        </button>
+        <button class="btn btn-primary" data-action="focus-login">
+          <span>Sign In</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="landing-hero">
+      <div class="landing-pill">
+        <span>✦ YOUR PERSONAL MONEY TRACKER ✦</span>
+      </div>
+      <h1 class="landing-title">
+        KNOW WHERE YOUR MONEY GOES, <span class="highlight-yellow">EVERY DAY</span> &amp; <span class="highlight-cyan">EVERY MONTH</span>
+      </h1>
+      <p class="landing-subtitle">
+        ExpenseFlow is a simple and easy way to keep track of your income and spending. Record your daily expenses, set budgets you can stick to, and see clear summaries of your money habits — so you can save more and worry less.
+      </p>
+
+      <div class="landing-stickers">
+        <span class="sticker st-yellow">★ Easy to Use</span>
+        <span class="sticker st-green">✔ Track Income &amp; Expenses</span>
+        <span class="sticker st-pink">⚡ Smart Budget Alerts</span>
+        <span class="sticker st-cyan">🛡 Private &amp; Secure</span>
+        <span class="sticker st-cream">📊 Clear Monthly Reports</span>
+      </div>
+    </section>
+
+    <!-- Main Section: Sign In Card + Features Grid -->
+    <main class="landing-main">
+      <div class="auth-card">
+        <div class="auth-card-head">
+          <h2 id="authCardTitle">Welcome Back</h2>
+          <p id="authCardDesc">Sign in with your username and password to continue managing your finances.</p>
+        </div>
+
+        <div class="auth-tabs" role="tablist">
+          <button type="button" class="auth-tab active" id="tabSignIn" data-action="switch-auth-tab" data-tab="signin" role="tab" aria-selected="true">Sign In</button>
+          <button type="button" class="auth-tab" id="tabRegister" data-action="switch-auth-tab" data-tab="register" role="tab" aria-selected="false">Create Account</button>
+        </div>
+
+        <!-- Sign In Form -->
+        <form id="authForm" class="auth-form" novalidate>
+          <div class="form-group">
+            <label for="loginUsername">Username</label>
+            <input type="text" id="loginUsername" placeholder="Enter your username" autocomplete="username" maxlength="20" aria-describedby="loginUsernameError" />
+            <small class="field-error" id="loginUsernameError" role="alert" hidden></small>
+          </div>
+
+          <div class="form-group">
+            <label for="loginPassword">Password</label>
+            <div class="password-wrap">
+              <input type="password" id="loginPassword" placeholder="Enter your password" autocomplete="current-password" maxlength="64" aria-describedby="loginPasswordError" />
+              <button type="button" class="password-toggle" data-action="toggle-password" data-target="loginPassword" aria-label="Show password" aria-pressed="false" title="Show password">
+                <svg class="icon icon-show" aria-hidden="true"><use href="#icon-eye"></use></svg>
+                <svg class="icon icon-hide" aria-hidden="true"><use href="#icon-eye-off"></use></svg>
+              </button>
+            </div>
+            <small class="field-error" id="loginPasswordError" role="alert" hidden></small>
+          </div>
+
+          <button type="submit" class="btn btn-primary btn-block">
+            <svg class="icon" aria-hidden="true"><use href="#icon-arrow-right"></use></svg>
+            <span>Sign In</span>
+          </button>
+
+          <p class="auth-switch-link">
+            Don't have an account? <button type="button" data-action="switch-auth-tab" data-tab="register">Create one</button>
+          </p>
+        </form>
+
+        <!-- Registration Form -->
+        <form id="registerForm" class="auth-form" novalidate hidden>
+          <div class="form-group">
+            <label for="regDisplayName">Display Name</label>
+            <input type="text" id="regDisplayName" placeholder="e.g. Josh Roa" maxlength="40" aria-describedby="regDisplayNameError" />
+            <small class="field-error" id="regDisplayNameError" role="alert" hidden></small>
+          </div>
+
+          <div class="form-group">
+            <label for="regUsername">Username</label>
+            <input type="text" id="regUsername" placeholder="Choose a username" autocomplete="username" maxlength="20" aria-describedby="regUsernameError" />
+            <small class="field-error" id="regUsernameError" role="alert" hidden></small>
+          </div>
+
+          <div class="form-group">
+            <label for="regPassword">Password</label>
+            <div class="password-wrap">
+              <input type="password" id="regPassword" placeholder="Create a password (min. 4 characters)" autocomplete="new-password" maxlength="64" aria-describedby="regPasswordError" />
+              <button type="button" class="password-toggle" data-action="toggle-password" data-target="regPassword" aria-label="Show password" aria-pressed="false" title="Show password">
+                <svg class="icon icon-show" aria-hidden="true"><use href="#icon-eye"></use></svg>
+                <svg class="icon icon-hide" aria-hidden="true"><use href="#icon-eye-off"></use></svg>
+              </button>
+            </div>
+            <small class="field-error" id="regPasswordError" role="alert" hidden></small>
+          </div>
+
+          <div class="form-group">
+            <label for="regConfirmPassword">Confirm Password</label>
+            <div class="password-wrap">
+              <input type="password" id="regConfirmPassword" placeholder="Repeat your password" autocomplete="new-password" maxlength="64" aria-describedby="regConfirmPasswordError" />
+              <button type="button" class="password-toggle" data-action="toggle-password" data-target="regConfirmPassword" aria-label="Show password" aria-pressed="false" title="Show password">
+                <svg class="icon icon-show" aria-hidden="true"><use href="#icon-eye"></use></svg>
+                <svg class="icon icon-hide" aria-hidden="true"><use href="#icon-eye-off"></use></svg>
+              </button>
+            </div>
+            <small class="field-error" id="regConfirmPasswordError" role="alert" hidden></small>
+          </div>
+
+          <button type="submit" class="btn btn-primary btn-block">
+            <svg class="icon" aria-hidden="true"><use href="#icon-check"></use></svg>
+            <span>Create Account</span>
+          </button>
+
+          <p class="auth-switch-link">
+            Already have an account? <button type="button" data-action="switch-auth-tab" data-tab="signin">Sign In</button>
+          </p>
+        </form>
+
+        <div class="auth-note">
+          <svg class="icon" aria-hidden="true"><use href="#icon-shield"></use></svg>
+          <span>Your records are kept private and saved only on this device.</span>
+        </div>
+      </div>
+
+      <div class="landing-features-grid">
+        <div class="landing-feature-card">
+          <div class="feature-icon-badge bg-yellow">
+            <svg class="icon" aria-hidden="true"><use href="#icon-list"></use></svg>
+          </div>
+          <h3>Record Every Entry</h3>
+          <p>Add your income and expenses in just a few taps. Organize them by category so you always know what you spent on.</p>
+        </div>
+
+        <div class="landing-feature-card">
+          <div class="feature-icon-badge bg-green">
+            <svg class="icon" aria-hidden="true"><use href="#icon-wallet"></use></svg>
+          </div>
+          <h3>Set Budgets That Work</h3>
+          <p>Decide how much you want to spend each month. ExpenseFlow lets you know when you are getting close to your limit.</p>
+        </div>
+
+        <div class="landing-feature-card">
+          <div class="feature-icon-badge bg-pink">
+            <svg class="icon" aria-hidden="true"><use href="#icon-chart"></use></svg>
+          </div>
+          <h3>See Your Spending Clearly</h3>
+          <p>Simple charts and summaries show your biggest expenses, monthly trends and tips to help you save more.</p>
+        </div>
+
+        <div class="landing-feature-card">
+          <div class="feature-icon-badge bg-cyan">
+            <svg class="icon" aria-hidden="true"><use href="#icon-repeat"></use></svg>
+          </div>
+          <h3>Never Miss a Bill</h3>
+          <p>Add bills, subscriptions and allowances that repeat, and get reminded when they are due.</p>
+        </div>
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="landing-footer">
+      <p>ExpenseFlow &bull; Your Smart Personal Expense Tracker</p>
+    </footer>
+  </div>
 
   <div class="app">
 
     <!-- ==================== SIDEBAR ==================== -->
-    <aside class="sidebar glass" id="sidebar" aria-label="Main navigation">
+    <aside class="sidebar" id="sidebar" aria-label="Main navigation">
       <div class="sidebar-brand">
         <span class="brand-mark"><svg class="icon" aria-hidden="true"><use href="#icon-logo"></use></svg></span>
         <span class="brand-text">
           <strong>ExpenseFlow</strong>
           <small>Smart Expense Tracker</small>
         </span>
+        <button class="icon-btn sidebar-toggle" id="sidebarToggle" data-action="toggle-sidebar" aria-label="Minimize or maximize sidebar" title="Minimize / maximize sidebar">
+          <svg class="icon" aria-hidden="true"><use href="#icon-menu"></use></svg>
+        </button>
         <button class="icon-btn sidebar-close" id="sidebarClose" data-action="close-sidebar" aria-label="Close navigation">
           <svg class="icon" aria-hidden="true"><use href="#icon-x"></use></svg>
         </button>
@@ -222,13 +292,9 @@
           <svg class="icon" aria-hidden="true"><use href="#icon-grid"></use></svg>
           <span>Dashboard</span>
         </a>
-        <a href="#/transactions" class="nav-link" data-page="transactions" data-action="nav" data-tooltip="Transactions">
+        <a href="#/transactions" class="nav-link" data-page="transactions" data-action="nav" data-tooltip="Entries">
           <svg class="icon" aria-hidden="true"><use href="#icon-list"></use></svg>
-          <span>Transactions</span>
-        </a>
-        <a href="#" class="nav-link nav-add" data-action="open-add-transaction" data-tooltip="Add Transaction">
-          <svg class="icon" aria-hidden="true"><use href="#icon-plus"></use></svg>
-          <span>Add Transaction</span>
+          <span>Entries</span>
         </a>
 
         <p class="nav-label">Manage</p>
@@ -254,6 +320,10 @@
           <svg class="icon" aria-hidden="true"><use href="#icon-gear"></use></svg>
           <span>Settings</span>
         </a>
+        <a href="#/faq" class="nav-link" data-page="faq" data-action="nav" data-tooltip="FAQ & Guide">
+          <svg class="icon" aria-hidden="true"><use href="#icon-help"></use></svg>
+          <span>FAQ</span>
+        </a>
         <a href="#/about" class="nav-link" data-page="about" data-action="nav" data-tooltip="About">
           <svg class="icon" aria-hidden="true"><use href="#icon-info"></use></svg>
           <span>About</span>
@@ -261,19 +331,24 @@
       </nav>
 
       <div class="sidebar-foot">
-        <button class="btn btn-ghost btn-block" data-action="toggle-sidebar" data-tooltip="Collapse sidebar">
-          <svg class="icon" aria-hidden="true"><use href="#icon-swap"></use></svg>
-          <span>Collapse</span>
-        </button>
+        <a href="#/profile" class="nav-link profile-foot-link" data-page="profile" data-action="nav" data-tooltip="My Profile" aria-label="Open my profile">
+          <i class="avatar foot-avatar" id="sidebarAvatar">EF</i>
+          <span class="foot-user">
+            <strong id="sidebarUserName">My Profile</strong>
+            <small id="sidebarUserHandle">View account</small>
+          </span>
+        </a>
       </div>
     </aside>
 
     <div class="sidebar-overlay" id="sidebarOverlay" data-action="close-sidebar"></div>
 
     <!-- ==================== MAIN ==================== -->
+
+    <!-- ==================== MAIN ==================== -->
     <div class="main">
       <!-- ---------- TOP HEADER ---------- -->
-      <header class="topbar glass">
+      <header class="topbar">
         <div class="topbar-left">
           <button class="icon-btn only-mobile" data-action="open-sidebar" aria-label="Open navigation">
             <svg class="icon" aria-hidden="true"><use href="#icon-menu"></use></svg>
@@ -290,16 +365,12 @@
             <span id="headerMonthText">October 2026</span>
           </span>
 
-          <button class="icon-btn" data-action="focus-search" aria-label="Search transactions">
-            <svg class="icon" aria-hidden="true"><use href="#icon-search"></use></svg>
-          </button>
-
           <div class="dropdown-wrap">
             <button class="icon-btn" data-action="toggle-notifications" aria-label="Notifications" aria-expanded="false" id="btnNotifications">
               <svg class="icon" aria-hidden="true"><use href="#icon-bell"></use></svg>
               <span class="badge" id="notifBadge" hidden>0</span>
             </button>
-            <div class="dropdown glass" id="notifPanel" hidden>
+            <div class="dropdown" id="notifPanel" hidden>
               <div class="dropdown-head">
                 <h3>Notifications</h3>
                 <button class="icon-btn sm" data-action="toggle-notifications" aria-label="Close notifications">
@@ -315,12 +386,9 @@
             <svg class="icon theme-icon theme-icon-light" aria-hidden="true"><use href="#icon-moon"></use></svg>
           </button>
 
-          <button class="btn btn-primary btn-add-top" data-action="open-add-transaction">
-            <svg class="icon" aria-hidden="true"><use href="#icon-plus"></use></svg>
-            <span>Add Transaction</span>
+          <button class="icon-btn logout-btn" data-action="logout" aria-label="Log out" title="Log out">
+            <svg class="icon" aria-hidden="true"><use href="#icon-log-out"></use></svg>
           </button>
-
-          <div class="avatar" title="Student account" aria-hidden="true">EF</div>
         </div>
       </header>
 
@@ -330,7 +398,7 @@
         <!-- ==================== DASHBOARD ==================== -->
         <section class="page active" id="page-dashboard" data-title="Dashboard">
           <div class="page-toolbar">
-            <div class="month-nav glass">
+            <div class="month-nav">
               <button class="icon-btn sm" data-action="month-prev" aria-label="Previous month">
                 <svg class="icon" aria-hidden="true"><use href="#icon-chevron-left"></use></svg>
               </button>
@@ -342,25 +410,27 @@
                 <svg class="icon" aria-hidden="true"><use href="#icon-chevron-right"></use></svg>
               </button>
             </div>
-            <button class="btn btn-primary" data-action="open-add-transaction">
-              <svg class="icon" aria-hidden="true"><use href="#icon-plus"></use></svg>
-              <span>Add Transaction</span>
-            </button>
+            <div class="toolbar-actions">
+              <button class="btn btn-outline btn-sm module-guide-trigger" data-action="open-module-guide" data-module="dashboard" title="View Dashboard tutorial and component guide">
+                <svg class="icon sm" aria-hidden="true"><use href="#icon-help"></use></svg>
+                <span>Guide</span>
+              </button>
+            </div>
           </div>
 
-          <div class="empty-state glass" id="dashEmpty" hidden>
+          <div class="empty-state" id="dashEmpty" hidden>
             <span class="empty-icon"><svg class="icon" aria-hidden="true"><use href="#icon-inbox"></use></svg></span>
-            <h2>No transactions yet</h2>
-            <p>Start tracking your finances by adding your first transaction.</p>
-            <button class="btn btn-primary" data-action="open-add-transaction">
-              <svg class="icon" aria-hidden="true"><use href="#icon-plus"></use></svg>
-              <span>Add Transaction</span>
+            <h2>No entries yet</h2>
+            <p>Start tracking your finances by adding your first entry.</p>
+            <button class="btn btn-primary" data-action="go-transactions">
+              <svg class="icon" aria-hidden="true"><use href="#icon-list"></use></svg>
+              <span>Go to Entries</span>
             </button>
           </div>
 
           <div class="bento" id="dashContent">
             <!-- Available Balance -->
-            <article class="card glass bento-balance">
+            <article class="card bento-balance">
               <div class="card-head">
                 <div>
                   <p class="eyebrow">Available Balance</p>
@@ -389,7 +459,7 @@
             </article>
 
             <!-- Monthly Budget -->
-            <article class="card glass bento-budget">
+            <article class="card bento-budget">
               <div class="card-head">
                 <p class="eyebrow purple">Monthly Budget</p>
                 <button class="icon-btn sm" data-action="budget-edit-monthly" aria-label="Edit monthly budget">
@@ -426,28 +496,28 @@
             </article>
 
             <!-- Income summary -->
-            <article class="card glass bento-income">
+            <article class="card bento-income">
               <div class="card-head">
                 <p class="eyebrow green">Income</p>
                 <span class="dot-icon green"><svg class="icon" aria-hidden="true"><use href="#icon-arrow-up"></use></svg></span>
               </div>
               <h3 class="stat-amount positive" id="incomeTotal">₱0.00</h3>
               <ul class="stat-list">
-                <li><span>Transactions</span><strong id="incomeCount">0</strong></li>
+                <li><span>Entries</span><strong id="incomeCount">0</strong></li>
                 <li><span>Largest income</span><strong id="incomeLargest">₱0</strong></li>
                 <li><span>Most recent</span><strong id="incomeRecent">—</strong></li>
               </ul>
             </article>
 
             <!-- Expense summary -->
-            <article class="card glass bento-expense">
+            <article class="card bento-expense">
               <div class="card-head">
                 <p class="eyebrow red">Expenses</p>
                 <span class="dot-icon red"><svg class="icon" aria-hidden="true"><use href="#icon-arrow-down"></use></svg></span>
               </div>
               <h3 class="stat-amount negative" id="expenseTotal">₱0.00</h3>
               <ul class="stat-list">
-                <li><span>Transactions</span><strong id="expenseCount">0</strong></li>
+                <li><span>Entries</span><strong id="expenseCount">0</strong></li>
                 <li><span>Highest expense</span><strong id="expenseHighest">₱0</strong></li>
                 <li><span>Average expense</span><strong id="expenseAvg">₱0</strong></li>
               </ul>
@@ -455,7 +525,7 @@
             </article>
 
             <!-- Budget usage ring -->
-            <article class="card glass bento-usage">
+            <article class="card bento-usage">
               <div class="card-head">
                 <p class="eyebrow purple">Budget Usage</p>
               </div>
@@ -474,7 +544,7 @@
             </article>
 
             <!-- Spending analytics -->
-            <article class="card glass bento-analytics">
+            <article class="card bento-analytics">
               <div class="card-head">
                 <p class="eyebrow">Spending Analytics</p>
                 <span class="muted small" data-month-label>October 2026</span>
@@ -486,7 +556,7 @@
             </article>
 
             <!-- Insights -->
-            <article class="card glass bento-insights">
+            <article class="card bento-insights">
               <div class="card-head">
                 <p class="eyebrow amber">Financial Insights</p>
                 <span class="dot-icon amber"><svg class="icon" aria-hidden="true"><use href="#icon-bulb"></use></svg></span>
@@ -495,7 +565,7 @@
             </article>
 
             <!-- Top spending -->
-            <article class="card glass bento-top">
+            <article class="card bento-top">
               <div class="card-head">
                 <p class="eyebrow">Top Spending</p>
                 <span class="muted small" data-month-label>October 2026</span>
@@ -505,26 +575,26 @@
             </article>
 
             <!-- Recent transactions -->
-            <article class="card glass bento-recent">
+            <article class="card bento-recent">
               <div class="card-head">
                 <div>
-                  <p class="eyebrow">Recent Transactions</p>
+                  <p class="eyebrow">Recent Entries</p>
                   <p class="muted small">Your latest financial activity</p>
                 </div>
-                <button class="btn btn-soft btn-sm" data-action="go-transactions">View All Transactions</button>
+                <button class="btn btn-soft btn-sm" data-action="go-transactions">View All Entries</button>
               </div>
               <ul class="recent-list" id="recentList"></ul>
-              <p class="mini-empty" id="recentEmpty" hidden>No transactions yet.</p>
+              <p class="mini-empty" id="recentEmpty" hidden>No entries yet.</p>
             </article>
           </div>
         </section>
 
         <!-- ==================== TRANSACTIONS ==================== -->
-        <section class="page" id="page-transactions" data-title="Transactions">
+        <section class="page" id="page-transactions" data-title="Entries">
           <div class="page-toolbar">
-            <div class="search-box glass">
+            <div class="search-box">
               <svg class="icon" aria-hidden="true"><use href="#icon-search"></use></svg>
-              <input type="search" id="searchInput" placeholder="Search title, category, notes, payment method…" aria-label="Search transactions" />
+              <input type="search" id="searchInput" placeholder="Search title, category, notes, payment method…" aria-label="Search entries" />
             </div>
             <div class="toolbar-actions">
               <button class="btn btn-soft" data-action="toggle-filters" aria-expanded="false">
@@ -532,9 +602,9 @@
                 <span>Filters</span>
                 <span class="filter-count" id="filterCount" hidden>0</span>
               </button>
-              <label class="select-wrap glass">
-                <span class="sr-only">Sort transactions</span>
-                <select id="sortSelect" aria-label="Sort transactions">
+              <label class="select-wrap">
+                <span class="sr-only">Sort entries</span>
+                <select id="sortSelect" aria-label="Sort entries">
                   <option value="newest">Newest first</option>
                   <option value="oldest">Oldest first</option>
                   <option value="highest">Highest amount</option>
@@ -543,17 +613,21 @@
                   <option value="za">Alphabetical Z–A</option>
                 </select>
               </label>
+              <button class="btn btn-outline module-guide-trigger" data-action="open-module-guide" data-module="transactions" title="View Entries tutorial and component guide">
+                <svg class="icon sm" aria-hidden="true"><use href="#icon-help"></use></svg>
+                <span>Guide</span>
+              </button>
               <button class="btn btn-primary" data-action="open-add-transaction">
                 <svg class="icon" aria-hidden="true"><use href="#icon-plus"></use></svg>
-                <span>Add</span>
+                <span>Add Entry</span>
               </button>
             </div>
           </div>
 
-          <div class="filter-panel glass" id="filterPanel" hidden>
+          <div class="filter-panel" id="filterPanel" hidden>
             <div class="filter-grid">
               <div class="filter-group">
-                <label for="filterType">Transaction Type</label>
+                <label for="filterType">Entry Type</label>
                 <select id="filterType">
                   <option value="all">All</option>
                   <option value="income">Income</option>
@@ -595,18 +669,18 @@
               </div>
             </div>
             <div class="filter-foot">
-              <span class="muted small" id="filterSummary">Showing all transactions</span>
+              <span class="muted small" id="filterSummary">Showing all entries</span>
               <button class="btn btn-ghost btn-sm" data-action="clear-filters">Clear Filters</button>
             </div>
           </div>
 
           <div class="list-head">
-            <h2>Transaction History <span class="count-pill" id="txCount">0</span></h2>
+            <h2>Entry History <span class="count-pill" id="txCount">0</span></h2>
           </div>
 
-          <div class="card glass table-card">
+          <div class="card table-card">
             <div class="table-head tx-row-head" aria-hidden="true">
-              <span>Transaction</span><span>Category</span><span>Date</span><span>Payment</span><span>Type</span><span>Amount</span><span></span>
+              <span>Entry</span><span>Category</span><span>Date</span><span>Payment</span><span>Type</span><span>Amount</span><span></span>
             </div>
             <ul class="tx-list" id="txList"></ul>
             <div class="empty-state flat" id="txEmpty" hidden></div>
@@ -616,7 +690,7 @@
         <!-- ==================== BUDGETS ==================== -->
         <section class="page" id="page-budgets" data-title="Budgets">
           <div class="page-toolbar">
-            <div class="month-nav glass">
+            <div class="month-nav">
               <button class="icon-btn sm" data-action="month-prev" aria-label="Previous month">
                 <svg class="icon" aria-hidden="true"><use href="#icon-chevron-left"></use></svg>
               </button>
@@ -628,14 +702,20 @@
                 <svg class="icon" aria-hidden="true"><use href="#icon-chevron-right"></use></svg>
               </button>
             </div>
-            <button class="btn btn-primary" data-action="budget-add" data-scope="category">
-              <svg class="icon" aria-hidden="true"><use href="#icon-plus"></use></svg>
-              <span>Category Budget</span>
-            </button>
+            <div class="toolbar-actions">
+              <button class="btn btn-outline btn-sm module-guide-trigger" data-action="open-module-guide" data-module="budgets" title="View Budgets tutorial and component guide">
+                <svg class="icon sm" aria-hidden="true"><use href="#icon-help"></use></svg>
+                <span>Guide</span>
+              </button>
+              <button class="btn btn-primary" data-action="budget-add" data-scope="category">
+                <svg class="icon" aria-hidden="true"><use href="#icon-plus"></use></svg>
+                <span>Category Budget</span>
+              </button>
+            </div>
           </div>
 
           <div class="budget-layout">
-            <article class="card glass budget-overview">
+            <article class="card budget-overview">
               <div class="card-head">
                 <div>
                   <p class="eyebrow purple">Monthly Budget</p>
@@ -678,7 +758,7 @@
               </div>
             </div>
             <div class="budget-grid" id="categoryBudgetList"></div>
-            <div class="empty-state glass flat" id="categoryBudgetEmpty">
+            <div class="empty-state flat" id="categoryBudgetEmpty">
               <span class="empty-icon"><svg class="icon" aria-hidden="true"><use href="#icon-wallet"></use></svg></span>
               <h3>No category budgets</h3>
               <p>Create limits per category to control spending in detail.</p>
@@ -690,22 +770,28 @@
         <!-- ==================== CATEGORIES ==================== -->
         <section class="page" id="page-categories" data-title="Categories">
           <div class="page-toolbar">
-            <p class="muted">Organize how income and expenses are classified. Default categories are protected.</p>
-            <button class="btn btn-primary" data-action="category-add">
-              <svg class="icon" aria-hidden="true"><use href="#icon-plus"></use></svg>
-              <span>Add Category</span>
-            </button>
+            <p class="muted">Organize how income and expenses are classified. Add, edit, or delete any category.</p>
+            <div class="toolbar-actions">
+              <button class="btn btn-outline btn-sm module-guide-trigger" data-action="open-module-guide" data-module="categories" title="View Categories tutorial and component guide">
+                <svg class="icon sm" aria-hidden="true"><use href="#icon-help"></use></svg>
+                <span>Guide</span>
+              </button>
+              <button class="btn btn-primary" data-action="category-add">
+                <svg class="icon" aria-hidden="true"><use href="#icon-plus"></use></svg>
+                <span>Add Category</span>
+              </button>
+            </div>
           </div>
 
           <div class="two-col">
-            <article class="card glass">
+            <article class="card">
               <div class="card-head">
                 <p class="eyebrow red">Expense Categories</p>
                 <span class="count-pill" id="expenseCatCount">0</span>
               </div>
               <ul class="cat-list" id="categoryExpenseList"></ul>
             </article>
-            <article class="card glass">
+            <article class="card">
               <div class="card-head">
                 <p class="eyebrow green">Income Categories</p>
                 <span class="count-pill" id="incomeCatCount">0</span>
@@ -719,17 +805,23 @@
         <section class="page" id="page-recurring" data-title="Recurring Expenses">
           <div class="page-toolbar">
             <p class="muted">Bills, subscriptions and allowances that repeat on a schedule.</p>
-            <button class="btn btn-primary" data-action="recurring-add">
-              <svg class="icon" aria-hidden="true"><use href="#icon-plus"></use></svg>
-              <span>Add Recurring</span>
-            </button>
+            <div class="toolbar-actions">
+              <button class="btn btn-outline btn-sm module-guide-trigger" data-action="open-module-guide" data-module="recurring" title="View Recurring tutorial and component guide">
+                <svg class="icon sm" aria-hidden="true"><use href="#icon-help"></use></svg>
+                <span>Guide</span>
+              </button>
+              <button class="btn btn-primary" data-action="recurring-add">
+                <svg class="icon" aria-hidden="true"><use href="#icon-plus"></use></svg>
+                <span>Add Recurring</span>
+              </button>
+            </div>
           </div>
 
-          <div class="due-banner glass" id="recurringDueBanner" hidden>
+          <div class="due-banner" id="recurringDueBanner" hidden>
             <span class="dot-icon amber"><svg class="icon" aria-hidden="true"><use href="#icon-alert"></use></svg></span>
             <div>
               <strong id="recurringDueText">Recurring payments are due.</strong>
-              <p class="muted small">Generate transactions for items whose next due date has passed.</p>
+              <p class="muted small">Generate entries for items whose next due date has passed.</p>
             </div>
             <button class="btn btn-primary btn-sm" data-action="recurring-generate">
               <svg class="icon" aria-hidden="true"><use href="#icon-refresh"></use></svg>
@@ -739,7 +831,7 @@
 
           <div class="recurring-grid" id="recurringList"></div>
 
-          <div class="empty-state glass" id="recurringEmpty">
+          <div class="empty-state" id="recurringEmpty">
             <span class="empty-icon"><svg class="icon" aria-hidden="true"><use href="#icon-repeat"></use></svg></span>
             <h3>No recurring expenses</h3>
             <p>Add subscriptions, bills and allowances that repeat every week, month or year.</p>
@@ -750,7 +842,7 @@
         <!-- ==================== REPORTS ==================== -->
         <section class="page" id="page-reports" data-title="Reports">
           <div class="page-toolbar">
-            <div class="month-nav glass">
+            <div class="month-nav">
               <button class="icon-btn sm" data-action="month-prev" aria-label="Previous month">
                 <svg class="icon" aria-hidden="true"><use href="#icon-chevron-left"></use></svg>
               </button>
@@ -763,17 +855,20 @@
               </button>
             </div>
             <div class="toolbar-actions">
-              <button class="btn btn-soft" data-action="export-csv">
+              <button class="btn btn-outline btn-sm module-guide-trigger" data-action="open-module-guide" data-module="reports" title="View Reports tutorial and component guide">
+                <svg class="icon sm" aria-hidden="true"><use href="#icon-help"></use></svg><span>Guide</span>
+              </button>
+              <button class="btn btn-soft btn-sm" data-action="export-csv">
                 <svg class="icon" aria-hidden="true"><use href="#icon-download"></use></svg><span>Export CSV</span>
               </button>
-              <button class="btn btn-soft" data-action="export-json">
+              <button class="btn btn-soft btn-sm" data-action="export-json">
                 <svg class="icon" aria-hidden="true"><use href="#icon-download"></use></svg><span>Export JSON</span>
               </button>
             </div>
           </div>
 
           <div class="report-grid">
-            <article class="card glass span-7">
+            <article class="card span-7">
               <div class="card-head">
                 <div>
                   <p class="eyebrow">Monthly Income vs Expenses</p>
@@ -784,7 +879,7 @@
               <div class="chart-box"><canvas id="chartReportBar" aria-label="Monthly income versus expenses bar chart" role="img"></canvas><p class="chart-fallback" hidden>Chart.js could not be loaded.</p></div>
             </article>
 
-            <article class="card glass span-5">
+            <article class="card span-5">
               <div class="card-head">
                 <div>
                   <p class="eyebrow">Spending Trend</p>
@@ -794,7 +889,7 @@
               <div class="chart-box"><canvas id="chartReportLine" aria-label="Daily spending trend line chart" role="img"></canvas><p class="chart-fallback" hidden>Chart.js could not be loaded.</p></div>
             </article>
 
-            <article class="card glass span-5">
+            <article class="card span-5">
               <div class="card-head">
                 <p class="eyebrow">Spending by Category</p>
                 <span class="muted small" data-month-label>October 2026</span>
@@ -802,7 +897,7 @@
               <div class="chart-box"><canvas id="chartReportDoughnut" aria-label="Spending by category doughnut chart" role="img"></canvas><p class="chart-fallback" hidden>Chart.js could not be loaded.</p></div>
             </article>
 
-            <article class="card glass span-7">
+            <article class="card span-7">
               <div class="card-head">
                 <p class="eyebrow">Category Distribution</p>
                 <span class="muted small">Percentage of total spending</span>
@@ -810,7 +905,7 @@
               <ul class="dist-list" id="distributionList"></ul>
             </article>
 
-            <article class="card glass span-12">
+            <article class="card span-12">
               <div class="card-head">
                 <p class="eyebrow amber">Financial Insights</p>
                 <span class="dot-icon amber"><svg class="icon" aria-hidden="true"><use href="#icon-bulb"></use></svg></span>
@@ -823,7 +918,7 @@
         <!-- ==================== SETTINGS ==================== -->
         <section class="page" id="page-settings" data-title="Settings">
           <div class="settings-grid">
-            <article class="card glass">
+            <article class="card">
               <div class="card-head">
                 <div>
                   <p class="eyebrow">Appearance</p>
@@ -840,7 +935,7 @@
               </div>
             </article>
 
-            <article class="card glass">
+            <article class="card">
               <div class="card-head">
                 <div>
                   <p class="eyebrow">Data Overview</p>
@@ -850,11 +945,11 @@
               <div class="stats-grid" id="settingsStats"></div>
             </article>
 
-            <article class="card glass span-12">
+            <article class="card span-12">
               <div class="card-head">
                 <div>
                   <p class="eyebrow">Data Management</p>
-                  <p class="muted small">Export, import, load demo data or reset the application.</p>
+                  <p class="muted small">Export, import or reset the application data.</p>
                 </div>
               </div>
               <div class="btn-row">
@@ -868,9 +963,6 @@
                   <svg class="icon" aria-hidden="true"><use href="#icon-upload"></use></svg><span>Import JSON</span>
                 </button>
                 <input type="file" id="importFile" accept="application/json,.json" hidden />
-                <button class="btn btn-soft" data-action="load-sample">
-                  <svg class="icon" aria-hidden="true"><use href="#icon-file"></use></svg><span>Load Sample Data</span>
-                </button>
                 <button class="btn btn-danger" data-action="reset-data">
                   <svg class="icon" aria-hidden="true"><use href="#icon-trash"></use></svg><span>Reset All Data</span>
                 </button>
@@ -880,64 +972,692 @@
           </div>
         </section>
 
+        <!-- ==================== FAQ & USER GUIDE ==================== -->
+<section class="page" id="page-faq" data-title="FAQ & Guide">
+  <div class="faq-container">
+
+    <!-- FAQ Hero Banner -->
+    <article class="card faq-hero-card">
+      <div class="faq-hero-header">
+        <span class="brand-mark lg"><svg class="icon" aria-hidden="true"><use href="#icon-help"></use></svg></span>
+        <div style="flex: 1;">
+          <p class="eyebrow amber">Help Center &amp; Documentation</p>
+          <h2>Frequently Asked Questions &amp; User Tutorial</h2>
+          <p class="muted">Master ExpenseFlow with our complete step-by-step tutorial. Learn how to log entries, set category budgets, automate recurring subscriptions, analyze spending, and securely back up your records.</p>
+        </div>
+        <button class="btn btn-outline btn-sm module-guide-trigger" data-action="open-module-guide" data-module="faq" title="View FAQ module tutorial">
+          <svg class="icon sm" aria-hidden="true"><use href="#icon-help"></use></svg>
+          <span>Guide</span>
+        </button>
+      </div>
+
+      <!-- FAQ Search and Topic Filter -->
+      <div class="faq-search-box">
+        <div class="faq-input-wrapper">
+          <svg class="icon faq-search-icon" aria-hidden="true"><use href="#icon-search"></use></svg>
+          <input type="search" id="faqSearchInput" placeholder="Search tutorials &amp; questions (e.g. 'budget', 'add entry', 'export', 'category')..." aria-label="Search FAQ" />
+          <button type="button" class="btn btn-soft btn-sm" id="faqClearSearch" style="display: none;">Clear</button>
+        </div>
+        <div class="faq-filter-pills" id="faqFilterPills" role="tablist" aria-label="FAQ Categories">
+          <button class="pill-btn active" data-faq-filter="all">All Topics</button>
+          <button class="pill-btn" data-faq-filter="tutorial">Step-by-Step Tutorials</button>
+          <button class="pill-btn" data-faq-filter="entries">Entries</button>
+          <button class="pill-btn" data-faq-filter="budgets">Budgets</button>
+          <button class="pill-btn" data-faq-filter="categories">Categories</button>
+          <button class="pill-btn" data-faq-filter="recurring">Recurring</button>
+          <button class="pill-btn" data-faq-filter="reports">Reports</button>
+          <button class="pill-btn" data-faq-filter="privacy">Privacy &amp; Backups</button>
+        </div>
+      </div>
+    </article>
+
+    <!-- SECTION 1: DETAILED STEP-BY-STEP TUTORIALS -->
+    <div class="faq-section-header">
+      <h3 class="section-title">
+        <svg class="icon" aria-hidden="true"><use href="#icon-bulb"></use></svg>
+        <span>Complete Step-by-Step User Guides</span>
+      </h3>
+      <p class="muted small">Walkthroughs explaining every major module and feature in ExpenseFlow.</p>
+    </div>
+
+    <div class="faq-tutorials-grid" id="faqTutorialsList">
+
+      <!-- Tutorial 1: Account & Setup -->
+      <article class="card tutorial-card" data-category="tutorial privacy">
+        <div class="tutorial-card-head">
+          <span class="step-badge purple">Guide 1</span>
+          <div>
+            <h4>Getting Started &amp; Your Local Account</h4>
+            <p class="muted small">How account creation, authentication, and your profile work.</p>
+          </div>
+        </div>
+        <div class="tutorial-steps">
+          <div class="step-item">
+            <span class="step-num">1</span>
+            <div class="step-body">
+              <strong>Create Your Account</strong>
+              <p>On the landing page, switch to the <em>Register</em> tab. Enter your Display Name, a unique Username, and Password. Your account is created locally on your device with no third-party servers.</p>
+            </div>
+          </div>
+          <div class="step-item">
+            <span class="step-num">2</span>
+            <div class="step-body">
+              <strong>Configure Your Currency in Profile</strong>
+              <p>Click your avatar or name at the bottom of the sidebar to visit your <strong>Profile</strong>. Choose your preferred currency (₱ PHP, $ USD, € EUR, £ GBP, or ¥ JPY). All calculations immediately adapt.</p>
+            </div>
+          </div>
+          <div class="step-item">
+            <span class="step-num">3</span>
+            <div class="step-body">
+              <strong>Stay Signed In Locally</strong>
+              <p>Your session stays active across page reloads. Whenever you wish to switch users or lock your session, click <strong>Log Out</strong> from the sidebar or Profile banner.</p>
+            </div>
+          </div>
+        </div>
+        <div class="tutorial-footer">
+          <a href="#/profile" class="btn btn-soft btn-sm" data-action="nav" data-page="profile">Open My Profile &rarr;</a>
+        </div>
+      </article>
+
+      <!-- Tutorial 2: Entries -->
+      <article class="card tutorial-card" data-category="tutorial entries">
+        <div class="tutorial-card-head">
+          <span class="step-badge yellow">Guide 2</span>
+          <div>
+            <h4>Recording &amp; Managing Entries</h4>
+            <p class="muted small">Logging expenses and income, applying filters, and editing records.</p>
+          </div>
+        </div>
+        <div class="tutorial-steps">
+          <div class="step-item">
+            <span class="step-num">1</span>
+            <div class="step-body">
+              <strong>Click "+ Add Entry"</strong>
+              <p>Navigate to <strong>Entries</strong> in the sidebar, or click the yellow <em>+ Add Entry</em> button in the header toolbar to open the entry creation window.</p>
+            </div>
+          </div>
+          <div class="step-item">
+            <span class="step-num">2</span>
+            <div class="step-body">
+              <strong>Choose Type: Expense or Income</strong>
+              <p>Select <em>Expense</em> (money spent) or <em>Income</em> (money earned). Select a relevant category (Food, Salary, Bills, etc.) and enter the amount.</p>
+            </div>
+          </div>
+          <div class="step-item">
+            <span class="step-num">3</span>
+            <div class="step-body">
+              <strong>Specify Payment Method, Date &amp; Notes</strong>
+              <p>Pick how it was paid (Cash, Bank Transfer, GCash / E-Wallet, Credit Card), the date of the record, and optional notes (e.g., store name, receipt reference).</p>
+            </div>
+          </div>
+          <div class="step-item">
+            <span class="step-num">4</span>
+            <div class="step-body">
+              <strong>Filter, Search &amp; Sort Entries</strong>
+              <p>Use the comprehensive filters in the Entries module to search by keyword, filter by category, payment method, date range, or amount limits. Sort by newest, highest, or lowest.</p>
+            </div>
+          </div>
+          <div class="step-item">
+            <span class="step-num">5</span>
+            <div class="step-body">
+              <strong>Edit, Duplicate or Delete</strong>
+              <p>Click the three dots (•••) on any entry row to view full details, duplicate the entry to save time, edit its details, or delete it.</p>
+            </div>
+          </div>
+        </div>
+        <div class="tutorial-footer">
+          <a href="#/transactions" class="btn btn-soft btn-sm" data-action="nav" data-page="transactions">Go to Entries &rarr;</a>
+        </div>
+      </article>
+
+      <!-- Tutorial 3: Budgets -->
+      <article class="card tutorial-card" data-category="tutorial budgets">
+        <div class="tutorial-card-head">
+          <span class="step-badge cyan">Guide 3</span>
+          <div>
+            <h4>Setting Monthly &amp; Category Budgets</h4>
+            <p class="muted small">Stay disciplined with automated progress bars and threshold warnings.</p>
+          </div>
+        </div>
+        <div class="tutorial-steps">
+          <div class="step-item">
+            <span class="step-num">1</span>
+            <div class="step-body">
+              <strong>Set an Overall Monthly Budget</strong>
+              <p>Go to the <strong>Budgets</strong> module. Click <em>Set Monthly Budget</em> and enter your target maximum spending for the current month (e.g. ₱20,000).</p>
+            </div>
+          </div>
+          <div class="step-item">
+            <span class="step-num">2</span>
+            <div class="step-body">
+              <strong>Add Category-Specific Limits</strong>
+              <p>Click <em>+ Add Category Budget</em> to place limits on high-spending categories like <em>Food &amp; Dining</em>, <em>Shopping</em>, or <em>Transportation</em>.</p>
+            </div>
+          </div>
+          <div class="step-item">
+            <span class="step-num">3</span>
+            <div class="step-body">
+              <strong>Understand Color-Coded Budget Alerts</strong>
+              <p>Watch the progress meter update in real time with each logged expense:</p>
+              <ul class="bullet-list-sm">
+                <li><span class="color-dot safe"></span> <strong>Safe (0% – 79%):</strong> Green bar — you are well within your spending target.</li>
+                <li><span class="color-dot warning"></span> <strong>Warning (80% – 99%):</strong> Amber bar — you are approaching your limit.</li>
+                <li><span class="color-dot danger"></span> <strong>Exceeded (&ge;100%):</strong> Red bar — over-budget! An alert is triggered in the notification bell.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="tutorial-footer">
+          <a href="#/budgets" class="btn btn-soft btn-sm" data-action="nav" data-page="budgets">Configure Budgets &rarr;</a>
+        </div>
+      </article>
+
+      <!-- Tutorial 4: Categories -->
+      <article class="card tutorial-card" data-category="tutorial categories">
+        <div class="tutorial-card-head">
+          <span class="step-badge lime">Guide 4</span>
+          <div>
+            <h4>Organizing, Adding &amp; Deleting Categories</h4>
+            <p class="muted small">Customize how your spending and earnings are grouped.</p>
+          </div>
+        </div>
+        <div class="tutorial-steps">
+          <div class="step-item">
+            <span class="step-num">1</span>
+            <div class="step-body">
+              <strong>Browse Active Categories</strong>
+              <p>Visit <strong>Categories</strong> in the sidebar. Switch between <em>Expenses</em> and <em>Income</em> tabs to see all current classifications with their icons and usage counts.</p>
+            </div>
+          </div>
+          <div class="step-item">
+            <span class="step-num">2</span>
+            <div class="step-body">
+              <strong>Add a Custom Category</strong>
+              <p>Click <em>+ New Category</em>. Enter a descriptive title (e.g., "Gym &amp; Fitness", "Pet Care", "Side Hustle"), choose whether it is an Expense or Income, and select one of 24 Lucide icons.</p>
+            </div>
+          </div>
+          <div class="step-item">
+            <span class="step-num">3</span>
+            <div class="step-body">
+              <strong>Edit or Delete Any Category</strong>
+              <p>Every category can be edited or deleted. Click the pencil icon to rename or update its icon, or click the trash icon to remove it. When deleted, associated records are safely tagged as "Other".</p>
+            </div>
+          </div>
+        </div>
+        <div class="tutorial-footer">
+          <a href="#/categories" class="btn btn-soft btn-sm" data-action="nav" data-page="categories">Manage Categories &rarr;</a>
+        </div>
+      </article>
+
+      <!-- Tutorial 5: Recurring -->
+      <article class="card tutorial-card" data-category="tutorial recurring">
+        <div class="tutorial-card-head">
+          <span class="step-badge purple">Guide 5</span>
+          <div>
+            <h4>Automating Recurring Expenses &amp; Bills</h4>
+            <p class="muted small">Never miss a recurring subscription, rent, or scheduled allowance.</p>
+          </div>
+        </div>
+        <div class="tutorial-steps">
+          <div class="step-item">
+            <span class="step-num">1</span>
+            <div class="step-body">
+              <strong>Create a Recurring Rule</strong>
+              <p>In the <strong>Recurring</strong> module, click <em>+ New Recurring</em>. Give it a name (e.g., "Apartment Rent", "Spotify", "Monthly Allowance"), select the category, amount, and frequency (Daily, Weekly, Monthly, Yearly).</p>
+            </div>
+          </div>
+          <div class="step-item">
+            <span class="step-num">2</span>
+            <div class="step-body">
+              <strong>Pause or Resume Subscriptions</strong>
+              <p>Toggle the status switch on any recurring item between <em>Active</em> and <em>Paused</em>. Paused subscriptions won't trigger due alerts.</p>
+            </div>
+          </div>
+          <div class="step-item">
+            <span class="step-num">3</span>
+            <div class="step-body">
+              <strong>1-Click Convert to Logged Entry</strong>
+              <p>When a recurring expense is due, ExpenseFlow highlights it. Click the play button (<strong>Log Entry</strong>) to automatically record it as an active entry for today's date without retyping details.</p>
+            </div>
+          </div>
+        </div>
+        <div class="tutorial-footer">
+          <a href="#/recurring" class="btn btn-soft btn-sm" data-action="nav" data-page="recurring">Open Recurring &rarr;</a>
+        </div>
+      </article>
+
+      <!-- Tutorial 6: Reports -->
+      <article class="card tutorial-card" data-category="tutorial reports">
+        <div class="tutorial-card-head">
+          <span class="step-badge yellow">Guide 6</span>
+          <div>
+            <h4>Analytics, Visual Charts &amp; Financial Insights</h4>
+            <p class="muted small">Understand where every peso goes with interactive visual reports.</p>
+          </div>
+        </div>
+        <div class="tutorial-steps">
+          <div class="step-item">
+            <span class="step-num">1</span>
+            <div class="step-body">
+              <strong>Review the Category Breakdown Donut</strong>
+              <p>The <strong>Reports</strong> module charts your spending distribution across categories so you can instantly see which area consumes the largest slice of your income.</p>
+            </div>
+          </div>
+          <div class="step-item">
+            <span class="step-num">2</span>
+            <div class="step-body">
+              <strong>Track Monthly Income vs. Expenses</strong>
+              <p>The Monthly Comparison bar chart shows whether you operated at a surplus or deficit, and calculates your personal Savings Rate percentage.</p>
+            </div>
+          </div>
+          <div class="step-item">
+            <span class="step-num">3</span>
+            <div class="step-body">
+              <strong>Read Smart Financial Recommendations</strong>
+              <p>ExpenseFlow generates automated financial insights highlighting rapid spending increases, categories nearing limits, and advice on building an emergency reserve.</p>
+            </div>
+          </div>
+        </div>
+        <div class="tutorial-footer">
+          <a href="#/reports" class="btn btn-soft btn-sm" data-action="nav" data-page="reports">View Reports &rarr;</a>
+        </div>
+      </article>
+
+      <!-- Tutorial 7: Privacy & Backup -->
+      <article class="card tutorial-card" data-category="tutorial privacy">
+        <div class="tutorial-card-head">
+          <span class="step-badge cyan">Guide 7</span>
+          <div>
+            <h4>Data Privacy, CSV Export &amp; JSON Backups</h4>
+            <p class="muted small">Keep your financial records safe and portable forever.</p>
+          </div>
+        </div>
+        <div class="tutorial-steps">
+          <div class="step-item">
+            <span class="step-num">1</span>
+            <div class="step-body">
+              <strong>100% Local Storage Architecture</strong>
+              <p>Your financial entries, budgets, and categories never leave your computer. There are no cloud servers, no databases, and no trackers looking at your finances.</p>
+            </div>
+          </div>
+          <div class="step-item">
+            <span class="step-num">2</span>
+            <div class="step-body">
+              <strong>Download Regular Backups</strong>
+              <p>Visit <strong>Settings</strong> or <strong>Profile</strong> and click <em>Export JSON</em> (or <em>Back Up My Records</em>). Save the generated file to your Documents or cloud drive once a week.</p>
+            </div>
+          </div>
+          <div class="step-item">
+            <span class="step-num">3</span>
+            <div class="step-body">
+              <strong>Transfer to Another Computer</strong>
+              <p>To transfer your data to a new laptop, copy your saved JSON backup file. On the new laptop, open ExpenseFlow, click <em>Import JSON</em> in Settings, and choose the file. All your records will be restored instantly.</p>
+            </div>
+          </div>
+        </div>
+        <div class="tutorial-footer">
+          <a href="#/settings" class="btn btn-soft btn-sm" data-action="nav" data-page="settings">Go to Settings &rarr;</a>
+        </div>
+      </article>
+
+    </div>
+
+    <!-- SECTION 2: FREQUENTLY ASKED QUESTIONS (ACCORDION) -->
+    <div class="faq-section-header" style="margin-top: 40px;">
+      <h3 class="section-title">
+        <svg class="icon" aria-hidden="true"><use href="#icon-help"></use></svg>
+        <span>Frequently Asked Questions</span>
+      </h3>
+      <p class="muted small">Direct answers to the most common questions about ExpenseFlow.</p>
+    </div>
+
+    <div class="faq-accordion-list" id="faqAccordionList">
+
+      <!-- FAQ Item 1 -->
+      <details class="faq-item" data-category="privacy" open>
+        <summary class="faq-summary">
+          <div class="faq-summary-content">
+            <span class="faq-tag cyan">Privacy</span>
+            <span class="faq-question">Where is my financial data stored? Can anyone else see it?</span>
+          </div>
+          <svg class="icon faq-chevron" aria-hidden="true"><use href="#icon-chevron-down"></use></svg>
+        </summary>
+        <div class="faq-answer">
+          <p><strong>100% on your device.</strong> All your financial entries, categories, budgets, and profile details are saved inside your web browser's local storage (<code>localStorage</code>).</p>
+          <p>ExpenseFlow does not have a central database server, does not connect to external financial institutions, and has zero advertising or analytics trackers. Nobody except someone sitting directly in front of your unlocked browser can view your records.</p>
+        </div>
+      </details>
+
+      <!-- FAQ Item 2 -->
+      <details class="faq-item" data-category="privacy">
+        <summary class="faq-summary">
+          <div class="faq-summary-content">
+            <span class="faq-tag purple">Data Safety</span>
+            <span class="faq-question">What happens if I clear my browser history, cache, or cookies?</span>
+          </div>
+          <svg class="icon faq-chevron" aria-hidden="true"><use href="#icon-chevron-down"></use></svg>
+        </summary>
+        <div class="faq-answer">
+          <p>If you click "Clear all website data" in your browser settings, the browser will erase all local storage keys, which will reset ExpenseFlow.</p>
+          <p><strong>How to protect your records:</strong> We strongly advise using the <strong>Back Up My Records</strong> button (in Profile or Settings) to export a <code>.json</code> backup to your computer or Google Drive. Restoring from a backup takes less than 5 seconds!</p>
+        </div>
+      </details>
+
+      <!-- FAQ Item 3 -->
+      <details class="faq-item" data-category="entries">
+        <summary class="faq-summary">
+          <div class="faq-summary-content">
+            <span class="faq-tag yellow">Entries</span>
+            <span class="faq-question">What is the difference between an Expense and an Income entry?</span>
+          </div>
+          <svg class="icon faq-chevron" aria-hidden="true"><use href="#icon-chevron-down"></use></svg>
+        </summary>
+        <div class="faq-answer">
+          <p>An <strong>Expense</strong> represents money leaving your wallet or bank account (such as groceries, tuition, bills, transportation). Expenses decrease your available balance and count against your active budgets.</p>
+          <p>An <strong>Income</strong> represents money entering your balance (such as salary, monthly allowance, freelancing, gifts). Income increases your available balance and is highlighted in vibrant green.</p>
+        </div>
+      </details>
+
+      <!-- FAQ Item 4 -->
+      <details class="faq-item" data-category="categories">
+        <summary class="faq-summary">
+          <div class="faq-summary-content">
+            <span class="faq-tag lime">Categories</span>
+            <span class="faq-question">Can I edit, delete, or add new categories?</span>
+          </div>
+          <svg class="icon faq-chevron" aria-hidden="true"><use href="#icon-chevron-down"></use></svg>
+        </summary>
+        <div class="faq-answer">
+          <p><strong>Yes, absolutely!</strong> ExpenseFlow provides complete CRUD (Create, Read, Update, Delete) control over all categories.</p>
+          <ul class="bullet-list-sm">
+            <li>To <strong>add</strong>: click <em>+ New Category</em> in the Categories module and choose a name, type, and icon.</li>
+            <li>To <strong>edit</strong>: click the pencil icon on any category card to change its title or icon.</li>
+            <li>To <strong>delete</strong>: click the trash button. If any existing entries were using that category, they are safely preserved and reassigned to "Other".</li>
+          </ul>
+        </div>
+      </details>
+
+      <!-- FAQ Item 5 -->
+      <details class="faq-item" data-category="budgets">
+        <summary class="faq-summary">
+          <div class="faq-summary-content">
+            <span class="faq-tag cyan">Budgets</span>
+            <span class="faq-question">How do the budget warnings and alerts work?</span>
+          </div>
+          <svg class="icon faq-chevron" aria-hidden="true"><use href="#icon-chevron-down"></use></svg>
+        </summary>
+        <div class="faq-answer">
+          <p>ExpenseFlow monitors your total spending against your set budget limits:</p>
+          <ul class="bullet-list-sm">
+            <li><strong>Under 80%:</strong> Displayed in green, indicating you are on track.</li>
+            <li><strong>80% to 99%:</strong> Marked with an amber warning badge to caution you that you are nearing your ceiling.</li>
+            <li><strong>100% or above:</strong> The bar turns solid red, and an immediate notification badge is added to the bell icon in the top header.</li>
+          </ul>
+        </div>
+      </details>
+
+      <!-- FAQ Item 6 -->
+      <details class="faq-item" data-category="recurring">
+        <summary class="faq-summary">
+          <div class="faq-summary-content">
+            <span class="faq-tag purple">Recurring</span>
+            <span class="faq-question">How do recurring expenses work? Does it automatically charge my account?</span>
+          </div>
+          <svg class="icon faq-chevron" aria-hidden="true"><use href="#icon-chevron-down"></use></svg>
+        </summary>
+        <div class="faq-answer">
+          <p>ExpenseFlow is a <strong>tracker and ledger</strong>, not a payment gateway, so it does not pull money from your bank account or card.</p>
+          <p>Instead, the <strong>Recurring</strong> module tracks upcoming bills (like rent, phone bills, tuition, or Netflix) and calculates next due dates. When a bill is due, a badge alert notifies you, and with a single click of the <em>Log Entry</em> play button, ExpenseFlow logs that transaction into your Entries table.</p>
+        </div>
+      </details>
+
+      <!-- FAQ Item 7 -->
+      <details class="faq-item" data-category="privacy">
+        <summary class="faq-summary">
+          <div class="faq-summary-content">
+            <span class="faq-tag yellow">Profile</span>
+            <span class="faq-question">How do I change my currency from Philippine Peso (PHP) to USD or EUR?</span>
+          </div>
+          <svg class="icon faq-chevron" aria-hidden="true"><use href="#icon-chevron-down"></use></svg>
+        </summary>
+        <div class="faq-answer">
+          <p>Click your user profile in the bottom of the sidebar or navigate to <code>#/profile</code>. In the <strong>Preferred Currency</strong> dropdown, select your desired currency (PHP ₱, USD $, EUR €, GBP £, or JPY ¥) and click <strong>Update Profile</strong>. All amounts across your dashboard, tables, and reports will instantly format with your chosen currency symbol.</p>
+        </div>
+      </details>
+
+      <!-- FAQ Item 8 -->
+      <details class="faq-item" data-category="reports">
+        <summary class="faq-summary">
+          <div class="faq-summary-content">
+            <span class="faq-tag lime">Export</span>
+            <span class="faq-question">Can I export my data to Microsoft Excel or Google Sheets?</span>
+          </div>
+          <svg class="icon faq-chevron" aria-hidden="true"><use href="#icon-chevron-down"></use></svg>
+        </summary>
+        <div class="faq-answer">
+          <p><strong>Yes!</strong> Go to the <strong>Settings</strong> module and click <strong>Export CSV</strong>. A clean, formatted <code>.csv</code> spreadsheet containing every recorded entry (Date, Title, Type, Category, Amount, Payment Method, and Notes) will download immediately for opening in Excel, Apple Numbers, or Google Sheets.</p>
+        </div>
+      </details>
+
+      <!-- FAQ Item 9 -->
+      <details class="faq-item" data-category="privacy">
+        <summary class="faq-summary">
+          <div class="faq-summary-content">
+            <span class="faq-tag cyan">Multi-User</span>
+            <span class="faq-question">Can multiple people use ExpenseFlow on the same computer?</span>
+          </div>
+          <svg class="icon faq-chevron" aria-hidden="true"><use href="#icon-chevron-down"></use></svg>
+        </summary>
+        <div class="faq-answer">
+          <p>Yes. If you share a family or school computer, you can click <strong>Log Out</strong>. Another person can register their own unique username and password. Each user gets their own personalized greeting and session credentials.</p>
+        </div>
+      </details>
+
+      <!-- FAQ Item 10 -->
+      <details class="faq-item" data-category="privacy">
+        <summary class="faq-summary">
+          <div class="faq-summary-content">
+            <span class="faq-tag purple">Reset</span>
+            <span class="faq-question">How do I start completely fresh with zero entries?</span>
+          </div>
+          <svg class="icon faq-chevron" aria-hidden="true"><use href="#icon-chevron-down"></use></svg>
+        </summary>
+        <div class="faq-answer">
+          <p>Go to <strong>Settings</strong> &rarr; <strong>Data Management</strong> &rarr; click <strong>Reset All Data</strong>. You will be prompted with a confirmation dialog. Confirming will reset your ledger, budgets, and categories back to clean defaults.</p>
+        </div>
+      </details>
+
+    </div>
+
+    <!-- SECTION 3: QUICK HELP ACTIONS -->
+    <article class="card faq-action-banner" style="margin-top: 30px;">
+      <div class="faq-action-content">
+        <div>
+          <h3>Ready to take control of your personal finances?</h3>
+          <p class="muted">Add your first income or expense entry right now, or establish your monthly spending budget.</p>
+        </div>
+        <div class="faq-action-buttons">
+          <button class="btn btn-primary" data-action="open-modal" data-modal="txModal">
+            <svg class="icon" aria-hidden="true"><use href="#icon-plus"></use></svg>
+            <span>Add Entry</span>
+          </button>
+          <a href="#/budgets" class="btn btn-soft" data-action="nav" data-page="budgets">
+            <svg class="icon" aria-hidden="true"><use href="#icon-wallet"></use></svg>
+            <span>Set Budgets</span>
+          </a>
+        </div>
+      </div>
+    </article>
+
+  </div>
+</section>
+
         <!-- ==================== ABOUT ==================== -->
         <section class="page" id="page-about" data-title="About">
           <div class="about-grid">
-            <article class="card glass about-hero">
+            <article class="card about-hero">
               <span class="brand-mark lg"><svg class="icon" aria-hidden="true"><use href="#icon-logo"></use></svg></span>
               <div>
-                <h2>ExpenseFlow – Smart Personal Expense Tracker</h2>
-                <p class="muted">A personal finance dashboard built with HTML, CSS and vanilla JavaScript for a 3-member group activity covering JavaScript Weeks 1–5.</p>
+                <h2>ExpenseFlow – Your Personal Money Companion</h2>
+                <p class="muted">ExpenseFlow helps you see where your money comes from and where it goes. Record your daily income and spending, set limits for yourself, and get a clear picture of your finances every month — all in one simple place.</p>
                 <ul class="meta-list">
-                  <li><span>Course</span><strong>JavaScript Weeks 1–5 – Group Activity</strong></li>
-                  <li><span>Members</span><strong>Member 1 · Member 2 · Member 3</strong></li>
-                  <li><span>Stack</span><strong>HTML5 · CSS3 · Vanilla JS · localStorage · Chart.js</strong></li>
+                  <li><span>Made for</span><strong>Students, young professionals and anyone who wants to manage money better</strong></li>
+                  <li><span>Your data</span><strong>Saved privately on this device only</strong></li>
+                  <li><span>Cost</span><strong>Free to use</strong></li>
                 </ul>
               </div>
             </article>
 
-            <article class="card glass">
-              <div class="card-head"><p class="eyebrow purple">Factory Pattern</p></div>
-              <p class="muted"><code>TransactionFactory.createTransaction(data)</code> builds every new transaction object with a generated id, normalized amount and timestamp. Used when adding, duplicating or generating recurring transactions.</p>
+            <article class="card">
+              <div class="card-head"><p class="eyebrow purple">Track Every Peso</p></div>
+              <p class="muted">Log your income and expenses in seconds. Add a title, amount, category and payment method so you always know what each record is for.</p>
             </article>
 
-            <article class="card glass">
-              <div class="card-head"><p class="eyebrow cyan">Singleton Pattern</p></div>
-              <p class="muted"><code>ExpenseTracker.getInstance()</code> returns one central manager that owns transactions, budgets, categories, recurring items and all calculations — only one instance exists for the whole app.</p>
+            <article class="card">
+              <div class="card-head"><p class="eyebrow cyan">Stay Within Budget</p></div>
+              <p class="muted">Set a monthly spending limit or limits per category. ExpenseFlow warns you when you are getting close so you can adjust before you overspend.</p>
             </article>
 
-            <article class="card glass">
-              <div class="card-head"><p class="eyebrow amber">Strategy Pattern</p></div>
-              <p class="muted"><code>applySortStrategy(name, list)</code> switches between sorting strategies (newest, oldest, highest, lowest, A–Z, Z–A) at runtime without changing the calling code.</p>
+            <article class="card">
+              <div class="card-head"><p class="eyebrow amber">Understand Your Habits</p></div>
+              <p class="muted">Easy-to-read charts and reports show your top spending, monthly trends and helpful tips so you can make smarter money decisions.</p>
             </article>
 
-            <article class="card glass span-12">
-              <div class="card-head"><p class="eyebrow">Expected User Flow</p></div>
+            <article class="card span-12">
+              <div class="card-head"><p class="eyebrow">How to Get Started</p></div>
               <ol class="flow-list">
-                <li>Open ExpenseFlow</li><li>View dashboard</li><li>Add transaction</li>
-                <li>Factory creates the transaction object</li><li>Singleton manager stores it</li>
-                <li>Transaction pushed into the array</li><li>localStorage saves the data</li>
-                <li>Dashboard recalculates totals</li><li>Bento cards, analytics and budgets update</li>
+                <li>Sign in with your username and password</li><li>Check your dashboard overview</li><li>Add your first income or expense</li>
+                <li>Organize records with categories</li><li>Set a monthly budget</li>
+                <li>Add repeating bills or allowances</li><li>Review your reports</li>
+                <li>Back up your records anytime</li><li>Keep building better money habits</li>
               </ol>
             </article>
           </div>
         </section>
+
+        <!-- ==================== PROFILE ==================== -->
+        <section class="page" id="page-profile" data-title="Profile">
+          <div class="profile-layout">
+            <!-- User Banner Card -->
+            <div class="card profile-banner-card">
+              <div class="profile-hero-content">
+                <div class="profile-avatar-big" id="profileAvatarBig">EF</div>
+                <div class="profile-hero-text">
+                  <div class="profile-name-row">
+                    <h2 id="profileDisplayNameDisplay">User Profile</h2>
+                    <span class="badge-role" id="profileRoleBadge">Member</span>
+                  </div>
+                  <p class="profile-handle" id="profileUsernameDisplay">@user</p>
+                  <p class="profile-session-line">
+                    <svg class="icon" aria-hidden="true"><use href="#icon-clock"></use></svg>
+                    <span id="profileSessionInfo">Session active</span>
+                  </p>
+                </div>
+              </div>
+              <div class="profile-banner-actions">
+                <button class="btn btn-outline btn-sm module-guide-trigger" data-action="open-module-guide" data-module="profile" title="View Profile tutorial and component guide">
+                  <svg class="icon sm" aria-hidden="true"><use href="#icon-help"></use></svg>
+                  <span>Guide</span>
+                </button>
+                <button class="btn btn-danger" data-action="logout">
+                  <svg class="icon" aria-hidden="true"><use href="#icon-log-out"></use></svg>
+                  <span>Log Out</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Profile Grid -->
+            <div class="profile-grid">
+              <!-- Edit Profile Credentials Card -->
+              <article class="card">
+                <div class="card-head">
+                  <p class="eyebrow">Account Credentials</p>
+                </div>
+                <form id="profileForm" class="profile-form" novalidate>
+                  <div class="form-group">
+                    <label for="profileInputName">Display Name</label>
+                    <input type="text" id="profileInputName" maxlength="40" aria-describedby="profileInputNameError" required />
+                    <small class="field-error" id="profileInputNameError" role="alert" hidden></small>
+                  </div>
+                  <div class="form-group">
+                    <label for="profileInputUser">Username</label>
+                    <input type="text" id="profileInputUser" maxlength="20" aria-describedby="profileInputUserError" required />
+                    <small class="field-error" id="profileInputUserError" role="alert" hidden></small>
+                  </div>
+                  <div class="form-group">
+                    <label for="profileInputCurrency">Preferred Currency</label>
+                    <select id="profileInputCurrency">
+                      <option value="PHP">₱ Philippine Peso (PHP)</option>
+                      <option value="USD">$ US Dollar (USD)</option>
+                      <option value="EUR">€ Euro (EUR)</option>
+                      <option value="GBP">£ British Pound (GBP)</option>
+                      <option value="JPY">¥ Japanese Yen (JPY)</option>
+                    </select>
+                  </div>
+                  <button type="submit" class="btn btn-primary">
+                    <svg class="icon" aria-hidden="true"><use href="#icon-check"></use></svg>
+                    <span>Update Profile</span>
+                  </button>
+                </form>
+              </article>
+
+              <!-- Session & Vault Telemetry Card -->
+              <article class="card">
+                <div class="card-head">
+                  <p class="eyebrow">Account Summary</p>
+                </div>
+                <ul class="profile-stat-list">
+                  <li>
+                    <span>Sign-in Method</span>
+                    <strong>Username &amp; Password</strong>
+                  </li>
+                  <li>
+                    <span>Privacy</span>
+                    <strong>Private to you</strong>
+                  </li>
+                  <li>
+                    <span>Records Saved On</span>
+                    <strong>This device</strong>
+                  </li>
+                  <li>
+                    <span>Total Entries Logged</span>
+                    <strong id="profileTxCount">0</strong>
+                  </li>
+                  <li>
+                    <span>Current Available Balance</span>
+                    <strong id="profileBalance">₱0.00</strong>
+                  </li>
+                  <li>
+                    <span>Active Budgets Monitored</span>
+                    <strong id="profileBudgetsCount">0</strong>
+                  </li>
+                </ul>
+                <div class="profile-quick-actions">
+                  <button class="btn btn-soft" data-action="export-json">
+                    <svg class="icon" aria-hidden="true"><use href="#icon-download"></use></svg>
+                    <span>Back Up My Records</span>
+                  </button>
+                  <button class="btn btn-soft" data-action="go-transactions">
+                    <svg class="icon" aria-hidden="true"><use href="#icon-list"></use></svg>
+                    <span>Go to Entries</span>
+                  </button>
+                </div>
+              </article>
+            </div>
+          </div>
+        </section>
+
       </main>
     </div>
   </div>
 
-  <!-- ==================== FAB (mobile quick add) ==================== -->
-  <button class="fab" data-action="open-add-transaction" aria-label="Add transaction">
-    <svg class="icon" aria-hidden="true"><use href="#icon-plus"></use></svg>
-  </button>
-
   <!-- ==================== TRANSACTION MODAL ==================== -->
   <div class="modal-root" id="transactionModal" hidden>
     <div class="modal-backdrop" data-action="close-modal"></div>
-    <div class="modal glass" role="dialog" aria-modal="true" aria-labelledby="txModalTitle">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="txModalTitle">
       <div class="modal-head">
         <div>
-          <h2 id="txModalTitle">Add Transaction</h2>
+          <h2 id="txModalTitle">Add Entry</h2>
           <p class="muted small" id="txModalHint">Record income or an expense in a few seconds.</p>
         </div>
         <button class="icon-btn" data-action="close-modal" aria-label="Close dialog">
@@ -948,7 +1668,7 @@
       <form id="transactionForm" novalidate>
         <div class="form-grid">
           <div class="field span-2">
-            <label for="txTitle">Transaction Title</label>
+            <label for="txTitle">Entry Title</label>
             <input type="text" id="txTitle" name="title" placeholder="e.g. Lunch at cafeteria" autocomplete="off" />
             <p class="field-error" id="errTitle" hidden></p>
           </div>
@@ -960,7 +1680,7 @@
           </div>
 
           <div class="field">
-            <label for="txType">Transaction Type</label>
+            <label for="txType">Entry Type</label>
             <select id="txType" name="type">
               <option value="expense">Expense</option>
               <option value="income">Income</option>
@@ -1005,7 +1725,7 @@
             <label class="switch">
               <input type="checkbox" id="txRecurring" name="recurring" />
               <span class="switch-track" aria-hidden="true"><span class="switch-thumb"></span></span>
-              <span class="switch-text">Mark as recurring transaction</span>
+              <span class="switch-text">Mark as recurring entry</span>
             </label>
           </div>
         </div>
@@ -1014,7 +1734,7 @@
           <button type="button" class="btn btn-ghost" data-action="close-modal">Cancel</button>
           <button type="submit" class="btn btn-primary" id="txSubmitBtn">
             <svg class="icon" aria-hidden="true"><use href="#icon-check"></use></svg>
-            <span>Save Transaction</span>
+            <span>Save Entry</span>
           </button>
         </div>
       </form>
@@ -1024,9 +1744,9 @@
   <!-- ==================== DETAILS MODAL ==================== -->
   <div class="modal-root" id="detailsModal" hidden>
     <div class="modal-backdrop" data-action="close-modal"></div>
-    <div class="modal glass sm" role="dialog" aria-modal="true" aria-labelledby="detailsTitle">
+    <div class="modal sm" role="dialog" aria-modal="true" aria-labelledby="detailsTitle">
       <div class="modal-head">
-        <h2 id="detailsTitle">Transaction Details</h2>
+        <h2 id="detailsTitle">Entry Details</h2>
         <button class="icon-btn" data-action="close-modal" aria-label="Close dialog">
           <svg class="icon" aria-hidden="true"><use href="#icon-x"></use></svg>
         </button>
@@ -1039,7 +1759,7 @@
   <!-- ==================== CONFIRM MODAL ==================== -->
   <div class="modal-root" id="confirmModal" hidden>
     <div class="modal-backdrop" data-action="confirm-cancel"></div>
-    <div class="modal glass sm" role="alertdialog" aria-modal="true" aria-labelledby="confirmTitle" aria-describedby="confirmMessage">
+    <div class="modal sm" role="alertdialog" aria-modal="true" aria-labelledby="confirmTitle" aria-describedby="confirmMessage">
       <div class="modal-head">
         <span class="confirm-icon" id="confirmIcon"><svg class="icon" aria-hidden="true"><use href="#icon-alert"></use></svg></span>
         <h2 id="confirmTitle">Are you sure?</h2>
@@ -1057,7 +1777,7 @@
   <!-- ==================== BUDGET MODAL ==================== -->
   <div class="modal-root" id="budgetModal" hidden>
     <div class="modal-backdrop" data-action="close-modal"></div>
-    <div class="modal glass sm" role="dialog" aria-modal="true" aria-labelledby="budgetModalTitle">
+    <div class="modal sm" role="dialog" aria-modal="true" aria-labelledby="budgetModalTitle">
       <div class="modal-head">
         <div>
           <h2 id="budgetModalTitle">Set Monthly Budget</h2>
@@ -1107,7 +1827,7 @@
   <!-- ==================== CATEGORY MODAL ==================== -->
   <div class="modal-root" id="categoryModal" hidden>
     <div class="modal-backdrop" data-action="close-modal"></div>
-    <div class="modal glass sm" role="dialog" aria-modal="true" aria-labelledby="categoryModalTitle">
+    <div class="modal sm" role="dialog" aria-modal="true" aria-labelledby="categoryModalTitle">
       <div class="modal-head">
         <h2 id="categoryModalTitle">Add Category</h2>
         <button class="icon-btn" data-action="close-modal" aria-label="Close dialog">
@@ -1149,7 +1869,7 @@
   <!-- ==================== RECURRING MODAL ==================== -->
   <div class="modal-root" id="recurringModal" hidden>
     <div class="modal-backdrop" data-action="close-modal"></div>
-    <div class="modal glass" role="dialog" aria-modal="true" aria-labelledby="recurringModalTitle">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="recurringModalTitle">
       <div class="modal-head">
         <div>
           <h2 id="recurringModalTitle">Add Recurring Expense</h2>
@@ -1226,18 +1946,68 @@
     </div>
   </div>
 
+  <!-- ==================== MODULE GUIDE & TUTORIAL MODAL ==================== -->
+  <div class="modal-root" id="moduleGuideModal" hidden>
+    <div class="modal-backdrop" data-action="close-guide-modal"></div>
+    <div class="modal guide-modal card" role="dialog" aria-modal="true" aria-labelledby="guideModalTitle">
+      <div class="modal-head guide-modal-head">
+        <div class="guide-modal-title-wrap">
+          <span class="guide-module-badge badge-yellow" id="guideModuleBadge">
+            <svg class="icon sm" aria-hidden="true" id="guideModuleIcon"><use href="#icon-list"></use></svg>
+            <span id="guideModuleName">Entries Module</span>
+          </span>
+          <h2 id="guideModalTitle" class="guide-modal-heading">Module Guide &amp; Component Tutorial</h2>
+        </div>
+        <button class="icon-btn" data-action="close-guide-modal" aria-label="Close module guide" title="Close tutorial (Esc)">
+          <svg class="icon" aria-hidden="true"><use href="#icon-x"></use></svg>
+        </button>
+      </div>
+
+      <div class="guide-progress-bar-container">
+        <div class="guide-progress-meta">
+          <span class="guide-step-counter" id="guideStepCounter">Step 1 of 5</span>
+          <div class="guide-step-dots" id="guideStepDots" role="tablist" aria-label="Tutorial Steps"></div>
+        </div>
+        <div class="guide-progress-track">
+          <div class="guide-progress-fill" id="guideProgressBar" style="width: 20%;"></div>
+        </div>
+      </div>
+
+      <div class="guide-modal-scroll" id="guideModalBody">
+        <!-- Injected dynamically by ModuleGuide.render() -->
+      </div>
+
+      <div class="modal-foot guide-modal-foot">
+        <label class="guide-checkbox-label">
+          <input type="checkbox" id="guideDontShowAgain" />
+          <span>Don't show automatically on first visit</span>
+        </label>
+        <div class="guide-actions">
+          <button type="button" class="btn btn-soft btn-sm" id="guideBtnPrev" data-action="guide-prev">
+            &larr; Back
+          </button>
+          <button type="button" class="btn btn-primary btn-sm" id="guideBtnNext" data-action="guide-next">
+            Next &rarr;
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- ==================== TOASTS ==================== -->
   <div class="toast-container" id="toastContainer" aria-live="polite" aria-atomic="true"></div>
 
+  <script src="https://cdn.jsdelivr.net/npm/lucide@0.441.0/dist/umd/lucide.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
-  <script src="js/utils.js"></script>
-  <script src="js/transactionFactory.js"></script>
-  <script src="js/strategies.js"></script>
-  <script src="js/expenseTracker.js"></script>
-  <script src="js/storage.js"></script>
-  <script src="js/analytics.js"></script>
-  <script src="data/sampleData.js"></script>
-  <script src="js/ui.js"></script>
-  <script src="js/app.js"></script>
+  <script src="js/utils.js?v=2"></script>
+  <script src="js/transactionFactory.js?v=2"></script>
+  <script src="js/strategies.js?v=2"></script>
+  <script src="js/expenseTracker.js?v=2"></script>
+  <script src="js/storage.js?v=2"></script>
+  <script src="js/analytics.js?v=2"></script>
+  <script src="data/sampleData.js?v=2"></script>
+  <script src="js/ui.js?v=2"></script>
+  <script src="js/moduleGuide.js?v=2"></script>
+  <script src="js/app.js?v=2"></script>
 </body>
 </html>

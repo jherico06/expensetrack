@@ -1,0 +1,111 @@
+<!-- ==================== PROFILE ==================== -->
+        <section class="page" id="page-profile" data-title="Profile">
+          <div class="profile-layout">
+            <!-- User Banner Card -->
+            <div class="card profile-banner-card">
+              <div class="profile-hero-content">
+                <div class="profile-avatar-big" id="profileAvatarBig">EF</div>
+                <div class="profile-hero-text">
+                  <div class="profile-name-row">
+                    <h2 id="profileDisplayNameDisplay">User Profile</h2>
+                    <span class="badge-role" id="profileRoleBadge">Member</span>
+                  </div>
+                  <p class="profile-handle" id="profileUsernameDisplay">@user</p>
+                  <p class="profile-session-line">
+                    <svg class="icon" aria-hidden="true"><use href="#icon-clock"></use></svg>
+                    <span id="profileSessionInfo">Session active</span>
+                  </p>
+                </div>
+              </div>
+              <div class="profile-banner-actions">
+                <button class="btn btn-outline btn-sm module-guide-trigger" data-action="open-module-guide" data-module="profile" title="View Profile tutorial and component guide">
+                  <svg class="icon sm" aria-hidden="true"><use href="#icon-help"></use></svg>
+                  <span>Guide</span>
+                </button>
+                <button class="btn btn-danger" data-action="logout">
+                  <svg class="icon" aria-hidden="true"><use href="#icon-log-out"></use></svg>
+                  <span>Log Out</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Profile Grid -->
+            <div class="profile-grid">
+              <!-- Edit Profile Credentials Card -->
+              <article class="card">
+                <div class="card-head">
+                  <p class="eyebrow">Account Credentials</p>
+                </div>
+                <form id="profileForm" class="profile-form" novalidate>
+                  <div class="form-group">
+                    <label for="profileInputName">Display Name</label>
+                    <input type="text" id="profileInputName" maxlength="40" aria-describedby="profileInputNameError" required />
+                    <small class="field-error" id="profileInputNameError" role="alert" hidden></small>
+                  </div>
+                  <div class="form-group">
+                    <label for="profileInputUser">Username</label>
+                    <input type="text" id="profileInputUser" maxlength="20" aria-describedby="profileInputUserError" required />
+                    <small class="field-error" id="profileInputUserError" role="alert" hidden></small>
+                  </div>
+                  <div class="form-group">
+                    <label for="profileInputCurrency">Preferred Currency</label>
+                    <select id="profileInputCurrency">
+                      <option value="PHP">₱ Philippine Peso (PHP)</option>
+                      <option value="USD">$ US Dollar (USD)</option>
+                      <option value="EUR">€ Euro (EUR)</option>
+                      <option value="GBP">£ British Pound (GBP)</option>
+                      <option value="JPY">¥ Japanese Yen (JPY)</option>
+                    </select>
+                  </div>
+                  <button type="submit" class="btn btn-primary">
+                    <svg class="icon" aria-hidden="true"><use href="#icon-check"></use></svg>
+                    <span>Update Profile</span>
+                  </button>
+                </form>
+              </article>
+
+              <!-- Session & Vault Telemetry Card -->
+              <article class="card">
+                <div class="card-head">
+                  <p class="eyebrow">Account Summary</p>
+                </div>
+                <ul class="profile-stat-list">
+                  <li>
+                    <span>Sign-in Method</span>
+                    <strong>Username &amp; Password</strong>
+                  </li>
+                  <li>
+                    <span>Privacy</span>
+                    <strong>Private to you</strong>
+                  </li>
+                  <li>
+                    <span>Records Saved On</span>
+                    <strong>This device</strong>
+                  </li>
+                  <li>
+                    <span>Total Entries Logged</span>
+                    <strong id="profileTxCount">0</strong>
+                  </li>
+                  <li>
+                    <span>Current Available Balance</span>
+                    <strong id="profileBalance">₱0.00</strong>
+                  </li>
+                  <li>
+                    <span>Active Budgets Monitored</span>
+                    <strong id="profileBudgetsCount">0</strong>
+                  </li>
+                </ul>
+                <div class="profile-quick-actions">
+                  <button class="btn btn-soft" data-action="export-json">
+                    <svg class="icon" aria-hidden="true"><use href="#icon-download"></use></svg>
+                    <span>Back Up My Records</span>
+                  </button>
+                  <button class="btn btn-soft" data-action="go-transactions">
+                    <svg class="icon" aria-hidden="true"><use href="#icon-list"></use></svg>
+                    <span>Go to Entries</span>
+                  </button>
+                </div>
+              </article>
+            </div>
+          </div>
+        </section>

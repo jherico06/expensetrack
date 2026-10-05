@@ -1,0 +1,74 @@
+<!-- ==================== SIDEBAR ==================== -->
+    <aside class="sidebar" id="sidebar" aria-label="Main navigation">
+      <div class="sidebar-brand">
+        <span class="brand-mark"><svg class="icon" aria-hidden="true"><use href="#icon-logo"></use></svg></span>
+        <span class="brand-text">
+          <strong>ExpenseFlow</strong>
+          <small>Smart Expense Tracker</small>
+        </span>
+        <button class="icon-btn sidebar-toggle" id="sidebarToggle" data-action="toggle-sidebar" aria-label="Minimize or maximize sidebar" title="Minimize / maximize sidebar">
+          <svg class="icon" aria-hidden="true"><use href="#icon-menu"></use></svg>
+        </button>
+        <button class="icon-btn sidebar-close" id="sidebarClose" data-action="close-sidebar" aria-label="Close navigation">
+          <svg class="icon" aria-hidden="true"><use href="#icon-x"></use></svg>
+        </button>
+      </div>
+
+      <nav class="sidebar-nav">
+        <p class="nav-label">Overview</p>
+        <a href="#/dashboard" class="nav-link active" data-page="dashboard" data-action="nav" data-tooltip="Dashboard">
+          <svg class="icon" aria-hidden="true"><use href="#icon-grid"></use></svg>
+          <span>Dashboard</span>
+        </a>
+        <a href="#/transactions" class="nav-link" data-page="transactions" data-action="nav" data-tooltip="Entries">
+          <svg class="icon" aria-hidden="true"><use href="#icon-list"></use></svg>
+          <span>Entries</span>
+        </a>
+
+        <p class="nav-label">Manage</p>
+        <a href="#/budgets" class="nav-link" data-page="budgets" data-action="nav" data-tooltip="Budgets">
+          <svg class="icon" aria-hidden="true"><use href="#icon-wallet"></use></svg>
+          <span>Budgets</span>
+        </a>
+        <a href="#/categories" class="nav-link" data-page="categories" data-action="nav" data-tooltip="Categories">
+          <svg class="icon" aria-hidden="true"><use href="#icon-tag"></use></svg>
+          <span>Categories</span>
+        </a>
+        <a href="#/recurring" class="nav-link" data-page="recurring" data-action="nav" data-tooltip="Recurring Expenses">
+          <svg class="icon" aria-hidden="true"><use href="#icon-repeat"></use></svg>
+          <span>Recurring</span>
+        </a>
+
+        <p class="nav-label">Insights</p>
+        <a href="#/reports" class="nav-link" data-page="reports" data-action="nav" data-tooltip="Reports">
+          <svg class="icon" aria-hidden="true"><use href="#icon-chart"></use></svg>
+          <span>Reports</span>
+        </a>
+        <a href="#/settings" class="nav-link" data-page="settings" data-action="nav" data-tooltip="Settings">
+          <svg class="icon" aria-hidden="true"><use href="#icon-gear"></use></svg>
+          <span>Settings</span>
+        </a>
+        <a href="#/faq" class="nav-link" data-page="faq" data-action="nav" data-tooltip="FAQ & Guide">
+          <svg class="icon" aria-hidden="true"><use href="#icon-help"></use></svg>
+          <span>FAQ</span>
+        </a>
+        <a href="#/about" class="nav-link" data-page="about" data-action="nav" data-tooltip="About">
+          <svg class="icon" aria-hidden="true"><use href="#icon-info"></use></svg>
+          <span>About</span>
+        </a>
+      </nav>
+
+      <div class="sidebar-foot">
+        <a href="#/profile" class="nav-link profile-foot-link" data-page="profile" data-action="nav" data-tooltip="My Profile" aria-label="Open my profile">
+          <i class="avatar foot-avatar" id="sidebarAvatar">EF</i>
+          <span class="foot-user">
+            <strong id="sidebarUserName">My Profile</strong>
+            <small id="sidebarUserHandle">View account</small>
+          </span>
+        </a>
+      </div>
+    </aside>
+
+    <div class="sidebar-overlay" id="sidebarOverlay" data-action="close-sidebar"></div>
+
+    <!-- ==================== MAIN ==================== -->

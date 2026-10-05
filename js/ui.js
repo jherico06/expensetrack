@@ -9,28 +9,32 @@ const UI = (() => {
   /* ==========================================================
      VARIABLES AND APPLICATION STATE
      ========================================================== */
-  const PAGES = ["dashboard", "transactions", "budgets", "categories", "recurring", "reports", "settings", "about"];
+  const PAGES = ["dashboard", "transactions", "budgets", "categories", "recurring", "reports", "settings", "faq", "profile", "about"];
 
   const PAGE_TITLES = {
     dashboard: "Dashboard",
-    transactions: "Transactions",
+    transactions: "Entries",
     budgets: "Budgets",
     categories: "Categories",
     recurring: "Recurring Expenses",
     reports: "Reports",
     settings: "Settings",
+    faq: "FAQ & Guide",
+    profile: "User Profile",
     about: "About"
   };
 
   const PAGE_SUBTITLES = {
     dashboard: "",
-    transactions: "Search, filter, sort and manage every financial record.",
+    transactions: "Search, filter, sort and manage every financial entry.",
     budgets: "Set monthly limits and monitor budget usage per category.",
     categories: "Organize how income and expenses are classified.",
     recurring: "Manage bills, subscriptions and allowances that repeat.",
     reports: "Visualize your financial patterns, trends and insights.",
-    settings: "Customize ExpenseFlow and manage your local data.",
-    about: "Project information, design patterns and demonstration guide."
+    settings: "Customize ExpenseFlow and manage your saved records.",
+    faq: "Detailed user tutorials, guides, and answers to common questions.",
+    profile: "View and update your personal details.",
+    about: "Learn what ExpenseFlow can do for you."
   };
 
   let currentPage = "dashboard";
@@ -39,7 +43,7 @@ const UI = (() => {
   let searchTerm = "";
   let currentSort = "newest";
   let editingTransactionId = null;
-  let selectedIcon = "📦";
+  let selectedIcon = "package";
   let confirmResolver = null;
 
   const filters = {
@@ -54,8 +58,10 @@ const UI = (() => {
   };
 
   const ICON_CHOICES = [
-    "🍔", "🚗", "📚", "🧾", "🛍️", "🎬", "🏥", "💇", "📱", "✈️", "📦",
-    "💼", "🎒", "💻", "🏢", "🎁", "💰", "☕", "🎮", "🏠", "🏋️", "🐾", "💡", "🎵"
+    "utensils", "car", "graduation-cap", "receipt", "shopping-bag", "clapperboard",
+    "heart-pulse", "scissors", "smartphone", "plane", "package",
+    "briefcase", "wallet", "laptop", "building-2", "gift", "coins",
+    "coffee", "gamepad-2", "home", "dumbbell", "paw-print", "lightbulb", "music"
   ];
 
   /* ==========================================================
@@ -514,7 +520,7 @@ const UI = (() => {
         <span class="top-rank">${index + 1}</span>
         <div class="top-main">
           <div class="top-name">
-            <span>${item.icon || tracker().getCategoryIcon(item.name)} ${esc(item.name)}</span>
+            <span class="top-item-label">${Utils.renderCategoryIcon(item.icon || tracker().getCategoryIcon(item.name))} ${esc(item.name)}</span>
             <span class="pct">${item.pct}%</span>
           </div>
           <div class="top-bar">
@@ -547,14 +553,14 @@ const UI = (() => {
     if (!recent.length) {
       list.innerHTML = "";
       qs("#recentEmpty").hidden = false;
-      qs("#recentEmpty").textContent = `No transactions recorded in ${Utils.monthName(currentMonth)}.`;
+      qs("#recentEmpty").textContent = `No entries recorded in ${Utils.monthName(currentMonth)}.`;
       return;
     }
 
     qs("#recentEmpty").hidden = true;
     list.innerHTML = recent.map(transaction => `
       <li class="recent-item" data-action="tx-view" data-id="${transaction.id}" tabindex="0" role="button">
-        <span class="cat-avatar">${tracker().getCategoryIcon(transaction.category)}</span>
+        <span class="cat-avatar">${Utils.renderCategoryIcon(tracker().getCategoryIcon(transaction.category))}</span>
         <div class="tx-main">
           <strong>${esc(transaction.title)}</strong>
           <span>${esc(transaction.category)} · ${Utils.formatDate(transaction.date)}</span>
@@ -704,7 +710,7 @@ const UI = (() => {
     badge.textContent = String(count);
 
     qs("#filterSummary").textContent =
-      `Showing ${sorted.length} of ${all.length} transaction${all.length === 1 ? "" : "s"}`;
+      `Showing ${sorted.length} of ${all.length} entr${all.length === 1 ? "y" : "ies"}`;
 
     const list = qs("#txList");
     const empty = qs("#txEmpty");
@@ -716,15 +722,15 @@ const UI = (() => {
       if (!all.length) {
         empty.innerHTML = `
           <span class="empty-icon">${iconSvg("icon-inbox")}</span>
-          <h3>No transactions yet</h3>
-          <p>Start tracking your finances by adding your first transaction.</p>
+          <h3>No entries yet</h3>
+          <p>Start tracking your finances by adding your first entry.</p>
           <button class="btn btn-primary btn-sm" data-action="open-add-transaction">
-            ${iconSvg("icon-plus")}<span>Add Transaction</span>
+            ${iconSvg("icon-plus")}<span>Add Entry</span>
           </button>`;
       } else {
         empty.innerHTML = `
           <span class="empty-icon">${iconSvg("icon-search")}</span>
-          <h3>No matching transactions</h3>
+          <h3>No matching entries</h3>
           <p>Try adjusting your search or clearing the active filters.</p>
           <button class="btn btn-soft btn-sm" data-action="clear-filters">
             ${iconSvg("icon-x")}<span>Clear Filters</span>
@@ -742,7 +748,7 @@ const UI = (() => {
     return `
       <li class="tx-row" data-id="${transaction.id}">
         <div class="tx-cell-title">
-          <span class="cat-avatar">${tracker().getCategoryIcon(transaction.category)}</span>
+          <span class="cat-avatar">${Utils.renderCategoryIcon(tracker().getCategoryIcon(transaction.category))}</span>
           <div class="tx-main">
             <strong>${esc(transaction.title)}</strong>
             ${transaction.note ? `<span class="tx-note">${esc(transaction.note)}</span>` : ""}
@@ -819,11 +825,11 @@ const UI = (() => {
     editingTransactionId = transaction ? transaction.id : null;
     clearTransactionErrors();
 
-    qs("#txModalTitle").textContent = transaction ? "Edit Transaction" : "Add Transaction";
+    qs("#txModalTitle").textContent = transaction ? "Edit Entry" : "Add Entry";
     qs("#txModalHint").textContent = transaction
-      ? "Update the details of this record."
+      ? "Update the details of this entry."
       : "Record income or an expense in a few seconds.";
-    qs("#txSubmitBtn span").textContent = transaction ? "Update Transaction" : "Save Transaction";
+    qs("#txSubmitBtn span").textContent = transaction ? "Update Entry" : "Save Entry";
 
     const type = transaction ? transaction.type : "expense";
     qs("#txType").value = type;
@@ -858,7 +864,7 @@ const UI = (() => {
     let valid = true;
 
     if (!data.title) {
-      setFieldError("txTitle", "errTitle", "Transaction title is required.");
+      setFieldError("txTitle", "errTitle", "Entry title is required.");
       valid = false;
     }
 
@@ -899,17 +905,17 @@ const UI = (() => {
     const data = validateTransactionForm();
 
     if (!data) {
-      showToast("Please fix the highlighted fields.", "error", "Invalid transaction");
+      showToast("Please fix the highlighted fields.", "error", "Invalid entry");
       return false;
     }
 
     if (editingTransactionId) {
       tracker().updateTransaction(editingTransactionId, data);
-      showToast("Transaction updated successfully.", "success", "Updated");
+      showToast("Entry updated successfully.", "success", "Updated");
     } else {
       const transaction = TransactionFactory.createTransaction(data);
       tracker().addTransaction(transaction);
-      showToast("Transaction added successfully.", "success", "Transaction added");
+      showToast("Entry added successfully.", "success", "Entry added");
     }
 
     closeModal("transactionModal");
@@ -924,8 +930,8 @@ const UI = (() => {
 
     const sign = transaction.type === "income" ? "+" : "-";
     qs("#detailsBody").innerHTML = `
-      <span class="cat-avatar" style="margin:0 auto;width:52px;height:52px;font-size:1.4rem">
-        ${tracker().getCategoryIcon(transaction.category)}
+      <span class="cat-avatar cat-avatar-lg" style="margin:0 auto;width:52px;height:52px;">
+        ${Utils.renderCategoryIcon(tracker().getCategoryIcon(transaction.category), "cat-icon-lg")}
       </span>
       <p class="detail-amount ${transaction.type}">${sign}${Utils.formatCurrency(transaction.amount)}</p>
       <div class="detail-type">
@@ -960,7 +966,7 @@ const UI = (() => {
     if (!transaction) return;
 
     const confirmed = await confirmAction({
-      title: "Delete Transaction?",
+      title: "Delete Entry?",
       message: `"${transaction.title}" will be permanently removed. This action cannot be undone.`,
       confirmText: "Delete",
       danger: true
@@ -971,7 +977,7 @@ const UI = (() => {
     tracker().deleteTransaction(id);
     closeModal("detailsModal");
     closeActionMenus();
-    showToast("Transaction deleted.", "success", "Deleted");
+    showToast("Entry deleted.", "success", "Deleted");
     renderAll();
   }
 
@@ -1042,10 +1048,10 @@ const UI = (() => {
       const exceededBy = spent - budget.limit;
 
       return `
-        <article class="card glass budget-card">
+        <article class="card budget-card">
           <div class="budget-card-head">
             <div class="budget-card-title">
-              <span class="cat-avatar">${tracker().getCategoryIcon(budget.category)}</span>
+              <span class="cat-avatar">${Utils.renderCategoryIcon(tracker().getCategoryIcon(budget.category))}</span>
               <strong>${esc(budget.category)}</strong>
             </div>
             <span class="chip-state ${state}">${budgetStateLabel(state)}</span>
@@ -1220,18 +1226,16 @@ const UI = (() => {
       const usage = transactions.filter(t => t.category === category.name).length;
       return `
         <li class="cat-item" data-id="${category.id}">
-          <span class="cat-avatar">${category.icon}</span>
+          <span class="cat-avatar">${Utils.renderCategoryIcon(category.icon)}</span>
           <div class="cat-info">
             <strong>${esc(category.name)}</strong>
-            <span>${usage} transaction${usage === 1 ? "" : "s"} · ${category.type}</span>
+            <span>${usage} entr${usage === 1 ? "y" : "ies"} · ${category.type}</span>
           </div>
-          ${category.isDefault ? `<span class="protected-tag">Default</span>` : ""}
           <div class="cat-actions">
             <button class="icon-btn sm" data-action="category-edit" data-id="${category.id}"
                     aria-label="Edit ${esc(category.name)}">${iconSvg("icon-edit")}</button>
-            ${category.isDefault ? "" : `
-              <button class="icon-btn sm" data-action="category-delete" data-id="${category.id}"
-                      aria-label="Delete ${esc(category.name)}">${iconSvg("icon-trash")}</button>`}
+            <button class="icon-btn sm" data-action="category-delete" data-id="${category.id}"
+                    aria-label="Delete ${esc(category.name)}">${iconSvg("icon-trash")}</button>
           </div>
         </li>`;
     };
@@ -1250,9 +1254,9 @@ const UI = (() => {
 
     qs("#catName").value = category ? category.name : "";
     qs("#catType").value = category ? category.type : "expense";
-    qs("#catType").disabled = Boolean(category);
+    qs("#catType").disabled = false;
 
-    selectedIcon = category ? category.icon : "📦";
+    selectedIcon = category ? Utils.normalizeIcon(category.icon) : "package";
     renderIconPicker();
 
     openModal("categoryModal");
@@ -1262,7 +1266,9 @@ const UI = (() => {
     qs("#iconPicker").innerHTML = ICON_CHOICES.map(icon => `
       <button type="button" class="icon-option ${icon === selectedIcon ? "selected" : ""}"
               data-icon="${icon}" role="radio"
-              aria-checked="${icon === selectedIcon}" aria-label="Icon ${icon}">${icon}</button>
+              aria-checked="${icon === selectedIcon}" aria-label="Icon ${icon}">
+        ${Utils.renderCategoryIcon(icon, "picker-icon")}
+      </button>
     `).join("");
   }
 
@@ -1326,7 +1332,7 @@ const UI = (() => {
     const confirmed = await confirmAction({
       title: "Delete Category?",
       message: usage
-        ? `"${category.name}" is used by ${usage} transaction(s). Those records will keep the old label. Continue?`
+        ? `"${category.name}" is used by ${usage} entr${usage === 1 ? "y" : "ies"}. Those records will keep the old label. Continue?`
         : `"${category.name}" will be removed from your category list.`,
       confirmText: "Delete",
       danger: true
@@ -1402,10 +1408,10 @@ const UI = (() => {
       const frequencyLabel = item.frequency.charAt(0).toUpperCase() + item.frequency.slice(1);
 
       return `
-        <article class="card glass recurring-card ${item.paused ? "paused" : ""}">
+        <article class="card recurring-card ${item.paused ? "paused" : ""}">
           <div class="recurring-head">
             <div class="recurring-title">
-              <span class="cat-avatar">${tracker().getCategoryIcon(item.category)}</span>
+              <span class="cat-avatar">${Utils.renderCategoryIcon(tracker().getCategoryIcon(item.category))}</span>
               <div>
                 <strong>${esc(item.name)}</strong>
                 <span>${esc(item.category)} · ${frequencyLabel}</span>
@@ -1573,7 +1579,7 @@ const UI = (() => {
     });
 
     showToast(
-      `${due.length} transaction${due.length > 1 ? "s" : ""} generated from recurring expenses.`,
+      `${due.length} entr${due.length > 1 ? "ies" : "y"} generated from recurring expenses.`,
       "success",
       "Recurring"
     );
@@ -1611,7 +1617,7 @@ const UI = (() => {
     container.innerHTML = breakdown.map(item => `
       <li class="dist-item">
         <div class="dist-row">
-          <span class="dist-name"><i class="dot" style="background:${item.color}"></i> ${item.icon || tracker().getCategoryIcon(item.name)} ${esc(item.name)}</span>
+          <span class="dist-name"><i class="dot" style="background:${item.color}"></i> ${Utils.renderCategoryIcon(item.icon || tracker().getCategoryIcon(item.name))} ${esc(item.name)}</span>
           <span class="dist-values">${Utils.formatWhole(item.total)} <strong>${item.pct}%</strong></span>
         </div>
         <div class="dist-bar"><span style="width:${item.pct}%;background:${item.color}"></span></div>
@@ -1655,10 +1661,10 @@ const UI = (() => {
     if (format === "csv") {
       const csv = StorageService.exportCSV();
       if (!csv) {
-        showToast("There are no transactions to export.", "warning", "Export");
+        showToast("There are no entries to export.", "warning", "Export");
         return;
       }
-      Utils.downloadFile(`expenseflow-transactions-${stamp}.csv`, csv, "text/csv;charset=utf-8;");
+      Utils.downloadFile(`expenseflow-entries-${stamp}.csv`, csv, "text/csv;charset=utf-8;");
       showToast("CSV export downloaded.", "success", "Export");
       return;
     }
@@ -1683,7 +1689,7 @@ const UI = (() => {
     renderFilterOptions();
     renderAll();
     showToast(
-      `${result.state.transactions.length} transactions imported successfully.`,
+      `${result.state.transactions.length} entries imported successfully.`,
       "success",
       "Import"
     );
@@ -1693,7 +1699,7 @@ const UI = (() => {
   async function loadSampleDataFlow() {
     const confirmed = await confirmAction({
       title: "Load Sample Data?",
-      message: "Your current transactions, budgets and recurring items will be replaced by the demo dataset.",
+      message: "Your current entries, budgets and recurring items will be replaced by the demo dataset.",
       confirmText: "Load Data",
       danger: false
     });
@@ -1710,7 +1716,7 @@ const UI = (() => {
   async function resetDataFlow() {
     const confirmed = await confirmAction({
       title: "Reset All Data?",
-      message: "This will permanently delete all transactions, budgets, categories and recurring expenses stored in this browser.",
+      message: "This will permanently delete all entries, budgets, categories and recurring expenses stored in this browser.",
       confirmText: "Reset Everything",
       danger: true
     });
@@ -1739,6 +1745,144 @@ const UI = (() => {
   }
 
   /* ==========================================================
+     PROFILE MODULE
+     ========================================================== */
+  function renderProfile() {
+    try {
+      const profile = AuthService.getProfile();
+      const session = AuthService.getSession();
+      const tr = tracker();
+      const transactions = tr.getTransactions();
+      const balance = tr.calculateBalance(transactions);
+      const budgets = tr.getBudgets();
+
+      const dNameEl = qs("#profileDisplayNameDisplay");
+      if (dNameEl) dNameEl.textContent = profile.displayName || profile.username || "User";
+
+      const uNameEl = qs("#profileUsernameDisplay");
+      if (uNameEl) uNameEl.textContent = `@${profile.username || "user"}`;
+
+      const avBigEl = qs("#profileAvatarBig");
+      if (avBigEl) avBigEl.textContent = profile.avatar || "EF";
+
+      renderSidebarUser(profile);
+
+      const roleBadge = qs("#profileRoleBadge");
+      if (roleBadge) roleBadge.textContent = profile.role === "Verified Local User" ? "Member" : (profile.role || "Member");
+
+      const sessionInfo = qs("#profileSessionInfo");
+      if (sessionInfo) {
+        if (session && session.loginAt) {
+          const d = new Date(session.loginAt);
+          sessionInfo.textContent = `Signed in since ${d.toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' })} at ${d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}`;
+        } else {
+          sessionInfo.textContent = "Session active";
+        }
+      }
+
+      const inpName = qs("#profileInputName");
+      if (inpName) inpName.value = profile.displayName || "";
+
+      const inpUser = qs("#profileInputUser");
+      if (inpUser) inpUser.value = profile.username || "";
+
+      const inpCurrency = qs("#profileInputCurrency");
+      if (inpCurrency) inpCurrency.value = profile.currency || "PHP";
+
+      const txCountEl = qs("#profileTxCount");
+      if (txCountEl) txCountEl.textContent = String(transactions.length);
+
+      const balanceEl = qs("#profileBalance");
+      if (balanceEl) balanceEl.textContent = Utils.formatCurrency(balance);
+
+      const budgetsEl = qs("#profileBudgetsCount");
+      if (budgetsEl) budgetsEl.textContent = String(budgets.length);
+    } catch (err) {
+      console.error("ExpenseFlow: renderProfile error", err);
+    }
+  }
+
+  function renderSidebarUser(profile) {
+    const avatar = qs("#sidebarAvatar");
+    const name = qs("#sidebarUserName");
+    const handle = qs("#sidebarUserHandle");
+    if (avatar) avatar.textContent = profile.avatar || "EF";
+    if (name) name.textContent = profile.displayName || "My Profile";
+    if (handle) handle.textContent = `@${profile.username || "user"}`;
+  }
+
+  function updateAuthUI() {
+    const profile = AuthService.getProfile();
+    renderSidebarUser(profile);
+    if (currentPage === "profile") renderProfile();
+  }
+
+  /* ==========================================================
+     FAQ MODULE
+     ========================================================== */
+  let faqEventsBound = false;
+  function renderFAQ() {
+    initFAQEvents();
+  }
+
+  function initFAQEvents() {
+    if (faqEventsBound) return;
+    const searchInp = qs("#faqSearchInput");
+    const clearBtn = qs("#faqClearSearch");
+    const pills = qsa("#faqFilterPills .pill-btn");
+    const cards = qsa(".tutorial-card");
+    const items = qsa(".faq-item");
+
+    if (!searchInp) return;
+    faqEventsBound = true;
+
+    function applyFAQFilter() {
+      const q = (searchInp.value || "").trim().toLowerCase();
+      const activePill = qs("#faqFilterPills .pill-btn.active");
+      const filter = activePill ? activePill.dataset.faqFilter : "all";
+
+      if (clearBtn) {
+        clearBtn.style.display = q ? "inline-flex" : "none";
+      }
+
+      cards.forEach(card => {
+        const cat = card.dataset.category || "";
+        const matchesCategory = filter === "all" || cat.includes(filter);
+        const matchesQuery = !q || card.textContent.toLowerCase().includes(q);
+        card.style.display = (matchesCategory && matchesQuery) ? "" : "none";
+      });
+
+      items.forEach(item => {
+        const cat = item.dataset.category || "";
+        const matchesCategory = filter === "all" || cat.includes(filter);
+        const matchesQuery = !q || item.textContent.toLowerCase().includes(q);
+        item.style.display = (matchesCategory && matchesQuery) ? "" : "none";
+        if (q && matchesCategory && matchesQuery) {
+          item.open = true;
+        }
+      });
+    }
+
+    searchInp.addEventListener("input", applyFAQFilter);
+
+    if (clearBtn) {
+      clearBtn.addEventListener("click", () => {
+        searchInp.value = "";
+        applyFAQFilter();
+        searchInp.focus();
+      });
+    }
+
+    pills.forEach(pill => {
+      pill.addEventListener("click", () => {
+        pills.forEach(p => p.classList.remove("active"));
+        pill.classList.add("active");
+        applyFAQFilter();
+      });
+    });
+  }
+
+  /* ==========================================================
      RENDER ORCHESTRATION
      ========================================================== */
   function renderPage(page) {
@@ -1750,6 +1894,8 @@ const UI = (() => {
       case "recurring": renderRecurring(); break;
       case "reports": renderReports(); break;
       case "settings": renderSettings(); break;
+      case "profile": renderProfile(); break;
+      case "faq": renderFAQ(); break;
       default: break;
     }
   }
@@ -1807,6 +1953,9 @@ const UI = (() => {
     renderRecurring,
     renderReports,
     renderSettings,
+    renderProfile,
+    renderFAQ,
+    updateAuthUI,
     renderPage,
     renderAll,
 

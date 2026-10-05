@@ -1,0 +1,97 @@
+<!-- ==================== TRANSACTIONS ==================== -->
+        <section class="page" id="page-transactions" data-title="Entries">
+          <div class="page-toolbar">
+            <div class="search-box">
+              <svg class="icon" aria-hidden="true"><use href="#icon-search"></use></svg>
+              <input type="search" id="searchInput" placeholder="Search title, category, notes, payment method…" aria-label="Search entries" />
+            </div>
+            <div class="toolbar-actions">
+              <button class="btn btn-soft" data-action="toggle-filters" aria-expanded="false">
+                <svg class="icon" aria-hidden="true"><use href="#icon-filter"></use></svg>
+                <span>Filters</span>
+                <span class="filter-count" id="filterCount" hidden>0</span>
+              </button>
+              <label class="select-wrap">
+                <span class="sr-only">Sort entries</span>
+                <select id="sortSelect" aria-label="Sort entries">
+                  <option value="newest">Newest first</option>
+                  <option value="oldest">Oldest first</option>
+                  <option value="highest">Highest amount</option>
+                  <option value="lowest">Lowest amount</option>
+                  <option value="az">Alphabetical A–Z</option>
+                  <option value="za">Alphabetical Z–A</option>
+                </select>
+              </label>
+              <button class="btn btn-outline module-guide-trigger" data-action="open-module-guide" data-module="transactions" title="View Entries tutorial and component guide">
+                <svg class="icon sm" aria-hidden="true"><use href="#icon-help"></use></svg>
+                <span>Guide</span>
+              </button>
+              <button class="btn btn-primary" data-action="open-add-transaction">
+                <svg class="icon" aria-hidden="true"><use href="#icon-plus"></use></svg>
+                <span>Add Entry</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="filter-panel" id="filterPanel" hidden>
+            <div class="filter-grid">
+              <div class="filter-group">
+                <label for="filterType">Entry Type</label>
+                <select id="filterType">
+                  <option value="all">All</option>
+                  <option value="income">Income</option>
+                  <option value="expense">Expense</option>
+                </select>
+              </div>
+              <div class="filter-group">
+                <label for="filterCategory">Category</label>
+                <select id="filterCategory"><option value="all">All categories</option></select>
+              </div>
+              <div class="filter-group">
+                <label for="filterPayment">Payment Method</label>
+                <select id="filterPayment"><option value="all">All payment methods</option></select>
+              </div>
+              <div class="filter-group">
+                <label for="filterDateRange">Date Range</label>
+                <select id="filterDateRange">
+                  <option value="all">All dates</option>
+                  <option value="today">Today</option>
+                  <option value="week">This Week</option>
+                  <option value="month">This Month</option>
+                  <option value="last-month">Last Month</option>
+                  <option value="custom">Custom Range</option>
+                </select>
+              </div>
+              <div class="filter-group custom-range" id="customRangeWrap" hidden>
+                <label for="customFrom">From</label>
+                <input type="date" id="customFrom" />
+                <label for="customTo">To</label>
+                <input type="date" id="customTo" />
+              </div>
+              <div class="filter-group">
+                <label for="filterMin">Min Amount (₱)</label>
+                <input type="number" id="filterMin" min="0" step="any" placeholder="0" />
+              </div>
+              <div class="filter-group">
+                <label for="filterMax">Max Amount (₱)</label>
+                <input type="number" id="filterMax" min="0" step="any" placeholder="Any" />
+              </div>
+            </div>
+            <div class="filter-foot">
+              <span class="muted small" id="filterSummary">Showing all entries</span>
+              <button class="btn btn-ghost btn-sm" data-action="clear-filters">Clear Filters</button>
+            </div>
+          </div>
+
+          <div class="list-head">
+            <h2>Entry History <span class="count-pill" id="txCount">0</span></h2>
+          </div>
+
+          <div class="card table-card">
+            <div class="table-head tx-row-head" aria-hidden="true">
+              <span>Entry</span><span>Category</span><span>Date</span><span>Payment</span><span>Type</span><span>Amount</span><span></span>
+            </div>
+            <ul class="tx-list" id="txList"></ul>
+            <div class="empty-state flat" id="txEmpty" hidden></div>
+          </div>
+        </section>

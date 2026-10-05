@@ -7,8 +7,9 @@
 const Analytics = (() => {
 
   const PALETTE = [
-    "#7c5cff", "#22d3ee", "#34d399", "#fb7185", "#fbbf24",
-    "#60a5fa", "#f472b6", "#a3e635", "#38bdf8", "#fb923c", "#94a3b8"
+    "#F7CB46", "#99E885", "#FE90E8", "#C0F7FE",
+    "#FFDC8B", "#FF5C77", "#D9B8FF", "#38BDF8",
+    "#FBBF24", "#34D399", "#F472B6", "#A78BFA"
   ];
 
   const chartInstances = {};
@@ -326,10 +327,11 @@ const Analytics = (() => {
   function themeColors() {
     const light = document.documentElement.dataset.theme === "light";
     return {
-      text: light ? "rgba(16,26,48,0.62)" : "rgba(233,238,251,0.62)",
-      grid: light ? "rgba(16,26,48,0.08)" : "rgba(255,255,255,0.07)",
-      tooltipBg: light ? "#ffffff" : "#131a2e",
-      tooltipText: light ? "#101a30" : "#e9eefb"
+      text: light ? "#000000" : "#F5F5F7",
+      grid: light ? "#E2DCD0" : "#30303D",
+      tooltipBg: light ? "#FFFFFF" : "#1E1E24",
+      tooltipText: light ? "#000000" : "#F5F5F7",
+      border: "#000000"
     };
   }
 
@@ -375,32 +377,35 @@ const Analytics = (() => {
         datasets: [{
           data,
           backgroundColor: colors,
-          borderColor: "transparent",
+          borderColor: "#000000",
+          borderWidth: 2.5,
           hoverOffset: 8,
-          spacing: 2
+          spacing: 3
         }]
       },
       options: {
         responsive: true,
         maintainAspectRatio: false,
-        cutout: "66%",
+        cutout: "64%",
         plugins: {
           legend: {
             position: "bottom",
             labels: {
               color: colors2.text,
               usePointStyle: true,
-              pointStyleWidth: 9,
+              pointStyleWidth: 10,
               padding: 14,
-              font: { size: 11, family: "Segoe UI, sans-serif" }
+              font: { size: 12, family: "'Space Grotesk', sans-serif", weight: "700" }
             }
           },
           tooltip: {
             backgroundColor: colors2.tooltipBg,
             titleColor: colors2.tooltipText,
             bodyColor: colors2.tooltipText,
+            borderColor: "#000000",
+            borderWidth: 2,
             padding: 10,
-            cornerRadius: 10,
+            cornerRadius: 4,
             callbacks: {
               label: context => ` ${context.label}: ${Utils.formatCurrency(context.raw)}`
             }
@@ -430,16 +435,20 @@ const Analytics = (() => {
           {
             label: "Income",
             data: series.map(item => item.income),
-            backgroundColor: "rgba(52, 211, 153, 0.85)",
-            borderRadius: 7,
-            maxBarThickness: 26
+            backgroundColor: "#00D084",
+            borderColor: "#000000",
+            borderWidth: 2,
+            borderRadius: 3,
+            maxBarThickness: 28
           },
           {
             label: "Expenses",
             data: series.map(item => item.expense),
-            backgroundColor: "rgba(251, 113, 133, 0.85)",
-            borderRadius: 7,
-            maxBarThickness: 26
+            backgroundColor: "#FF4757",
+            borderColor: "#000000",
+            borderWidth: 2,
+            borderRadius: 3,
+            maxBarThickness: 28
           }
         ]
       },
@@ -452,8 +461,10 @@ const Analytics = (() => {
             backgroundColor: colors.tooltipBg,
             titleColor: colors.tooltipText,
             bodyColor: colors.tooltipText,
+            borderColor: "#000000",
+            borderWidth: 2,
             padding: 10,
-            cornerRadius: 10,
+            cornerRadius: 4,
             callbacks: {
               label: context => ` ${context.dataset.label}: ${Utils.formatCurrency(context.raw)}`
             }
@@ -462,18 +473,18 @@ const Analytics = (() => {
         scales: {
           x: {
             grid: { display: false },
-            ticks: { color: colors.text, font: { size: 11 } },
-            border: { display: false }
+            ticks: { color: colors.text, font: { size: 11, family: "'Space Grotesk', sans-serif", weight: "700" } },
+            border: { color: "#000000", width: 2 }
           },
           y: {
             beginAtZero: true,
             grid: { color: colors.grid },
             ticks: {
               color: colors.text,
-              font: { size: 11 },
+              font: { size: 11, family: "'Space Grotesk', sans-serif", weight: "700" },
               callback: value => value >= 1000 ? `₱${(value / 1000)}k` : `₱${value}`
             },
-            border: { display: false }
+            border: { color: "#000000", width: 2 }
           }
         }
       }
@@ -482,7 +493,6 @@ const Analytics = (() => {
 
   function renderLine(canvasId, daily) {
     const colors = themeColors();
-    const accent = getComputedStyle(document.documentElement).getPropertyValue("--accent").trim() || "#7c5cff";
 
     renderChart(canvasId, {
       type: "line",
@@ -491,14 +501,16 @@ const Analytics = (() => {
         datasets: [{
           label: "Daily spending",
           data: daily.map(item => item.total),
-          borderColor: accent,
-          backgroundColor: `${accent}26`,
+          borderColor: "#000000",
+          backgroundColor: "rgba(255, 219, 51, 0.25)",
           fill: true,
-          tension: 0.35,
-          borderWidth: 2.5,
-          pointRadius: 0,
-          pointHoverRadius: 5,
-          pointBackgroundColor: accent
+          tension: 0.25,
+          borderWidth: 3,
+          pointRadius: 3,
+          pointHoverRadius: 6,
+          pointBackgroundColor: "#FFDB33",
+          pointBorderColor: "#000000",
+          pointBorderWidth: 2
         }]
       },
       options: {
@@ -510,8 +522,10 @@ const Analytics = (() => {
             backgroundColor: colors.tooltipBg,
             titleColor: colors.tooltipText,
             bodyColor: colors.tooltipText,
+            borderColor: "#000000",
+            borderWidth: 2,
             padding: 10,
-            cornerRadius: 10,
+            cornerRadius: 4,
             callbacks: {
               title: items => `Day ${items[0].label}`,
               label: context => ` ${Utils.formatCurrency(context.raw)}`
@@ -521,18 +535,18 @@ const Analytics = (() => {
         scales: {
           x: {
             grid: { display: false },
-            ticks: { color: colors.text, font: { size: 10 }, maxTicksLimit: 16 },
-            border: { display: false }
+            ticks: { color: colors.text, font: { size: 10, family: "'Space Grotesk', sans-serif", weight: "700" }, maxTicksLimit: 16 },
+            border: { color: "#000000", width: 2 }
           },
           y: {
             beginAtZero: true,
             grid: { color: colors.grid },
             ticks: {
               color: colors.text,
-              font: { size: 11 },
+              font: { size: 11, family: "'Space Grotesk', sans-serif", weight: "700" },
               callback: value => value >= 1000 ? `₱${(value / 1000)}k` : `₱${value}`
             },
-            border: { display: false }
+            border: { color: "#000000", width: 2 }
           }
         }
       }

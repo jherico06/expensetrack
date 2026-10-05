@@ -48,14 +48,16 @@
 
   body.sidebar-open .sidebar { transform: translateX(0); }
   body.sidebar-open .sidebar-overlay { display: block; }
+  .sidebar-toggle { display: none !important; }
 
+  body.sidebar-collapsed .brand-mark,
   body.sidebar-collapsed .brand-text,
   body.sidebar-collapsed .nav-link span,
   body.sidebar-collapsed .nav-label,
-  body.sidebar-collapsed .sidebar-foot .btn span {
+  body.sidebar-collapsed .foot-user {
     opacity: 1;
     width: auto;
-    display: initial;
+    display: initial !important;
   }
 
   body.sidebar-collapsed .sidebar-brand { justify-content: flex-start; padding-inline: 18px; }
@@ -66,8 +68,6 @@
   body.sidebar-collapsed .main { margin-left: 0; }
 
   .nav-link::after { display: none !important; }
-
-  .sidebar-foot .btn[data-action="toggle-sidebar"] { display: none; }
 }
 
 /* ---------- MOBILE ---------- */

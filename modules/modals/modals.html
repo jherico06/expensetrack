@@ -1,0 +1,342 @@
+<!-- ==================== TRANSACTION MODAL ==================== -->
+  <div class="modal-root" id="transactionModal" hidden>
+    <div class="modal-backdrop" data-action="close-modal"></div>
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="txModalTitle">
+      <div class="modal-head">
+        <div>
+          <h2 id="txModalTitle">Add Entry</h2>
+          <p class="muted small" id="txModalHint">Record income or an expense in a few seconds.</p>
+        </div>
+        <button class="icon-btn" data-action="close-modal" aria-label="Close dialog">
+          <svg class="icon" aria-hidden="true"><use href="#icon-x"></use></svg>
+        </button>
+      </div>
+
+      <form id="transactionForm" novalidate>
+        <div class="form-grid">
+          <div class="field span-2">
+            <label for="txTitle">Entry Title</label>
+            <input type="text" id="txTitle" name="title" placeholder="e.g. Lunch at cafeteria" autocomplete="off" />
+            <p class="field-error" id="errTitle" hidden></p>
+          </div>
+
+          <div class="field">
+            <label for="txAmount">Amount (₱)</label>
+            <input type="number" id="txAmount" name="amount" placeholder="0.00" min="0" step="0.01" inputmode="decimal" />
+            <p class="field-error" id="errAmount" hidden></p>
+          </div>
+
+          <div class="field">
+            <label for="txType">Entry Type</label>
+            <select id="txType" name="type">
+              <option value="expense">Expense</option>
+              <option value="income">Income</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="txCategory">Category</label>
+            <select id="txCategory" name="category">
+              <option value="">Select category</option>
+            </select>
+            <p class="field-error" id="errCategory" hidden></p>
+          </div>
+
+          <div class="field">
+            <label for="txDate">Date</label>
+            <input type="date" id="txDate" name="date" />
+            <p class="field-error" id="errDate" hidden></p>
+          </div>
+
+          <div class="field">
+            <label for="txPayment">Payment Method</label>
+            <select id="txPayment" name="paymentMethod">
+              <option value="">Select payment method</option>
+              <option value="Cash">Cash</option>
+              <option value="GCash">GCash</option>
+              <option value="Maya">Maya</option>
+              <option value="Debit Card">Debit Card</option>
+              <option value="Credit Card">Credit Card</option>
+              <option value="Bank Transfer">Bank Transfer</option>
+              <option value="Other">Other</option>
+            </select>
+            <p class="field-error" id="errPayment" hidden></p>
+          </div>
+
+          <div class="field span-2">
+            <label for="txNote">Notes <span class="muted">(optional)</span></label>
+            <textarea id="txNote" name="note" rows="2" placeholder="Add a short note…"></textarea>
+          </div>
+
+          <div class="field span-2">
+            <label class="switch">
+              <input type="checkbox" id="txRecurring" name="recurring" />
+              <span class="switch-track" aria-hidden="true"><span class="switch-thumb"></span></span>
+              <span class="switch-text">Mark as recurring entry</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="modal-foot">
+          <button type="button" class="btn btn-ghost" data-action="close-modal">Cancel</button>
+          <button type="submit" class="btn btn-primary" id="txSubmitBtn">
+            <svg class="icon" aria-hidden="true"><use href="#icon-check"></use></svg>
+            <span>Save Entry</span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ==================== DETAILS MODAL ==================== -->
+  <div class="modal-root" id="detailsModal" hidden>
+    <div class="modal-backdrop" data-action="close-modal"></div>
+    <div class="modal sm" role="dialog" aria-modal="true" aria-labelledby="detailsTitle">
+      <div class="modal-head">
+        <h2 id="detailsTitle">Entry Details</h2>
+        <button class="icon-btn" data-action="close-modal" aria-label="Close dialog">
+          <svg class="icon" aria-hidden="true"><use href="#icon-x"></use></svg>
+        </button>
+      </div>
+      <div class="modal-body" id="detailsBody"></div>
+      <div class="modal-foot" id="detailsFoot"></div>
+    </div>
+  </div>
+
+  <!-- ==================== CONFIRM MODAL ==================== -->
+  <div class="modal-root" id="confirmModal" hidden>
+    <div class="modal-backdrop" data-action="confirm-cancel"></div>
+    <div class="modal sm" role="alertdialog" aria-modal="true" aria-labelledby="confirmTitle" aria-describedby="confirmMessage">
+      <div class="modal-head">
+        <span class="confirm-icon" id="confirmIcon"><svg class="icon" aria-hidden="true"><use href="#icon-alert"></use></svg></span>
+        <h2 id="confirmTitle">Are you sure?</h2>
+      </div>
+      <div class="modal-body">
+        <p id="confirmMessage">This action cannot be undone.</p>
+      </div>
+      <div class="modal-foot">
+        <button class="btn btn-ghost" id="confirmCancel" data-action="confirm-cancel">Cancel</button>
+        <button class="btn btn-danger" id="confirmOk" data-action="confirm-ok">Delete</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== BUDGET MODAL ==================== -->
+  <div class="modal-root" id="budgetModal" hidden>
+    <div class="modal-backdrop" data-action="close-modal"></div>
+    <div class="modal sm" role="dialog" aria-modal="true" aria-labelledby="budgetModalTitle">
+      <div class="modal-head">
+        <div>
+          <h2 id="budgetModalTitle">Set Monthly Budget</h2>
+          <p class="muted small">Limits are tracked per month.</p>
+        </div>
+        <button class="icon-btn" data-action="close-modal" aria-label="Close dialog">
+          <svg class="icon" aria-hidden="true"><use href="#icon-x"></use></svg>
+        </button>
+      </div>
+      <form id="budgetForm" novalidate>
+        <div class="modal-body">
+          <input type="hidden" id="budgetEditId" />
+          <div class="form-grid">
+            <div class="field">
+              <label for="budgetScope">Budget Type</label>
+              <select id="budgetScope">
+                <option value="monthly">Monthly (overall)</option>
+                <option value="category">Category budget</option>
+              </select>
+            </div>
+            <div class="field" id="budgetCategoryWrap" hidden>
+              <label for="budgetCategory">Category</label>
+              <select id="budgetCategory"><option value="">Select category</option></select>
+              <p class="field-error" id="errBudgetCategory" hidden></p>
+            </div>
+            <div class="field">
+              <label for="budgetLimitInput">Spending Limit (₱)</label>
+              <input type="number" id="budgetLimitInput" min="1" step="any" placeholder="e.g. 4000" />
+              <p class="field-error" id="errBudgetLimit" hidden></p>
+            </div>
+            <div class="field">
+              <label for="budgetMonthInput">Month</label>
+              <input type="month" id="budgetMonthInput" />
+            </div>
+          </div>
+        </div>
+        <div class="modal-foot">
+          <button type="button" class="btn btn-ghost" data-action="close-modal">Cancel</button>
+          <button type="submit" class="btn btn-primary">
+            <svg class="icon" aria-hidden="true"><use href="#icon-check"></use></svg><span>Save Budget</span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ==================== CATEGORY MODAL ==================== -->
+  <div class="modal-root" id="categoryModal" hidden>
+    <div class="modal-backdrop" data-action="close-modal"></div>
+    <div class="modal sm" role="dialog" aria-modal="true" aria-labelledby="categoryModalTitle">
+      <div class="modal-head">
+        <h2 id="categoryModalTitle">Add Category</h2>
+        <button class="icon-btn" data-action="close-modal" aria-label="Close dialog">
+          <svg class="icon" aria-hidden="true"><use href="#icon-x"></use></svg>
+        </button>
+      </div>
+      <form id="categoryForm" novalidate>
+        <div class="modal-body">
+          <input type="hidden" id="catEditId" />
+          <div class="form-grid">
+            <div class="field span-2">
+              <label for="catName">Category Name</label>
+              <input type="text" id="catName" placeholder="e.g. Pets" autocomplete="off" />
+              <p class="field-error" id="errCatName" hidden></p>
+            </div>
+            <div class="field">
+              <label for="catType">Type</label>
+              <select id="catType">
+                <option value="expense">Expense</option>
+                <option value="income">Income</option>
+              </select>
+            </div>
+            <div class="field span-2">
+              <span class="field-label">Icon</span>
+              <div class="icon-picker" id="iconPicker" role="radiogroup" aria-label="Category icon"></div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-foot">
+          <button type="button" class="btn btn-ghost" data-action="close-modal">Cancel</button>
+          <button type="submit" class="btn btn-primary">
+            <svg class="icon" aria-hidden="true"><use href="#icon-check"></use></svg><span>Save Category</span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ==================== RECURRING MODAL ==================== -->
+  <div class="modal-root" id="recurringModal" hidden>
+    <div class="modal-backdrop" data-action="close-modal"></div>
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="recurringModalTitle">
+      <div class="modal-head">
+        <div>
+          <h2 id="recurringModalTitle">Add Recurring Expense</h2>
+          <p class="muted small">Track bills, subscriptions and allowances.</p>
+        </div>
+        <button class="icon-btn" data-action="close-modal" aria-label="Close dialog">
+          <svg class="icon" aria-hidden="true"><use href="#icon-x"></use></svg>
+        </button>
+      </div>
+      <form id="recurringForm" novalidate>
+        <div class="modal-body">
+          <input type="hidden" id="recEditId" />
+          <div class="form-grid">
+            <div class="field span-2">
+              <label for="recName">Name</label>
+              <input type="text" id="recName" placeholder="e.g. Internet Bill" autocomplete="off" />
+              <p class="field-error" id="errRecName" hidden></p>
+            </div>
+            <div class="field">
+              <label for="recAmount">Amount (₱)</label>
+              <input type="number" id="recAmount" min="0" step="0.01" placeholder="0.00" />
+              <p class="field-error" id="errRecAmount" hidden></p>
+            </div>
+            <div class="field">
+              <label for="recType">Type</label>
+              <select id="recType">
+                <option value="expense">Expense</option>
+                <option value="income">Income</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="recCategory">Category</label>
+              <select id="recCategory"><option value="">Select category</option></select>
+              <p class="field-error" id="errRecCategory" hidden></p>
+            </div>
+            <div class="field">
+              <label for="recFrequency">Frequency</label>
+              <select id="recFrequency">
+                <option value="weekly">Weekly</option>
+                <option value="monthly" selected>Monthly</option>
+                <option value="yearly">Yearly</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="recNextDue">Next Due Date</label>
+              <input type="date" id="recNextDue" />
+              <p class="field-error" id="errRecNextDue" hidden></p>
+            </div>
+            <div class="field">
+              <label for="recPayment">Payment Method</label>
+              <select id="recPayment">
+                <option value="Cash">Cash</option>
+                <option value="GCash">GCash</option>
+                <option value="Maya">Maya</option>
+                <option value="Debit Card">Debit Card</option>
+                <option value="Credit Card">Credit Card</option>
+                <option value="Bank Transfer">Bank Transfer</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+            <div class="field span-2">
+              <label for="recNote">Notes <span class="muted">(optional)</span></label>
+              <textarea id="recNote" rows="2" placeholder="Add a short note…"></textarea>
+            </div>
+          </div>
+        </div>
+        <div class="modal-foot">
+          <button type="button" class="btn btn-ghost" data-action="close-modal">Cancel</button>
+          <button type="submit" class="btn btn-primary">
+            <svg class="icon" aria-hidden="true"><use href="#icon-check"></use></svg><span>Save Recurring</span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ==================== MODULE GUIDE & TUTORIAL MODAL ==================== -->
+  <div class="modal-root" id="moduleGuideModal" hidden>
+    <div class="modal-backdrop" data-action="close-guide-modal"></div>
+    <div class="modal guide-modal card" role="dialog" aria-modal="true" aria-labelledby="guideModalTitle">
+      <div class="modal-head guide-modal-head">
+        <div class="guide-modal-title-wrap">
+          <span class="guide-module-badge badge-yellow" id="guideModuleBadge">
+            <svg class="icon sm" aria-hidden="true" id="guideModuleIcon"><use href="#icon-list"></use></svg>
+            <span id="guideModuleName">Entries Module</span>
+          </span>
+          <h2 id="guideModalTitle" class="guide-modal-heading">Module Guide &amp; Component Tutorial</h2>
+        </div>
+        <button class="icon-btn" data-action="close-guide-modal" aria-label="Close module guide" title="Close tutorial (Esc)">
+          <svg class="icon" aria-hidden="true"><use href="#icon-x"></use></svg>
+        </button>
+      </div>
+
+      <div class="guide-progress-bar-container">
+        <div class="guide-progress-meta">
+          <span class="guide-step-counter" id="guideStepCounter">Step 1 of 5</span>
+          <div class="guide-step-dots" id="guideStepDots" role="tablist" aria-label="Tutorial Steps"></div>
+        </div>
+        <div class="guide-progress-track">
+          <div class="guide-progress-fill" id="guideProgressBar" style="width: 20%;"></div>
+        </div>
+      </div>
+
+      <div class="guide-modal-scroll" id="guideModalBody">
+        <!-- Injected dynamically by ModuleGuide.render() -->
+      </div>
+
+      <div class="modal-foot guide-modal-foot">
+        <label class="guide-checkbox-label">
+          <input type="checkbox" id="guideDontShowAgain" />
+          <span>Don't show automatically on first visit</span>
+        </label>
+        <div class="guide-actions">
+          <button type="button" class="btn btn-soft btn-sm" id="guideBtnPrev" data-action="guide-prev">
+            &larr; Back
+          </button>
+          <button type="button" class="btn btn-primary btn-sm" id="guideBtnNext" data-action="guide-next">
+            Next &rarr;
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>

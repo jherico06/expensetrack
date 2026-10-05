@@ -10,6 +10,9 @@ const App = (() => {
     const raw = (location.hash || "").replace(/^#\/?/, "");
     const page = UI.PAGES.includes(raw) ? raw : "dashboard";
     UI.setActivePage(page);
+    if (window.ModuleGuide && AuthService.isAuthenticated()) {
+      ModuleGuide.checkFirstTime(page);
+    }
   }
 
   function navigate(page) {
@@ -18,6 +21,74 @@ const App = (() => {
       route();
     } else {
       location.hash = target; // triggers hashchange -> route()
+    }
+  }
+
+  /* ---------- FORM FIELD HELPERS ---------- */
+  // shows (or clears) an error message directly under a field
+  function setFieldError(input, message) {
+    if (!input) return;
+    const group = input.closest(".form-group");
+    let errorEl = input.getAttribute("aria-describedby")
+      ? document.getElementById(input.getAttribute("aria-describedby"))
+      : null;
+
+    if (!errorEl && group && message) {
+      errorEl = group.querySelector(".field-error");
+      if (!errorEl) {
+        errorEl = document.createElement("small");
+        errorEl.className = "field-error";
+        errorEl.id = `${input.id}Error`;
+        errorEl.setAttribute("role", "alert");
+        group.appendChild(errorEl);
+      }
+      input.setAttribute("aria-describedby", errorEl.id);
+    }
+
+    if (errorEl) {
+      errorEl.textContent = message || "";
+      errorEl.hidden = !message;
+    }
+    input.classList.toggle("is-invalid", Boolean(message));
+    input.setAttribute("aria-invalid", message ? "true" : "false");
+  }
+
+  function resetLoginForm() {
+    const form = document.getElementById("authForm");
+    if (form) {
+      form.reset();
+      form.querySelectorAll("input").forEach(input => setFieldError(input, ""));
+    }
+    const regForm = document.getElementById("registerForm");
+    if (regForm) {
+      regForm.reset();
+      regForm.querySelectorAll("input").forEach(input => setFieldError(input, ""));
+    }
+    document.querySelectorAll(".password-wrap input").forEach(pass => {
+      pass.type = "password";
+    });
+    document.querySelectorAll(".password-toggle").forEach(toggle => {
+      toggle.classList.remove("is-visible");
+      toggle.setAttribute("aria-pressed", "false");
+      toggle.setAttribute("aria-label", "Show password");
+      toggle.title = "Show password";
+    });
+  }
+
+  /* ---------- AUTH & VIEW VISIBILITY ---------- */
+  function toggleAppAuth(authenticated) {
+    const landingEl = document.getElementById("landingPage");
+    const appEl = document.querySelector(".app");
+
+    if (authenticated) {
+      if (landingEl) landingEl.hidden = true;
+      if (appEl) appEl.hidden = false;
+      UI.updateAuthUI();
+      route();
+    } else {
+      if (landingEl) landingEl.hidden = false;
+      if (appEl) appEl.hidden = true;
+      window.scrollTo({ top: 0, behavior: "smooth" });
     }
   }
 
@@ -35,6 +106,83 @@ const App = (() => {
       case "go-transactions":
         navigate("transactions");
         break;
+
+      case "go-profile":
+        navigate("profile");
+        break;
+
+      case "view-landing":
+        toggleAppAuth(false);
+        break;
+
+      case "focus-login": {
+        const inp = document.getElementById("loginUsername");
+        if (inp) {
+          inp.focus();
+          inp.scrollIntoView({ behavior: "smooth", block: "center" });
+        }
+        break;
+      }
+
+      case "switch-auth-tab": {
+        const tab = element.dataset.tab;
+        const signInForm = document.getElementById("authForm");
+        const registerForm = document.getElementById("registerForm");
+        const tabSignIn = document.getElementById("tabSignIn");
+        const tabRegister = document.getElementById("tabRegister");
+        const headH2 = document.getElementById("authCardTitle");
+        const headP = document.getElementById("authCardDesc");
+
+        if (tab === "register") {
+          if (signInForm) signInForm.hidden = true;
+          if (registerForm) registerForm.hidden = false;
+          if (tabSignIn) { tabSignIn.classList.remove("active"); tabSignIn.setAttribute("aria-selected", "false"); }
+          if (tabRegister) { tabRegister.classList.add("active"); tabRegister.setAttribute("aria-selected", "true"); }
+          if (headH2) headH2.textContent = "Create an Account";
+          if (headP) headP.textContent = "Register with a username and password to start tracking your finances.";
+          const regUser = document.getElementById("regUsername");
+          if (regUser) regUser.focus();
+        } else {
+          if (signInForm) signInForm.hidden = false;
+          if (registerForm) registerForm.hidden = true;
+          if (tabSignIn) { tabSignIn.classList.add("active"); tabSignIn.setAttribute("aria-selected", "true"); }
+          if (tabRegister) { tabRegister.classList.remove("active"); tabRegister.setAttribute("aria-selected", "false"); }
+          if (headH2) headH2.textContent = "Welcome Back";
+          if (headP) headP.textContent = "Sign in with your username and password to continue managing your finances.";
+          const logUser = document.getElementById("loginUsername");
+          if (logUser) logUser.focus();
+        }
+        break;
+      }
+
+      case "toggle-password": {
+        const input = document.getElementById(element.dataset.target);
+        if (!input) break;
+        const show = input.type === "password";
+        input.type = show ? "text" : "password";
+        element.classList.toggle("is-visible", show);
+        element.setAttribute("aria-pressed", String(show));
+        element.setAttribute("aria-label", show ? "Hide password" : "Show password");
+        element.title = show ? "Hide password" : "Show password";
+        input.focus();
+        break;
+      }
+
+      case "logout": {
+        UI.confirmAction({
+          title: "Log out?",
+          message: "You will need your username and password to sign in again.",
+          confirmText: "Log Out",
+          danger: true
+        }).then(confirmed => {
+          if (!confirmed) return;
+          AuthService.logout();
+          resetLoginForm();
+          toggleAppAuth(false);
+          UI.showToast("You have been logged out.", "info", "Goodbye");
+        });
+        break;
+      }
 
       case "focus-search":
         navigate("transactions");
@@ -207,6 +355,25 @@ const App = (() => {
         UI.closeModal(element.closest(".modal-root")?.id);
         break;
 
+      /* --- module guide & tutorial --- */
+      case "open-module-guide": {
+        const mod = element.dataset.module || UI.currentPage || "dashboard";
+        if (window.ModuleGuide) ModuleGuide.open(mod);
+        break;
+      }
+
+      case "close-guide-modal":
+        if (window.ModuleGuide) ModuleGuide.close();
+        break;
+
+      case "guide-next":
+        if (window.ModuleGuide) ModuleGuide.next();
+        break;
+
+      case "guide-prev":
+        if (window.ModuleGuide) ModuleGuide.prev();
+        break;
+
       case "confirm-ok":
         UI.settleConfirm(true);
         break;
@@ -233,14 +400,20 @@ const App = (() => {
         if (action !== "toggle-menu" && action !== "toggle-notifications") {
           // close open menus unless the action manages them itself
           if (!actionElement.closest(".action-menu")) UI.closeActionMenus();
-          if (action !== "toggle-notifications") UI.closeNotifications();
+          if (action !== "toggle-notifications" && !actionElement.closest("#notifPanel")) {
+            UI.closeNotifications();
+          }
         }
         return;
       }
 
       // outside click behaviour
-      UI.closeActionMenus();
-      UI.closeNotifications();
+      if (!event.target.closest("#notifPanel") && !event.target.closest(".dropdown-wrap")) {
+        UI.closeNotifications();
+      }
+      if (!event.target.closest(".action-menu")) {
+        UI.closeActionMenus();
+      }
     });
 
     // hash router
@@ -370,6 +543,120 @@ const App = (() => {
         if (window.innerWidth <= 992) document.body.classList.remove("sidebar-open");
       });
     });
+
+    // Sign-in form with clean validation
+    const authForm = document.getElementById("authForm");
+    if (authForm) {
+      const uInp = document.getElementById("loginUsername");
+      const pInp = document.getElementById("loginPassword");
+
+      [uInp, pInp].forEach(input => {
+        if (input) input.addEventListener("input", () => setFieldError(input, ""));
+      });
+
+      authForm.addEventListener("submit", event => {
+        event.preventDefault();
+        const res = AuthService.login(uInp.value, pInp.value);
+
+        if (!res.ok) {
+          setFieldError(uInp, res.errors.username);
+          setFieldError(pInp, res.errors.password);
+          (res.errors.username ? uInp : pInp).focus();
+          return;
+        }
+
+        resetLoginForm();
+        toggleAppAuth(true);
+        navigate("dashboard");
+        UI.showToast(`Welcome back, ${res.session.displayName}!`, "success", "Signed in");
+      });
+    }
+
+    // Registration form with username availability checking
+    const registerForm = document.getElementById("registerForm");
+    if (registerForm) {
+      const regName = document.getElementById("regDisplayName");
+      const regUser = document.getElementById("regUsername");
+      const regPass = document.getElementById("regPassword");
+      const regConfirm = document.getElementById("regConfirmPassword");
+
+      [regName, regUser, regPass, regConfirm].forEach(input => {
+        if (input) input.addEventListener("input", () => setFieldError(input, ""));
+      });
+
+      registerForm.addEventListener("submit", event => {
+        event.preventDefault();
+        const res = AuthService.register(
+          regName ? regName.value : "",
+          regUser ? regUser.value : "",
+          regPass ? regPass.value : "",
+          regConfirm ? regConfirm.value : ""
+        );
+
+        if (!res.ok) {
+          if (res.errors.displayName) setFieldError(regName, res.errors.displayName);
+          if (res.errors.username) setFieldError(regUser, res.errors.username);
+          if (res.errors.password) setFieldError(regPass, res.errors.password);
+          if (res.errors.confirmPassword) setFieldError(regConfirm, res.errors.confirmPassword);
+
+          if (res.errors.username) regUser.focus();
+          else if (res.errors.password) regPass.focus();
+          else if (res.errors.confirmPassword) regConfirm.focus();
+          return;
+        }
+
+        resetLoginForm();
+        toggleAppAuth(true);
+        navigate("dashboard");
+        UI.showToast(`Welcome to ExpenseFlow, ${res.session.displayName}! Your account is ready.`, "success", "Account created");
+      });
+    }
+
+    // Profile form with strict single-purpose warnings (empty or already taken)
+    const profileForm = document.getElementById("profileForm");
+    if (profileForm) {
+      const inpName = document.getElementById("profileInputName");
+      const inpUser = document.getElementById("profileInputUser");
+      const inpCurr = document.getElementById("profileInputCurrency");
+
+      [inpName, inpUser].forEach(input => {
+        if (input) input.addEventListener("input", () => setFieldError(input, ""));
+      });
+
+      profileForm.addEventListener("submit", event => {
+        event.preventDefault();
+        const profile = AuthService.getProfile();
+        const name = (inpName ? inpName.value : "").trim();
+        const user = (inpUser ? inpUser.value : "").trim();
+
+        let nameError = "";
+        if (!name) nameError = "Please enter your display name.";
+
+        let userError = "";
+        if (!user) {
+          userError = "Please enter your username.";
+        } else if (AuthService.isUsernameTaken(user, profile.username)) {
+          userError = "This username is already taken.";
+        }
+
+        setFieldError(inpName, nameError);
+        setFieldError(inpUser, userError);
+        if (nameError || userError) {
+          (nameError ? inpName : inpUser).focus();
+          return;
+        }
+
+        profile.displayName = name;
+        profile.username = user;
+        profile.currency = inpCurr ? inpCurr.value : "PHP";
+        profile.avatar = (user.slice(0, 2) || "EF").toUpperCase();
+
+        AuthService.saveProfile(profile);
+        UI.updateAuthUI();
+        UI.renderHeader();
+        UI.showToast("Your profile has been updated.", "success", "Profile");
+      });
+    }
   }
 
   /* ---------- BOOT ---------- */
@@ -386,12 +673,19 @@ const App = (() => {
 
     UI.renderFilterOptions();
     bindEvents();
-    route();
-    UI.renderAll();
+
+    // Check local authentication session (Direct username/password, no 3rd-party)
+    const isAuth = AuthService.isAuthenticated();
+    toggleAppAuth(isAuth);
+
+    if (isAuth) {
+      route();
+      UI.renderAll();
+    }
 
     // surface due recurring payments on load
     const due = tracker.getDueRecurring();
-    if (due.length) {
+    if (due.length && isAuth) {
       setTimeout(() => {
         UI.showToast(
           `${due.length} recurring payment${due.length > 1 ? "s are" : " is"} due. Open Recurring to generate them.`,

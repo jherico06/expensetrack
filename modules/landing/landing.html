@@ -1,0 +1,177 @@
+<!-- ==================== PUBLIC LANDING PAGE ==================== -->
+  <div id="landingPage" class="landing-page" hidden>
+    <!-- Topbar -->
+    <header class="landing-nav">
+      <div class="landing-nav-brand">
+        <span class="brand-mark"><svg class="icon" aria-hidden="true"><use href="#icon-logo"></use></svg></span>
+        <strong>ExpenseFlow</strong>
+      </div>
+      <div class="landing-nav-actions">
+        <button class="icon-btn" data-action="toggle-theme" aria-label="Toggle dark and light theme">
+          <svg class="icon theme-icon theme-icon-dark" aria-hidden="true"><use href="#icon-sun"></use></svg>
+          <svg class="icon theme-icon theme-icon-light" aria-hidden="true"><use href="#icon-moon"></use></svg>
+        </button>
+        <button class="btn btn-primary" data-action="focus-login">
+          <span>Sign In</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="landing-hero">
+      <div class="landing-pill">
+        <span>✦ YOUR PERSONAL MONEY TRACKER ✦</span>
+      </div>
+      <h1 class="landing-title">
+        KNOW WHERE YOUR MONEY GOES, <span class="highlight-yellow">EVERY DAY</span> &amp; <span class="highlight-cyan">EVERY MONTH</span>
+      </h1>
+      <p class="landing-subtitle">
+        ExpenseFlow is a simple and easy way to keep track of your income and spending. Record your daily expenses, set budgets you can stick to, and see clear summaries of your money habits — so you can save more and worry less.
+      </p>
+
+      <div class="landing-stickers">
+        <span class="sticker st-yellow">★ Easy to Use</span>
+        <span class="sticker st-green">✔ Track Income &amp; Expenses</span>
+        <span class="sticker st-pink">⚡ Smart Budget Alerts</span>
+        <span class="sticker st-cyan">🛡 Private &amp; Secure</span>
+        <span class="sticker st-cream">📊 Clear Monthly Reports</span>
+      </div>
+    </section>
+
+    <!-- Main Section: Sign In Card + Features Grid -->
+    <main class="landing-main">
+      <div class="auth-card">
+        <div class="auth-card-head">
+          <h2 id="authCardTitle">Welcome Back</h2>
+          <p id="authCardDesc">Sign in with your username and password to continue managing your finances.</p>
+        </div>
+
+        <div class="auth-tabs" role="tablist">
+          <button type="button" class="auth-tab active" id="tabSignIn" data-action="switch-auth-tab" data-tab="signin" role="tab" aria-selected="true">Sign In</button>
+          <button type="button" class="auth-tab" id="tabRegister" data-action="switch-auth-tab" data-tab="register" role="tab" aria-selected="false">Create Account</button>
+        </div>
+
+        <!-- Sign In Form -->
+        <form id="authForm" class="auth-form" novalidate>
+          <div class="form-group">
+            <label for="loginUsername">Username</label>
+            <input type="text" id="loginUsername" placeholder="Enter your username" autocomplete="username" maxlength="20" aria-describedby="loginUsernameError" />
+            <small class="field-error" id="loginUsernameError" role="alert" hidden></small>
+          </div>
+
+          <div class="form-group">
+            <label for="loginPassword">Password</label>
+            <div class="password-wrap">
+              <input type="password" id="loginPassword" placeholder="Enter your password" autocomplete="current-password" maxlength="64" aria-describedby="loginPasswordError" />
+              <button type="button" class="password-toggle" data-action="toggle-password" data-target="loginPassword" aria-label="Show password" aria-pressed="false" title="Show password">
+                <svg class="icon icon-show" aria-hidden="true"><use href="#icon-eye"></use></svg>
+                <svg class="icon icon-hide" aria-hidden="true"><use href="#icon-eye-off"></use></svg>
+              </button>
+            </div>
+            <small class="field-error" id="loginPasswordError" role="alert" hidden></small>
+          </div>
+
+          <button type="submit" class="btn btn-primary btn-block">
+            <svg class="icon" aria-hidden="true"><use href="#icon-arrow-right"></use></svg>
+            <span>Sign In</span>
+          </button>
+
+          <p class="auth-switch-link">
+            Don't have an account? <button type="button" data-action="switch-auth-tab" data-tab="register">Create one</button>
+          </p>
+        </form>
+
+        <!-- Registration Form -->
+        <form id="registerForm" class="auth-form" novalidate hidden>
+          <div class="form-group">
+            <label for="regDisplayName">Display Name</label>
+            <input type="text" id="regDisplayName" placeholder="e.g. Josh Roa" maxlength="40" aria-describedby="regDisplayNameError" />
+            <small class="field-error" id="regDisplayNameError" role="alert" hidden></small>
+          </div>
+
+          <div class="form-group">
+            <label for="regUsername">Username</label>
+            <input type="text" id="regUsername" placeholder="Choose a username" autocomplete="username" maxlength="20" aria-describedby="regUsernameError" />
+            <small class="field-error" id="regUsernameError" role="alert" hidden></small>
+          </div>
+
+          <div class="form-group">
+            <label for="regPassword">Password</label>
+            <div class="password-wrap">
+              <input type="password" id="regPassword" placeholder="Create a password (min. 4 characters)" autocomplete="new-password" maxlength="64" aria-describedby="regPasswordError" />
+              <button type="button" class="password-toggle" data-action="toggle-password" data-target="regPassword" aria-label="Show password" aria-pressed="false" title="Show password">
+                <svg class="icon icon-show" aria-hidden="true"><use href="#icon-eye"></use></svg>
+                <svg class="icon icon-hide" aria-hidden="true"><use href="#icon-eye-off"></use></svg>
+              </button>
+            </div>
+            <small class="field-error" id="regPasswordError" role="alert" hidden></small>
+          </div>
+
+          <div class="form-group">
+            <label for="regConfirmPassword">Confirm Password</label>
+            <div class="password-wrap">
+              <input type="password" id="regConfirmPassword" placeholder="Repeat your password" autocomplete="new-password" maxlength="64" aria-describedby="regConfirmPasswordError" />
+              <button type="button" class="password-toggle" data-action="toggle-password" data-target="regConfirmPassword" aria-label="Show password" aria-pressed="false" title="Show password">
+                <svg class="icon icon-show" aria-hidden="true"><use href="#icon-eye"></use></svg>
+                <svg class="icon icon-hide" aria-hidden="true"><use href="#icon-eye-off"></use></svg>
+              </button>
+            </div>
+            <small class="field-error" id="regConfirmPasswordError" role="alert" hidden></small>
+          </div>
+
+          <button type="submit" class="btn btn-primary btn-block">
+            <svg class="icon" aria-hidden="true"><use href="#icon-check"></use></svg>
+            <span>Create Account</span>
+          </button>
+
+          <p class="auth-switch-link">
+            Already have an account? <button type="button" data-action="switch-auth-tab" data-tab="signin">Sign In</button>
+          </p>
+        </form>
+
+        <div class="auth-note">
+          <svg class="icon" aria-hidden="true"><use href="#icon-shield"></use></svg>
+          <span>Your records are kept private and saved only on this device.</span>
+        </div>
+      </div>
+
+      <div class="landing-features-grid">
+        <div class="landing-feature-card">
+          <div class="feature-icon-badge bg-yellow">
+            <svg class="icon" aria-hidden="true"><use href="#icon-list"></use></svg>
+          </div>
+          <h3>Record Every Entry</h3>
+          <p>Add your income and expenses in just a few taps. Organize them by category so you always know what you spent on.</p>
+        </div>
+
+        <div class="landing-feature-card">
+          <div class="feature-icon-badge bg-green">
+            <svg class="icon" aria-hidden="true"><use href="#icon-wallet"></use></svg>
+          </div>
+          <h3>Set Budgets That Work</h3>
+          <p>Decide how much you want to spend each month. ExpenseFlow lets you know when you are getting close to your limit.</p>
+        </div>
+
+        <div class="landing-feature-card">
+          <div class="feature-icon-badge bg-pink">
+            <svg class="icon" aria-hidden="true"><use href="#icon-chart"></use></svg>
+          </div>
+          <h3>See Your Spending Clearly</h3>
+          <p>Simple charts and summaries show your biggest expenses, monthly trends and tips to help you save more.</p>
+        </div>
+
+        <div class="landing-feature-card">
+          <div class="feature-icon-badge bg-cyan">
+            <svg class="icon" aria-hidden="true"><use href="#icon-repeat"></use></svg>
+          </div>
+          <h3>Never Miss a Bill</h3>
+          <p>Add bills, subscriptions and allowances that repeat, and get reminded when they are due.</p>
+        </div>
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="landing-footer">
+      <p>ExpenseFlow &bull; Your Smart Personal Expense Tracker</p>
+    </footer>
+  </div>

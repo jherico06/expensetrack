@@ -1,0 +1,79 @@
+<!-- ==================== BUDGETS ==================== -->
+        <section class="page" id="page-budgets" data-title="Budgets">
+          <div class="page-toolbar">
+            <div class="month-nav">
+              <button class="icon-btn sm" data-action="month-prev" aria-label="Previous month">
+                <svg class="icon" aria-hidden="true"><use href="#icon-chevron-left"></use></svg>
+              </button>
+              <div class="month-nav-label">
+                <span class="month-nav-title" data-month-label>October 2026</span>
+                <button class="link-btn" data-action="month-current">Go to current month</button>
+              </div>
+              <button class="icon-btn sm" data-action="month-next" aria-label="Next month">
+                <svg class="icon" aria-hidden="true"><use href="#icon-chevron-right"></use></svg>
+              </button>
+            </div>
+            <div class="toolbar-actions">
+              <button class="btn btn-outline btn-sm module-guide-trigger" data-action="open-module-guide" data-module="budgets" title="View Budgets tutorial and component guide">
+                <svg class="icon sm" aria-hidden="true"><use href="#icon-help"></use></svg>
+                <span>Guide</span>
+              </button>
+              <button class="btn btn-primary" data-action="budget-add" data-scope="category">
+                <svg class="icon" aria-hidden="true"><use href="#icon-plus"></use></svg>
+                <span>Category Budget</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="budget-layout">
+            <article class="card budget-overview">
+              <div class="card-head">
+                <div>
+                  <p class="eyebrow purple">Monthly Budget</p>
+                  <p class="muted small">Overall spending limit for <span data-month-label>October 2026</span></p>
+                </div>
+                <div class="row-gap">
+                  <button class="btn btn-soft btn-sm" data-action="budget-edit-monthly">
+                    <svg class="icon" aria-hidden="true"><use href="#icon-edit"></use></svg><span>Edit</span>
+                  </button>
+                  <button class="btn btn-soft btn-sm" data-action="budget-add" data-scope="monthly">
+                    <svg class="icon" aria-hidden="true"><use href="#icon-plus"></use></svg><span>Add</span>
+                  </button>
+                </div>
+              </div>
+              <div id="budgetOverviewBody">
+                <div class="overview-grid">
+                  <div class="overview-item"><span class="muted small">Limit</span><strong id="ovLimit">₱0</strong></div>
+                  <div class="overview-item"><span class="muted small">Spent</span><strong id="ovSpent">₱0</strong></div>
+                  <div class="overview-item"><span class="muted small">Remaining</span><strong id="ovRemaining">₱0</strong></div>
+                  <div class="overview-item"><span class="muted small">Used</span><strong id="ovPercent">0%</strong></div>
+                </div>
+                <div class="progress lg" role="progressbar" aria-label="Monthly budget usage">
+                  <span class="progress-fill" id="ovBarFill"></span>
+                </div>
+                <div class="progress-meta">
+                  <span class="chip-state" id="ovState">Safe</span>
+                  <span class="muted small">Budget period: <span data-month-label>October 2026</span></span>
+                </div>
+              </div>
+              <div class="mini-empty" id="budgetOverviewEmpty" hidden>
+                <p>No monthly budget set for this period.</p>
+                <button class="btn btn-soft btn-sm" data-action="budget-add" data-scope="monthly">Create Monthly Budget</button>
+              </div>
+            </article>
+
+            <div class="section-head">
+              <div>
+                <h2>Category Budgets</h2>
+                <p class="muted small">Per-category spending limits for <span data-month-label>October 2026</span></p>
+              </div>
+            </div>
+            <div class="budget-grid" id="categoryBudgetList"></div>
+            <div class="empty-state flat" id="categoryBudgetEmpty">
+              <span class="empty-icon"><svg class="icon" aria-hidden="true"><use href="#icon-wallet"></use></svg></span>
+              <h3>No category budgets</h3>
+              <p>Create limits per category to control spending in detail.</p>
+              <button class="btn btn-primary btn-sm" data-action="budget-add" data-scope="category">Add Category Budget</button>
+            </div>
+          </div>
+        </section>

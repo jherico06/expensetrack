@@ -1,0 +1,44 @@
+<!-- ---------- TOP HEADER ---------- -->
+      <header class="topbar">
+        <div class="topbar-left">
+          <button class="icon-btn only-mobile" data-action="open-sidebar" aria-label="Open navigation">
+            <svg class="icon" aria-hidden="true"><use href="#icon-menu"></use></svg>
+          </button>
+          <div class="page-heading">
+            <h1 id="pageTitle">Dashboard</h1>
+            <p id="pageSubtitle">Welcome back. Here is your financial overview.</p>
+          </div>
+        </div>
+
+        <div class="topbar-right">
+          <span class="month-chip" id="headerMonth">
+            <svg class="icon" aria-hidden="true"><use href="#icon-calendar"></use></svg>
+            <span id="headerMonthText">October 2026</span>
+          </span>
+
+          <div class="dropdown-wrap">
+            <button class="icon-btn" data-action="toggle-notifications" aria-label="Notifications" aria-expanded="false" id="btnNotifications">
+              <svg class="icon" aria-hidden="true"><use href="#icon-bell"></use></svg>
+              <span class="badge" id="notifBadge" hidden>0</span>
+            </button>
+            <div class="dropdown" id="notifPanel" hidden>
+              <div class="dropdown-head">
+                <h3>Notifications</h3>
+                <button class="icon-btn sm" data-action="toggle-notifications" aria-label="Close notifications">
+                  <svg class="icon" aria-hidden="true"><use href="#icon-x"></use></svg>
+                </button>
+              </div>
+              <div class="dropdown-body" id="notifList"></div>
+            </div>
+          </div>
+
+          <button class="icon-btn" data-action="toggle-theme" aria-label="Toggle dark and light theme" id="btnTheme">
+            <svg class="icon theme-icon theme-icon-dark" aria-hidden="true"><use href="#icon-sun"></use></svg>
+            <svg class="icon theme-icon theme-icon-light" aria-hidden="true"><use href="#icon-moon"></use></svg>
+          </button>
+
+          <button class="icon-btn logout-btn" data-action="logout" aria-label="Log out" title="Log out">
+            <svg class="icon" aria-hidden="true"><use href="#icon-log-out"></use></svg>
+          </button>
+        </div>
+      </header>

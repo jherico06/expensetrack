@@ -12,25 +12,25 @@
      const tracker = ExpenseTracker.getInstance();
    ============================================================ */
 
-// Default categories seeded on first run
+// Default categories seeded on first run (using Lucide icons)
 const DEFAULT_CATEGORIES = [
-  { name: "Food",          type: "expense", icon: "🍔", isDefault: true },
-  { name: "Transportation",type: "expense", icon: "🚗", isDefault: true },
-  { name: "School",        type: "expense", icon: "📚", isDefault: true },
-  { name: "Bills",         type: "expense", icon: "🧾", isDefault: true },
-  { name: "Shopping",      type: "expense", icon: "🛍️", isDefault: true },
-  { name: "Entertainment", type: "expense", icon: "🎬", isDefault: true },
-  { name: "Health",        type: "expense", icon: "🏥", isDefault: true },
-  { name: "Personal",      type: "expense", icon: "💇", isDefault: true },
-  { name: "Subscription",  type: "expense", icon: "📱", isDefault: true },
-  { name: "Travel",        type: "expense", icon: "✈️", isDefault: true },
-  { name: "Other",         type: "expense", icon: "📦", isDefault: true },
-  { name: "Salary",        type: "income",  icon: "💼", isDefault: true },
-  { name: "Allowance",     type: "income",  icon: "🎒", isDefault: true },
-  { name: "Freelance",     type: "income",  icon: "💻", isDefault: true },
-  { name: "Business",      type: "income",  icon: "🏢", isDefault: true },
-  { name: "Gift",          type: "income",  icon: "🎁", isDefault: true },
-  { name: "Other Income",  type: "income",  icon: "💰", isDefault: true }
+  { name: "Food",          type: "expense", icon: "utensils" },
+  { name: "Transportation",type: "expense", icon: "car" },
+  { name: "School",        type: "expense", icon: "graduation-cap" },
+  { name: "Bills",         type: "expense", icon: "receipt" },
+  { name: "Shopping",      type: "expense", icon: "shopping-bag" },
+  { name: "Entertainment", type: "expense", icon: "clapperboard" },
+  { name: "Health",        type: "expense", icon: "heart-pulse" },
+  { name: "Personal",      type: "expense", icon: "scissors" },
+  { name: "Subscription",  type: "expense", icon: "smartphone" },
+  { name: "Travel",        type: "expense", icon: "plane" },
+  { name: "Other",         type: "expense", icon: "package" },
+  { name: "Salary",        type: "income",  icon: "briefcase" },
+  { name: "Allowance",     type: "income",  icon: "wallet" },
+  { name: "Freelance",     type: "income",  icon: "laptop" },
+  { name: "Business",      type: "income",  icon: "building-2" },
+  { name: "Gift",          type: "income",  icon: "gift" },
+  { name: "Other Income",  type: "income",  icon: "coins" }
 ];
 
 const ExpenseTracker = (() => {
@@ -164,7 +164,10 @@ const ExpenseTracker = (() => {
       },
 
       hydrateCategories(list) {
-        categories = Array.isArray(list) ? list : [];
+        categories = (Array.isArray(list) ? list : []).map(cat => ({
+          ...cat,
+          icon: (typeof Utils !== "undefined" && Utils.normalizeIcon) ? Utils.normalizeIcon(cat.icon) : (cat.icon || "package")
+        }));
       },
 
       getCategoriesByType(type) {
@@ -177,7 +180,8 @@ const ExpenseTracker = (() => {
 
       getCategoryIcon(name) {
         const category = categories.find(c => c.name === name);
-        return category ? category.icon : "📦";
+        if (!category) return "package";
+        return (typeof Utils !== "undefined" && Utils.normalizeIcon) ? Utils.normalizeIcon(category.icon) : (category.icon || "package");
       },
 
       addCategory(category) {
@@ -187,6 +191,7 @@ const ExpenseTracker = (() => {
         if (duplicate) return { ok: false, reason: "A category with this name already exists." };
         const newCategory = {
           ...category,
+          icon: (typeof Utils !== "undefined" && Utils.normalizeIcon) ? Utils.normalizeIcon(category.icon) : (category.icon || "package"),
           id: `cat_${Utils.uid()}`,
           isDefault: false
         };
@@ -204,9 +209,6 @@ const ExpenseTracker = (() => {
       deleteCategory(id) {
         const category = findById(categories, id);
         if (!category) return { ok: false, reason: "Category not found." };
-        if (category.isDefault) {
-          return { ok: false, reason: "Default categories cannot be deleted." };
-        }
         categories = categories.filter(item => item.id !== id);
         persist();
         return { ok: true };
@@ -280,6 +282,12 @@ const ExpenseTracker = (() => {
 
       calculateBalance(list = transactions) {
         return this.calculateIncome(list) - this.calculateExpenses(list);
+      },
+
+      calculateTotals(list = transactions) {
+        const income = this.calculateIncome(list);
+        const expense = this.calculateExpenses(list);
+        return { income, expense, balance: income - expense };
       },
 
       // returns [{ name, total, count }] sorted from highest to lowest

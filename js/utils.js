@@ -197,6 +197,37 @@ const Utils = (() => {
     return lines.join("\n");
   }
 
+  const EMOJI_TO_LUCIDE = {
+    "🍔": "utensils", "🚗": "car", "📚": "graduation-cap", "🧾": "receipt",
+    "🛍️": "shopping-bag", "🛍": "shopping-bag", "🎬": "clapperboard", "🏥": "heart-pulse",
+    "💇": "scissors", "📱": "smartphone", "✈️": "plane", "✈": "plane",
+    "📦": "package", "💼": "briefcase", "🎒": "wallet", "💻": "laptop",
+    "🏢": "building-2", "🎁": "gift", "💰": "coins", "☕": "coffee",
+    "🎮": "gamepad-2", "🏠": "home", "🏋️": "dumbbell", "🏋": "dumbbell",
+    "🐾": "paw-print", "💡": "lightbulb", "🎵": "music"
+  };
+
+  function normalizeIcon(name) {
+    if (!name) return "package";
+    return EMOJI_TO_LUCIDE[name] || name;
+  }
+
+  function renderCategoryIcon(iconName, className = "cat-icon") {
+    const icon = normalizeIcon(iconName);
+    const symbolExists = typeof document !== "undefined" && document.getElementById(`lucide-${icon}`);
+    if (symbolExists || typeof document === "undefined") {
+      return `<svg class="${className}" aria-hidden="true" focusable="false"><use href="#lucide-${icon}"></use></svg>`;
+    }
+    if (typeof window !== "undefined" && window.lucide && window.lucide.icons) {
+      const camel = icon.replace(/-([a-z])/g, g => g[1].toUpperCase());
+      const iconDef = window.lucide.icons[camel] || window.lucide.icons[icon];
+      if (iconDef && typeof iconDef.toSvg === "function") {
+        return iconDef.toSvg({ class: className, "aria-hidden": "true", focusable: "false" });
+      }
+    }
+    return `<svg class="${className}" aria-hidden="true" focusable="false"><use href="#lucide-${icon}"></use></svg>`;
+  }
+
   function percentage(part, total) {
     if (!total) return 0;
     return Math.round((part / total) * 100);
@@ -229,6 +260,10 @@ const Utils = (() => {
     qsa,
     downloadFile,
     toCSV,
-    percentage
+    percentage,
+    normalizeIcon,
+    renderCategoryIcon,
+    EMOJI_TO_LUCIDE
   };
 })();
+

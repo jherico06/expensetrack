@@ -1,0 +1,33 @@
+<!-- ==================== CATEGORIES ==================== -->
+        <section class="page" id="page-categories" data-title="Categories">
+          <div class="page-toolbar">
+            <p class="muted">Organize how income and expenses are classified. Add, edit, or delete any category.</p>
+            <div class="toolbar-actions">
+              <button class="btn btn-outline btn-sm module-guide-trigger" data-action="open-module-guide" data-module="categories" title="View Categories tutorial and component guide">
+                <svg class="icon sm" aria-hidden="true"><use href="#icon-help"></use></svg>
+                <span>Guide</span>
+              </button>
+              <button class="btn btn-primary" data-action="category-add">
+                <svg class="icon" aria-hidden="true"><use href="#icon-plus"></use></svg>
+                <span>Add Category</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="two-col">
+            <article class="card">
+              <div class="card-head">
+                <p class="eyebrow red">Expense Categories</p>
+                <span class="count-pill" id="expenseCatCount">0</span>
+              </div>
+              <ul class="cat-list" id="categoryExpenseList"></ul>
+            </article>
+            <article class="card">
+              <div class="card-head">
+                <p class="eyebrow green">Income Categories</p>
+                <span class="count-pill" id="incomeCatCount">0</span>
+              </div>
+              <ul class="cat-list" id="categoryIncomeList"></ul>
+            </article>
+          </div>
+        </section>

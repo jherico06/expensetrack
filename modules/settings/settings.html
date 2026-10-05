@@ -1,0 +1,56 @@
+<!-- ==================== SETTINGS ==================== -->
+        <section class="page" id="page-settings" data-title="Settings">
+          <div class="settings-grid">
+            <article class="card">
+              <div class="card-head">
+                <div>
+                  <p class="eyebrow">Appearance</p>
+                  <p class="muted small">Choose the dashboard theme. Saved in localStorage.</p>
+                </div>
+              </div>
+              <div class="segmented" role="group" aria-label="Theme">
+                <button class="seg-btn active" data-action="set-theme" data-theme-value="dark">
+                  <svg class="icon" aria-hidden="true"><use href="#icon-moon"></use></svg><span>Dark</span>
+                </button>
+                <button class="seg-btn" data-action="set-theme" data-theme-value="light">
+                  <svg class="icon" aria-hidden="true"><use href="#icon-sun"></use></svg><span>Light</span>
+                </button>
+              </div>
+            </article>
+
+            <article class="card">
+              <div class="card-head">
+                <div>
+                  <p class="eyebrow">Data Overview</p>
+                  <p class="muted small">Everything is stored locally in your browser.</p>
+                </div>
+              </div>
+              <div class="stats-grid" id="settingsStats"></div>
+            </article>
+
+            <article class="card span-12">
+              <div class="card-head">
+                <div>
+                  <p class="eyebrow">Data Management</p>
+                  <p class="muted small">Export, import or reset the application data.</p>
+                </div>
+              </div>
+              <div class="btn-row">
+                <button class="btn btn-soft" data-action="export-csv">
+                  <svg class="icon" aria-hidden="true"><use href="#icon-download"></use></svg><span>Export CSV</span>
+                </button>
+                <button class="btn btn-soft" data-action="export-json">
+                  <svg class="icon" aria-hidden="true"><use href="#icon-download"></use></svg><span>Export JSON</span>
+                </button>
+                <button class="btn btn-soft" data-action="import-json">
+                  <svg class="icon" aria-hidden="true"><use href="#icon-upload"></use></svg><span>Import JSON</span>
+                </button>
+                <input type="file" id="importFile" accept="application/json,.json" hidden />
+                <button class="btn btn-danger" data-action="reset-data">
+                  <svg class="icon" aria-hidden="true"><use href="#icon-trash"></use></svg><span>Reset All Data</span>
+                </button>
+              </div>
+              <p class="muted small note">Imported JSON files are validated before replacing your data. Resetting clears all ExpenseFlow data from this browser.</p>
+            </article>
+          </div>
+        </section>
